@@ -2,6 +2,7 @@
     <string name="app_name">OnlineStore</string>
     <string name="app_address">www.razanpardazesh.com</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">جستجو</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_main2">Main2Activity</string>
 
@@ -9,7 +10,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_main">فروشگاه</string>
     <string name="title_activity_product">ProductActivity</string>
-    <string name="sample_title">کالای شماره یک</string>
-    <string name="sample_price">2000</string>
-    <string name="sample_description">نمونه ایی از متن توضیحات برای نمایش دادن ظاهر کلی این متن در نرم افزار و اندازه متن و رنگ ان. وجود این متن نشانه ی تستی بودن عنصر گرافیکی در برنامه است</string>
+    <string name="sample_title">کلوچه</string>
+    <string name="items">اقلام</string>
+    <string name="sample_title_tea">چای</string>
+    <string name="sample_price">2,000</string>
+    <string name="moset_sold">پرفروشها</string>
+    <string name="moset_visited">پربازدیدها</string>
+    <string name="view_all">دیدن همه</string>
+    <string name="sample_description">چای ترش از گیاه (هیبیسکوس) یا رز چینی تهیه می‌شود که از گلبرگ و دانه‌های آن می‌توان به عنوان نوشیدنی استفاده کرد. چای هیبیسکوس دارای رنگ قرمز پر رنگ و طعم ترش است.نـوشـیـدنـی ایـن گیاه کاهش‌دهنده فشار خون، خـنـک‌کـنـنـده بـدن، رقـیـق و تـصـفـیـه‌کـنـنده خون، کـنترل‌کننده کلسترول خون، اختلالات کبدی و صفرایی و همچنین آرام بخشی مناسب می‌باشد و برعکس چای که باعث دفع آهن می‌شود چای ترش خود یکی از منابع غنی آهن به شمار می‌آید.</string>
 </resources>

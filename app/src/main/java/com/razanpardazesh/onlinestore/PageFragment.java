@@ -30,11 +30,17 @@ public class PageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_page_layout, container, false);
 
-        TextView txt = (TextView) rootView.findViewById(R.id.page_number_label);
         View cardBox = (View) rootView.findViewById(R.id.cardBox);
+        View txtViewAllTitle = (View) rootView.findViewById(R.id.txtViewAllTitle);
+        View txtMostSoldTitle = (View) rootView.findViewById(R.id.txtMostSoldTitle);
+        View mostVisitedBox = (View) rootView.findViewById(R.id.mostVisitedBox);
 
-        cardBox.setVisibility(View.GONE);
-        txt.setVisibility(View.VISIBLE);
+        cardBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductActivity.openActivity(getActivity(),0);
+            }
+        });
 
         int page = getArguments().getInt(ARG_PAGE_NUMBER, -1);
 
@@ -44,18 +50,31 @@ public class PageFragment extends Fragment {
         {
             case 1:
                 cardBox.setVisibility(View.VISIBLE);
-                txt.setVisibility(View.GONE);
+                txtViewAllTitle.setVisibility(View.VISIBLE);
+                txtMostSoldTitle.setVisibility(View.VISIBLE);
+                mostVisitedBox.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                temp =  "لیست کالاها";
+                cardBox.setVisibility(View.GONE);
+                txtViewAllTitle.setVisibility(View.GONE);
+                txtMostSoldTitle.setVisibility(View.GONE);
+                mostVisitedBox.setVisibility(View.GONE);
                 break;
             case 3:
-                temp =  "لیست خرید";
+                cardBox.setVisibility(View.GONE);
+                txtViewAllTitle.setVisibility(View.GONE);
+                txtMostSoldTitle.setVisibility(View.GONE);
+                mostVisitedBox.setVisibility(View.GONE);
                 break;
         }
 
-        txt.setText(temp);
-
         return rootView;
     }
+
+    public void onClick(View view)
+    {
+        ProductActivity.openActivity(getActivity(),0);
+    }
+
+
 }

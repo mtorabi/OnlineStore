@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
+
         pager.setAdapter(adapter);
 
         tabs.setupWithViewPager(pager);
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity
                 case 1:
                     return "لیست کالاها";
                 case 2:
-                    return "لیست خرید";
+                    return "علاقه مندی ها";
             }
             return "";
         }

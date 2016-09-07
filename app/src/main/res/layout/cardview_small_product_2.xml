@@ -7,14 +7,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:padding="15dp"
+        android:padding="5dp"
         android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imgImage"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:src="@drawable/c1" />
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/c5" />
 
         <TextView
             android:id="@+id/txtTitle"
@@ -23,27 +24,17 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/imgImage"
             android:layout_marginTop="15dp"
-            android:text="@string/sample_title"
+            android:text="@string/sample_title_tea"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/txtDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_below="@id/txtTitle"
-            android:layout_marginTop="10dp"
-            android:text="@string/sample_description"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgImage"
-            android:layout_marginTop="15dp"
-            android:text="@string/sample_price"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="3dp"
+            android:text="1,500"
             android:textColor="@color/colorAccent"
             android:textSize="14sp" />
 
@@ -51,18 +42,9 @@
             android:id="@+id/imgStar"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/txtDescription"
-            android:src="@drawable/ic_star_gray_24dp" />
-        <ImageView
-            android:id="@+id/imgBasket"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/imgStar"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/txtDescription"
-            android:src="@drawable/ic_basket_gray_48" />
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/imgImage"
+            android:src="@drawable/ic_more_vert_black_24dp" />
 
     </RelativeLayout>
 
