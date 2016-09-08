@@ -1,14 +1,13 @@
 package com.razanpardazesh.onlinestore;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,15 +18,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
+import com.razanpardazesh.onlinestore.CustomView.Indicator;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class VitrinActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    ArrayList<Object> pages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_vitrin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,16 +54,45 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        initAdvertiseBox();
+    }
 
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+    private void initAdvertiseBox() {
+        View advertiseHeaderBox = findViewById(R.id.advertiseHeaderBox);
 
-        TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
+        int width = getResources().getDisplayMetrics().widthPixels;
+
+        int height = width / 2;
+
+        final ViewGroup.LayoutParams params = advertiseHeaderBox.getLayoutParams();
+        params.height = height;
+        advertiseHeaderBox.setLayoutParams(params);
+
+        final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
+
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-
-
         pager.setAdapter(adapter);
+        final Indicator indexBox = (Indicator) findViewById(R.id.indexBox);
+        indexBox.setViewPager(pager);
 
-        tabs.setupWithViewPager(pager);
+        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.fab);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pages.add(new Object());
+                adapter.notifyDataSetChanged();
+                indexBox.notifyDatabasChange();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        initAdvertiseBox();
     }
 
     @Override
@@ -73,7 +108,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.vitrin, menu);
         return true;
     }
 
@@ -130,7 +165,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            return 3;
+            return pages.size();
         }
 
         @Override
@@ -145,9 +180,8 @@ public class MainActivity extends AppCompatActivity
                 case 2:
                     return "علاقه مندی ها";
             }
-            return "";
+            return "new pages";
         }
     }
-
 
 }

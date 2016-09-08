@@ -30,18 +30,6 @@ public class PageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_page_layout, container, false);
 
-        View cardBox = (View) rootView.findViewById(R.id.cardBox);
-        View txtViewAllTitle = (View) rootView.findViewById(R.id.txtViewAllTitle);
-        View txtMostSoldTitle = (View) rootView.findViewById(R.id.txtMostSoldTitle);
-        View mostVisitedBox = (View) rootView.findViewById(R.id.mostVisitedBox);
-
-        cardBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProductActivity.openActivity(getActivity(),0);
-            }
-        });
-
         int page = getArguments().getInt(ARG_PAGE_NUMBER, -1);
 
         String temp = "";
@@ -49,22 +37,13 @@ public class PageFragment extends Fragment {
         switch (page)
         {
             case 1:
-                cardBox.setVisibility(View.VISIBLE);
-                txtViewAllTitle.setVisibility(View.VISIBLE);
-                txtMostSoldTitle.setVisibility(View.VISIBLE);
-                mostVisitedBox.setVisibility(View.VISIBLE);
+
                 break;
             case 2:
-                cardBox.setVisibility(View.GONE);
-                txtViewAllTitle.setVisibility(View.GONE);
-                txtMostSoldTitle.setVisibility(View.GONE);
-                mostVisitedBox.setVisibility(View.GONE);
+
                 break;
             case 3:
-                cardBox.setVisibility(View.GONE);
-                txtViewAllTitle.setVisibility(View.GONE);
-                txtMostSoldTitle.setVisibility(View.GONE);
-                mostVisitedBox.setVisibility(View.GONE);
+                
                 break;
         }
 
