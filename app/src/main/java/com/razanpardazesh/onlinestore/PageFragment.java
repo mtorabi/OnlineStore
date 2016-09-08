@@ -31,6 +31,11 @@ public class PageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_page_layout, container, false);
 
         TextView txt = (TextView) rootView.findViewById(R.id.page_number_label);
+        View cardBox = (View) rootView.findViewById(R.id.cardBox);
+
+        cardBox.setVisibility(View.GONE);
+        txt.setVisibility(View.VISIBLE);
+
         int page = getArguments().getInt(ARG_PAGE_NUMBER, -1);
 
         String temp = "";
@@ -38,7 +43,8 @@ public class PageFragment extends Fragment {
         switch (page)
         {
             case 1:
-                temp = "ویترین";
+                cardBox.setVisibility(View.VISIBLE);
+                txt.setVisibility(View.GONE);
                 break;
             case 2:
                 temp =  "لیست کالاها";
