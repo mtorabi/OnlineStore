@@ -29,6 +29,16 @@ public class ProductServerRepo implements IProducts {
     }
 
     @Override
+    public ArrayList<ProductSummary> getMostVistedProducts(Context context, String key, long lastIndex, int Count) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<ProductSummary> getMostSoldProducts(Context context, String key, long lastIndex, int Count) {
+        return null;
+    }
+
+    @Override
     public Product getProduct(Context context, long id) {
         return null;
     }

@@ -24,13 +24,22 @@ import android.widget.LinearLayout;
 
 import com.razanpardazesh.onlinestore.CustomView.Indicator;
 import com.razanpardazesh.onlinestore.Tools.FontApplier;
+import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
+import com.razanpardazesh.onlinestore.repo.ProductFakeRepo;
+import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class VitrinActivity extends AppCompatActivity{
+import rx.Observable;
+import rx.Observer;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+public class VitrinActivity extends AppCompatActivity {
 
     IProducts productsRepo = null;
 
@@ -49,8 +58,7 @@ public class VitrinActivity extends AppCompatActivity{
         initMostVisited();
     }
 
-    private void initFloatingActionButton()
-    {
+    private void initFloatingActionButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +69,7 @@ public class VitrinActivity extends AppCompatActivity{
         });
     }
 
-    private void initDrawer_Toolbar()
-    {
+    private void initDrawer_Toolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -104,14 +111,16 @@ public class VitrinActivity extends AppCompatActivity{
 
     }
 
-    private void initFonts()
-    {
+    private void initFonts() {
         View drawer_layout = findViewById(R.id.drawer_layout);
         FontApplier.applyMainFont(drawer_layout);
     }
 
-    private void initRepos(){
-
+    private void initRepos() {
+        if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
+            productsRepo = new ProductFakeRepo();
+        else
+            productsRepo = new ProductServerRepo();
     }
 
     private void initMostSold() {
@@ -152,7 +161,7 @@ public class VitrinActivity extends AppCompatActivity{
         params.height = height;
         advertiseHeaderBox.setLayoutParams(params);
 
-        final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(),height);
+        final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(), height);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
@@ -202,6 +211,7 @@ public class VitrinActivity extends AppCompatActivity{
 
     public class TabsPagerAdapter extends FragmentPagerAdapter {
         int height = 300;
+
         public TabsPagerAdapter(FragmentManager fm, int height) {
             super(fm);
             this.height = height;
@@ -209,7 +219,7 @@ public class VitrinActivity extends AppCompatActivity{
 
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.newInstance(position + 1,height);
+            return PageFragment.newInstance(position + 1, height);
         }
 
         @Override
@@ -230,6 +240,36 @@ public class VitrinActivity extends AppCompatActivity{
             }
             return "new pages";
         }
+    }
+
+
+    public void runGetMostVisitedProduct() {
+        Observable getMostVisitedProducts = Observable.create(new Observable.OnSubscribe() {
+            @Override
+            public void call(Object o) {
+
+            }
+        });
+
+        getMostVisitedProducts
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+                });
     }
 
 }

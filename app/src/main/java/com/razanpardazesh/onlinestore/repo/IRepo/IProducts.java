@@ -16,6 +16,9 @@ public interface IProducts {
     public ArrayList<ProductSummary> getProducts(Context context, String key, long lastIndex, int Count);
     public ArrayList<ProductSummary> getGroupsProducts(Context context, String key, long lastIndex, int Count, long groupID);
     public ArrayList<ProductSummary> getBrandsProducts(Context context, String key, long lastIndex, int Count, long brandID);
+    public ArrayList<ProductSummary> getMostVistedProducts(Context context, String key, long lastIndex, int Count);
+    public ArrayList<ProductSummary> getMostSoldProducts(Context context, String key, long lastIndex, int Count);
     public Product getProduct(Context context,long id);
+
 
 }
