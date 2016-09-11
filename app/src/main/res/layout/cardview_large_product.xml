@@ -14,7 +14,7 @@
             android:id="@+id/imgImage"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:src="@drawable/c1" />
+            android:src="@drawable/c_cooki_3" />
 
         <TextView
             android:id="@+id/txtTitle"

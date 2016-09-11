@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.newInstance(position + 1);
+            return PageFragment.newInstance(position + 1,0);
         }
 
         @Override

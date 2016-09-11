@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.razanpardazesh.onlinestore">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,8 +13,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ProductActivity"
             android:label="@string/title_activity_product"
@@ -24,8 +25,8 @@
         </activity>
         <activity
             android:name=".VitrinActivity"
-            android:label="@string/title_activity_vitrin"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_vitrin"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProductsGroupActivity"></activity>
     </application>
 
 </manifest>

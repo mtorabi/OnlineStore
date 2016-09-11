@@ -1,18 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_vitrin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.razanpardazesh.onlinestore.VitrinActivity"
     tools:showIn="@layout/app_bar_vitrin">
 
-    <include
-        android:id="@+id/advertiseHeaderBox"
-        layout="@layout/advertise_slide_show"
+    <RelativeLayout
+        android:id="@+id/content_vitrin"
         android:layout_width="match_parent"
-        android:layout_height="400dp" />
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
 
-</RelativeLayout>
+        <include
+            android:id="@+id/advertiseHeaderBox"
+            layout="@layout/advertise_slide_show"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+
+        <RelativeLayout
+            android:id="@+id/category_box"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_below="@id/advertiseHeaderBox"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccentBack">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/products_category"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/most_sold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/category_box"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/txtMostSoldTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="@string/moset_sold"
+                android:textColor="@color/colorPrimaryTitle"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtViewAllTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/view_all"
+                android:textColor="@color/colorSecondaryTitle"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lst_most_sold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/txtMostSoldTitle"
+                android:layout_marginTop="5dp"></android.support.v7.widget.RecyclerView>
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imgAd1"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/most_sold"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/c_tea_bag" />
+
+        <RelativeLayout
+            android:id="@+id/most_visited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgAd1"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/txtMostVisitedTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="@string/moset_visited"
+                android:textColor="@color/colorPrimaryTitle"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtViewAllTitle_mostVisited"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/view_all"
+                android:textColor="@color/colorSecondaryTitle"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lst_most_visited"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/txtMostVisitedTitle"
+                android:layout_marginTop="5dp"></android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imgAd2"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/most_visited"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/c_refah_4" />
+
+
+    </RelativeLayout>
+</ScrollView>

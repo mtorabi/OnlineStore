@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/c1" />
+            android:src="@drawable/c_cooki_2" />
 
         <HorizontalScrollView
             android:id="@+id/imageGallaryBox"
@@ -41,7 +41,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c1" />
+                    android:src="@drawable/c_chai_limo" />
 
                 <ImageView
                     android:id="@+id/imgMiniPic2"
@@ -49,7 +49,7 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="3dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c2" />
+                    android:src="@drawable/c_cooki_3" />
 
                 <ImageView
                     android:id="@+id/imgMiniPic3"
@@ -57,7 +57,7 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="3dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c3" />
+                    android:src="@drawable/c_chai_vije" />
 
                 <ImageView
                     android:id="@+id/imgMiniPic4"
@@ -65,47 +65,9 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="3dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c4" />
+                    android:src="@drawable/c_chai_zaferani" />
 
-                <ImageView
-                    android:id="@+id/imgMiniPic5"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c5" />
 
-                <ImageView
-                    android:id="@+id/imgMiniPic6"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c6" />
-
-                <ImageView
-                    android:id="@+id/imgMiniPic7"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c1" />
-
-                <ImageView
-                    android:id="@+id/imgMiniPic8"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c2" />
-
-                <ImageView
-                    android:id="@+id/imgMiniPic9"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c3" />
             </LinearLayout>
         </HorizontalScrollView>
 

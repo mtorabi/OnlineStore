@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,25 +20,37 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.razanpardazesh.onlinestore.CustomView.Indicator;
+import com.razanpardazesh.onlinestore.Tools.FontApplier;
+import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
+import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class VitrinActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class VitrinActivity extends AppCompatActivity{
 
+    IProducts productsRepo = null;
 
-    ArrayList<Object> pages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vitrin);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        initDrawer_Toolbar();
+        initFloatingActionButton();
+        initAdvertiseBox();
+        initFonts();
+        initRepos();
+        initMostSold();
+        initMostVisited();
+    }
+
+    private void initFloatingActionButton()
+    {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +59,16 @@ public class VitrinActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+    }
 
+    private void initDrawer_Toolbar()
+    {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setLogo(R.drawable.teemanshop_logo);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -53,8 +76,69 @@ public class VitrinActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        initAdvertiseBox();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                // Handle navigation view item clicks here.
+                int id = item.getItemId();
+
+                if (id == R.id.nav_camera) {
+                    // Handle the camera action
+                } else if (id == R.id.nav_gallery) {
+
+                } else if (id == R.id.nav_slideshow) {
+
+                } else if (id == R.id.nav_manage) {
+
+                } else if (id == R.id.nav_share) {
+
+                } else if (id == R.id.nav_send) {
+
+                }
+
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+
+    }
+
+    private void initFonts()
+    {
+        View drawer_layout = findViewById(R.id.drawer_layout);
+        FontApplier.applyMainFont(drawer_layout);
+    }
+
+    private void initRepos(){
+
+    }
+
+    private void initMostSold() {
+        RecyclerView lst_most_sold = (RecyclerView) findViewById(R.id.lst_most_sold);
+
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        lst_most_sold.setLayoutManager(layoutManager);
+
+        HorizontalSmallProductsAdaper adapter = new HorizontalSmallProductsAdaper();
+        adapter.setFakeBindMostVisited(false);
+        lst_most_sold.setAdapter(adapter);
+
+    }
+
+    private void initMostVisited() {
+        RecyclerView lst_most_visited = (RecyclerView) findViewById(R.id.lst_most_visited);
+
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        lst_most_visited.setLayoutManager(layoutManager);
+        HorizontalSmallProductsAdaper adapter = new HorizontalSmallProductsAdaper();
+
+        lst_most_visited.setAdapter(adapter);
+
     }
 
     private void initAdvertiseBox() {
@@ -68,23 +152,12 @@ public class VitrinActivity extends AppCompatActivity
         params.height = height;
         advertiseHeaderBox.setLayoutParams(params);
 
-        final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
+        final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(),height);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
         final Indicator indexBox = (Indicator) findViewById(R.id.indexBox);
         indexBox.setViewPager(pager);
-
-        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.fab);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pages.add(new Object());
-                adapter.notifyDataSetChanged();
-                indexBox.notifyDatabasChange();
-            }
-        });
 
     }
 
@@ -127,52 +200,27 @@ public class VitrinActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     public class TabsPagerAdapter extends FragmentPagerAdapter {
-
-        public TabsPagerAdapter(FragmentManager fm) {
+        int height = 300;
+        public TabsPagerAdapter(FragmentManager fm, int height) {
             super(fm);
+            this.height = height;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.newInstance(position + 1);
+            return PageFragment.newInstance(position + 1,height);
         }
 
         @Override
         public int getCount() {
-            return pages.size();
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
 
-            switch (position)
-            {
+            switch (position) {
                 case 0:
                     return "ویترین";
                 case 1:
