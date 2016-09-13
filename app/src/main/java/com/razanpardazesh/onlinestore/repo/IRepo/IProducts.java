@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.razanpardazesh.onlinestore.data.Product;
 import com.razanpardazesh.onlinestore.data.ProductSummary;
+import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
+import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
 
 import java.util.ArrayList;
 
@@ -13,12 +15,12 @@ import java.util.ArrayList;
 
 public interface IProducts {
 
-    public ArrayList<ProductSummary> getProducts(Context context, String key, long lastIndex, int Count);
-    public ArrayList<ProductSummary> getGroupsProducts(Context context, String key, long lastIndex, int Count, long groupID);
-    public ArrayList<ProductSummary> getBrandsProducts(Context context, String key, long lastIndex, int Count, long brandID);
-    public ArrayList<ProductSummary> getMostVistedProducts(Context context, String key, long lastIndex, int Count);
-    public ArrayList<ProductSummary> getMostSoldProducts(Context context, String key, long lastIndex, int Count);
-    public Product getProduct(Context context,long id);
+    public ProductListAnswer getProducts(Context context, String key, long lastIndex, int Count);
+    public ProductListAnswer getGroupsProducts(Context context, String key, long lastIndex, int Count, long groupID);
+    public ProductListAnswer getBrandsProducts(Context context, String key, long lastIndex, int Count, long brandID);
+    public ProductListAnswer getMostVistedProducts(Context context, String key, long lastIndex, int Count);
+    public ProductListAnswer getMostSoldProducts(Context context, String key, long lastIndex, int Count);
+    public ProductAnswer getProduct(Context context, long id);
 
 
 }

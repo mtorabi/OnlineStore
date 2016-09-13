@@ -5,8 +5,10 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -50,6 +52,9 @@ public class Indicator extends LinearLayout {
             return;
 
         setOrientation(LinearLayout.HORIZONTAL);
+
+        if (Build.VERSION.SDK_INT > 17)
+            setLayoutDirection(LAYOUT_DIRECTION_LTR);
     }
 
     public void setViewPager(ViewPager pager) {
@@ -103,7 +108,10 @@ public class Indicator extends LinearLayout {
 
             if (i != 0) {
                 int left = Convertor.toPixcel(5, getContext());
-                params.setMargins(left, 0, 0, 0);
+                if (Build.VERSION.SDK_INT < 17)
+                    params.setMargins(left, 0, 0, 0);
+                else
+                    params.setMarginStart(left);
             }
 
             child.setLayoutParams(params);

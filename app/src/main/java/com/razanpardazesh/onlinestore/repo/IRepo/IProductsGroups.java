@@ -3,6 +3,7 @@ package com.razanpardazesh.onlinestore.repo.IRepo;
 import android.content.Context;
 
 import com.razanpardazesh.onlinestore.data.ProductsGroup;
+import com.razanpardazesh.onlinestore.data.serverWrapper.ProductGroupAnswer;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,6 @@ import java.util.ArrayList;
 
 public interface IProductsGroups {
 
-    public ArrayList<ProductsGroup> getGroups(Context context, String key, long startIndex, int count);
+    public ProductGroupAnswer getGroups(Context context, String key, long startIndex, int count);
 
 }

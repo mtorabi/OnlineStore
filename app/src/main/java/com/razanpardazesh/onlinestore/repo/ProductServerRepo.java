@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.razanpardazesh.onlinestore.data.Product;
 import com.razanpardazesh.onlinestore.data.ProductSummary;
+import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
+import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 
 import java.util.ArrayList;
@@ -14,32 +16,32 @@ import java.util.ArrayList;
 
 public class ProductServerRepo implements IProducts {
     @Override
-    public ArrayList<ProductSummary> getProducts(Context context, String key, long lastIndex, int Count) {
+    public ProductListAnswer getProducts(Context context, String key, long lastIndex, int Count) {
         return null;
     }
 
     @Override
-    public ArrayList<ProductSummary> getGroupsProducts(Context context, String key, long lastIndex, int Count, long groupID) {
+    public ProductListAnswer getGroupsProducts(Context context, String key, long lastIndex, int Count, long groupID) {
         return null;
     }
 
     @Override
-    public ArrayList<ProductSummary> getBrandsProducts(Context context, String key, long lastIndex, int Count, long brandID) {
+    public ProductListAnswer getBrandsProducts(Context context, String key, long lastIndex, int Count, long brandID) {
         return null;
     }
 
     @Override
-    public ArrayList<ProductSummary> getMostVistedProducts(Context context, String key, long lastIndex, int Count) {
+    public ProductListAnswer getMostVistedProducts(Context context, String key, long lastIndex, int Count) {
         return null;
     }
 
     @Override
-    public ArrayList<ProductSummary> getMostSoldProducts(Context context, String key, long lastIndex, int Count) {
+    public ProductListAnswer getMostSoldProducts(Context context, String key, long lastIndex, int Count) {
         return null;
     }
 
     @Override
-    public Product getProduct(Context context, long id) {
+    public ProductAnswer getProduct(Context context, long id) {
         return null;
     }
 }

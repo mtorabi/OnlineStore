@@ -30,30 +30,6 @@ public class ProductsGroupActivity extends AppCompatActivity {
     }
 
 
-    private class GetGroupsInBackgroud extends AsyncTask<String, Void, Throwable> {
 
-        ArrayList<ProductsGroup> result = null;
-
-
-        @Override
-        protected Throwable doInBackground(String... params) {
-
-            try {
-
-                String key = "";
-
-                if (params != null && params.length > 0)
-                    key = params[0];
-
-                //TODO MTG replace zero with real adapter last item index
-                long lastIndex =0;
-                result = groupRepo.getGroups(getApplicationContext(), key, lastIndex, SessionManagement.getInstance(getApplicationContext()).getListCount());
-            } catch (Throwable e) {
-                return e;
-            }
-
-            return null;
-        }
-    }
 
 }

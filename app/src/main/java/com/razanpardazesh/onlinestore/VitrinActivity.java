@@ -23,9 +23,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.razanpardazesh.onlinestore.CustomView.Indicator;
+import com.razanpardazesh.onlinestore.Tools.AsyncWraper;
 import com.razanpardazesh.onlinestore.Tools.FontApplier;
+import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWraper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
+import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
+import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 import com.razanpardazesh.onlinestore.repo.ProductFakeRepo;
 import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
@@ -33,16 +37,15 @@ import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class VitrinActivity extends AppCompatActivity {
 
     IProducts productsRepo = null;
+    HorizontalSmallProductsAdaper mostSoldAdapter;
+    HorizontalSmallProductsAdaper mostVisitedAdapter;
 
+    NetworkAsyncWraper getMostSold = new NetworkAsyncWraper();
+    NetworkAsyncWraper getMostVisited = new NetworkAsyncWraper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +57,7 @@ public class VitrinActivity extends AppCompatActivity {
         initAdvertiseBox();
         initFonts();
         initRepos();
-        initMostSold();
-        initMostVisited();
+        runGetProducts();
     }
 
     private void initFloatingActionButton() {
@@ -123,7 +125,11 @@ public class VitrinActivity extends AppCompatActivity {
             productsRepo = new ProductServerRepo();
     }
 
-    private void initMostSold() {
+    private void initMostSold(ProductListAnswer productListAnswer) {
+
+        if (productListAnswer == null || productListAnswer.getProducts() == null)
+            return;
+
         RecyclerView lst_most_sold = (RecyclerView) findViewById(R.id.lst_most_sold);
 
         LinearLayoutManager layoutManager
@@ -131,22 +137,27 @@ public class VitrinActivity extends AppCompatActivity {
 
         lst_most_sold.setLayoutManager(layoutManager);
 
-        HorizontalSmallProductsAdaper adapter = new HorizontalSmallProductsAdaper();
-        adapter.setFakeBindMostVisited(false);
-        lst_most_sold.setAdapter(adapter);
+        mostSoldAdapter = new HorizontalSmallProductsAdaper(getApplicationContext());
+        mostSoldAdapter.addProducts(productListAnswer.getProducts());
+        lst_most_sold.setAdapter(mostSoldAdapter);
 
     }
 
-    private void initMostVisited() {
+    private void initMostVisited(ProductListAnswer productListAnswer) {
+
+        if (productListAnswer == null || productListAnswer.getProducts() == null)
+            return;
+
         RecyclerView lst_most_visited = (RecyclerView) findViewById(R.id.lst_most_visited);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         lst_most_visited.setLayoutManager(layoutManager);
-        HorizontalSmallProductsAdaper adapter = new HorizontalSmallProductsAdaper();
+        mostVisitedAdapter = new HorizontalSmallProductsAdaper(getApplicationContext());
+        mostVisitedAdapter.addProducts(productListAnswer.getProducts());
 
-        lst_most_visited.setAdapter(adapter);
+        lst_most_visited.setAdapter(mostVisitedAdapter);
 
     }
 
@@ -227,49 +238,50 @@ public class VitrinActivity extends AppCompatActivity {
             return 3;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            switch (position) {
-                case 0:
-                    return "ویترین";
-                case 1:
-                    return "لیست کالاها";
-                case 2:
-                    return "علاقه مندی ها";
-            }
-            return "new pages";
-        }
     }
 
-
-    public void runGetMostVisitedProduct() {
-        Observable getMostVisitedProducts = Observable.create(new Observable.OnSubscribe() {
+    public void runGetProducts() {
+        //get most sold products
+        getMostSold.setDoOnBackground(new AsyncWraper.Callback() {
             @Override
-            public void call(Object o) {
-
+            public Object call(Object object) {
+                return productsRepo.getMostSoldProducts(getApplicationContext(), "", 0, 10);
             }
-        });
+        }).setDoOnAnswer(new AsyncWraper.Callback() {
+            @Override
+            public Object call(Object object) {
+                if (object != null || object instanceof ProductListAnswer)
+                    initMostSold((ProductListAnswer) object);
+                return null;
+            }
+        }).setDoOnError(new AsyncWraper.Callback() {
+            @Override
+            public Object call(Object object) {
+                //TODO MTG
+                return null;
+            }
+        }).run(getApplicationContext());
 
-        getMostVisitedProducts
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Object o) {
-
-                    }
-                });
+        //get most visited products
+        getMostVisited.setDoOnBackground(new AsyncWraper.Callback() {
+            @Override
+            public Object call(Object object) {
+                return productsRepo.getMostVistedProducts(getApplicationContext(),"",0,10);
+            }
+        }).setDoOnAnswer(new AsyncWraper.Callback() {
+            @Override
+            public Object call(Object object) {
+                if (object != null || object instanceof ProductListAnswer)
+                    initMostVisited((ProductListAnswer) object);
+                return null;
+            }
+        }).setDoOnError(new AsyncWraper.Callback() {
+            @Override
+            public Object call(Object object) {
+                //TODO MTG
+                return null;
+            }
+        }).run(getApplicationContext());
     }
 
 }
