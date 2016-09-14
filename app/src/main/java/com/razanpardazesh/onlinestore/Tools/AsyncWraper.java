@@ -85,6 +85,7 @@ public class AsyncWraper {
 
         innerAsyncTask = new InnerAsyncTask();
         innerAsyncTask.execute(params);
+        return;
     }
 
     public AsyncWraper initDefaultProgressDialog(String title,Boolean isCancelable)

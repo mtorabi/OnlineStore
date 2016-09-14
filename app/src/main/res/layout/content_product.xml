@@ -24,110 +24,102 @@
             android:scaleType="centerCrop"
             android:src="@drawable/c_cooki_2" />
 
-        <HorizontalScrollView
-            android:id="@+id/imageGallaryBox"
+        <RelativeLayout
+            android:id="@+id/contentBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layoutDirection="ltr"
+            android:layout_height="match_parent"
+            android:alpha="0"
             android:layout_below="@id/imgMainPic">
 
-            <LinearLayout
+            <HorizontalScrollView
+                android:id="@+id/imageGallaryBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="3dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/imgMiniPic1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c_chai_limo" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imgMiniPic2"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c_cooki_3" />
+                    <ImageView
+                        android:id="@+id/imgMiniPic1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/c_chai_limo" />
 
-                <ImageView
-                    android:id="@+id/imgMiniPic3"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c_chai_vije" />
+                    <ImageView
+                        android:id="@+id/imgMiniPic2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/c_cooki_3" />
 
-                <ImageView
-                    android:id="@+id/imgMiniPic4"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/c_chai_zaferani" />
+                    <ImageView
+                        android:id="@+id/imgMiniPic3"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/c_chai_vije" />
+
+                    <ImageView
+                        android:id="@+id/imgMiniPic4"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/c_chai_zaferani" />
 
 
-            </LinearLayout>
-        </HorizontalScrollView>
+                </LinearLayout>
+            </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/txtPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageGallaryBox"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:text="2,000"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageGallaryBox"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/colorPrimaryPrice"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/imageGallaryBox"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/sample_title"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/imageGallaryBox"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/colorPrimaryTitle"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/txtDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/txtTitle"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/sample_description"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/txtTitle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txtDescription2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/txtDescription"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/sample_description"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_below="@id/txtDescription2"
-            android:background="@color/cardview_dark_background" />
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/txtDescription"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/cardview_dark_background" />
+        </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

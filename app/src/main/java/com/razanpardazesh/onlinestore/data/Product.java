@@ -10,6 +10,13 @@ import java.util.Date;
 
 public class Product extends ProductSummary {
 
+    private String description = null;
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

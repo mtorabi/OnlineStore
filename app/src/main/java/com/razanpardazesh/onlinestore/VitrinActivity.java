@@ -137,7 +137,7 @@ public class VitrinActivity extends AppCompatActivity {
 
         lst_most_sold.setLayoutManager(layoutManager);
 
-        mostSoldAdapter = new HorizontalSmallProductsAdaper(getApplicationContext());
+        mostSoldAdapter = new HorizontalSmallProductsAdaper(this);
         mostSoldAdapter.addProducts(productListAnswer.getProducts());
         lst_most_sold.setAdapter(mostSoldAdapter);
 
@@ -148,13 +148,13 @@ public class VitrinActivity extends AppCompatActivity {
         if (productListAnswer == null || productListAnswer.getProducts() == null)
             return;
 
-        RecyclerView lst_most_visited = (RecyclerView) findViewById(R.id.lst_most_visited);
+        final RecyclerView lst_most_visited = (RecyclerView) findViewById(R.id.lst_most_visited);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         lst_most_visited.setLayoutManager(layoutManager);
-        mostVisitedAdapter = new HorizontalSmallProductsAdaper(getApplicationContext());
+        mostVisitedAdapter = new HorizontalSmallProductsAdaper(this);
         mostVisitedAdapter.addProducts(productListAnswer.getProducts());
 
         lst_most_visited.setAdapter(mostVisitedAdapter);
