@@ -75,16 +75,13 @@ public class ProductActivity extends OnlineStoreActivity {
 
         parseExtra(getIntent());
         initPreDraw(savedInstanceState);
-        initLayouts();
-        initMainPic();
         initToolbar();
         getProductData();
         initFloatingActionButton();
 
     }
 
-    private void initFloatingActionButton()
-    {
+    private void initFloatingActionButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,17 +93,31 @@ public class ProductActivity extends OnlineStoreActivity {
 
     }
 
-    private void initLayouts() {
+    private void initLayouts(Boolean showContent) {
         View root = findViewById(R.id.root);
-        colorDrawable = new ColorDrawable(Color.WHITE);
-        colorDrawable.setAlpha(0);
+        View content = findViewById(R.id.contentBox);
 
+
+
+        if (colorDrawable == null) {
+            colorDrawable = new ColorDrawable(Color.WHITE);
+        }
+
+        if (showContent) {
+            colorDrawable.setAlpha(1);
+            content.setAlpha(1);
+        }
+        else {
+            colorDrawable.setAlpha(0);
+            content.setAlpha(0);
+        }
 
         if (Build.VERSION.SDK_INT > 15)
             root.setBackground(colorDrawable);
         else
             root.setBackgroundDrawable(colorDrawable);
 
+        initMainPic();
         FontApplier.applyMainFont(root);
     }
 
@@ -172,17 +183,21 @@ public class ProductActivity extends OnlineStoreActivity {
 
     public void initPreDraw(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+            initLayouts(true);
             return;
+        }
+        else
+        {
+            initLayouts(false);
         }
 
         if (imgMainPic == null) {
             imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
-            if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
-                imgMainPic.setImageResource(Integer.parseInt(thumb_Url));
-            else {
-                //TODO mtg
-            }
+
         }
+
+
+
         ViewTreeObserver observer = imgMainPic.getViewTreeObserver();
         observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -326,6 +341,12 @@ public class ProductActivity extends OnlineStoreActivity {
         final ViewGroup.LayoutParams params = imgMainPic.getLayoutParams();
         params.height = height;
         imgMainPic.setLayoutParams(params);
+
+        if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
+            imgMainPic.setImageResource(Integer.parseInt(thumb_Url));
+        else {
+            //TODO mtg
+        }
 
     }
 
