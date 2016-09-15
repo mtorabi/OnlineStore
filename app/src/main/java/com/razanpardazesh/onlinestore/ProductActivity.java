@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -26,9 +27,10 @@ import android.widget.TextView;
 
 import com.razanpardazesh.onlinestore.CustomView.Indicator;
 import com.razanpardazesh.onlinestore.CustomView.OnlineStoreActivity;
-import com.razanpardazesh.onlinestore.Tools.AsyncWraper;
+import com.razanpardazesh.onlinestore.Tools.AsyncWrapper;
+import com.razanpardazesh.onlinestore.Tools.FabWrapper;
 import com.razanpardazesh.onlinestore.Tools.FontApplier;
-import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWraper;
+import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.Product;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
@@ -52,7 +54,7 @@ public class ProductActivity extends OnlineStoreActivity {
 
     private IProducts productsRepo;
 
-    private AsyncWraper getProductsAsync;
+    private AsyncWrapper getProductsAsync;
 
     private int thumb_left = 0;
     private int thumb_top = 0;
@@ -60,7 +62,7 @@ public class ProductActivity extends OnlineStoreActivity {
     private int thumb_height = 0;
     private String thumb_Url = "";
     private ImageView imgMainPic;
-    private int ANIM_DURATION = 500;
+    private int ANIM_DURATION = 300;
     private ColorDrawable colorDrawable;
     private float mWidthScale;
     private float mHeightScale;
@@ -82,15 +84,14 @@ public class ProductActivity extends OnlineStoreActivity {
     }
 
     private void initFloatingActionButton() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        FabWrapper fabWrapper = new FabWrapper(this,true);
+        fabWrapper.initFab(R.id.fab);
+    }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        initLayouts(true);
     }
 
     private void initLayouts(Boolean showContent) {
@@ -360,12 +361,12 @@ public class ProductActivity extends OnlineStoreActivity {
             productsRepo = new ProductServerRepo();
 
         //TODO
-        getProductsAsync = new NetworkAsyncWraper().initDefaultProgressDialog("", true).setDoOnBackground(new AsyncWraper.Callback() {
+        getProductsAsync = new NetworkAsyncWrapper().initDefaultProgressDialog("", true).setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 return productsRepo.getProduct(getApplicationContext(), product.getId());
             }
-        }).setDoOnAnswer(new AsyncWraper.Callback() {
+        }).setDoOnAnswer(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 if (object == null && !(object instanceof ProductAnswer)) {

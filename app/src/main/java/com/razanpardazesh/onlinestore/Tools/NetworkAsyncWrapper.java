@@ -6,7 +6,7 @@ import android.content.Context;
  * Created by Torabi on 9/13/2016.
  */
 
-public class NetworkAsyncWraper extends AsyncWraper {
+public class NetworkAsyncWrapper extends AsyncWrapper {
 
 
     @Override

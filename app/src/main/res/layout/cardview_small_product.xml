@@ -24,7 +24,6 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/imgImage"
             android:layout_marginTop="15dp"
-            android:text="@string/sample_title"
             android:textColor="@color/colorPrimaryText"
             android:textSize="12sp" />
         <View
@@ -41,7 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/line"
             android:layout_marginTop="10dp"
-            android:text="@string/sample_price"
             android:textColor="@color/colorPrimaryPrice"
             android:textSize="12sp" />
 

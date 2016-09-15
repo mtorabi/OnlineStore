@@ -23,7 +23,6 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/imgImage"
             android:layout_marginTop="15dp"
-            android:text="@string/sample_title"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
@@ -34,7 +33,6 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/txtTitle"
             android:layout_marginTop="10dp"
-            android:text="@string/sample_description"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="12sp" />
 
@@ -43,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/imgImage"
             android:layout_marginTop="15dp"
-            android:text="@string/sample_price"
             android:textColor="@color/colorAccent"
             android:textSize="14sp" />
 

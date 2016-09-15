@@ -23,9 +23,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.razanpardazesh.onlinestore.CustomView.Indicator;
-import com.razanpardazesh.onlinestore.Tools.AsyncWraper;
+import com.razanpardazesh.onlinestore.Tools.AsyncWrapper;
+import com.razanpardazesh.onlinestore.Tools.FabWrapper;
 import com.razanpardazesh.onlinestore.Tools.FontApplier;
-import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWraper;
+import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
@@ -44,8 +45,8 @@ public class VitrinActivity extends AppCompatActivity {
     HorizontalSmallProductsAdaper mostSoldAdapter;
     HorizontalSmallProductsAdaper mostVisitedAdapter;
 
-    NetworkAsyncWraper getMostSold = new NetworkAsyncWraper();
-    NetworkAsyncWraper getMostVisited = new NetworkAsyncWraper();
+    NetworkAsyncWrapper getMostSold = new NetworkAsyncWrapper();
+    NetworkAsyncWrapper getMostVisited = new NetworkAsyncWrapper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +62,8 @@ public class VitrinActivity extends AppCompatActivity {
     }
 
     private void initFloatingActionButton() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        FabWrapper fabWrapper = new FabWrapper(this,false);
+        fabWrapper.initFab(R.id.fab);
     }
 
     private void initDrawer_Toolbar() {
@@ -242,19 +237,19 @@ public class VitrinActivity extends AppCompatActivity {
 
     public void runGetProducts() {
         //get most sold products
-        getMostSold.setDoOnBackground(new AsyncWraper.Callback() {
+        getMostSold.setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 return productsRepo.getMostSoldProducts(getApplicationContext(), "", 0, 10);
             }
-        }).setDoOnAnswer(new AsyncWraper.Callback() {
+        }).setDoOnAnswer(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 if (object != null || object instanceof ProductListAnswer)
                     initMostSold((ProductListAnswer) object);
                 return null;
             }
-        }).setDoOnError(new AsyncWraper.Callback() {
+        }).setDoOnError(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 //TODO MTG
@@ -263,19 +258,19 @@ public class VitrinActivity extends AppCompatActivity {
         }).run(getApplicationContext());
 
         //get most visited products
-        getMostVisited.setDoOnBackground(new AsyncWraper.Callback() {
+        getMostVisited.setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 return productsRepo.getMostVistedProducts(getApplicationContext(),"",0,10);
             }
-        }).setDoOnAnswer(new AsyncWraper.Callback() {
+        }).setDoOnAnswer(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 if (object != null || object instanceof ProductListAnswer)
                     initMostVisited((ProductListAnswer) object);
                 return null;
             }
-        }).setDoOnError(new AsyncWraper.Callback() {
+        }).setDoOnError(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 //TODO MTG

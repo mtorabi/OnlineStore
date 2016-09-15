@@ -9,7 +9,7 @@ import com.razanpardazesh.onlinestore.CustomView.ProgressDialogBuilder;
  * Created by Torabi on 9/13/2016.
  */
 
-public class AsyncWraper {
+public class AsyncWrapper {
 
     private Object answer;
 
@@ -88,7 +88,7 @@ public class AsyncWraper {
         return;
     }
 
-    public AsyncWraper initDefaultProgressDialog(String title,Boolean isCancelable)
+    public AsyncWrapper initDefaultProgressDialog(String title,Boolean isCancelable)
     {
         //TODO MTG
         progressDialog = new ProgressDialogBuilder();
@@ -110,22 +110,22 @@ public class AsyncWraper {
             innerAsyncTask.cancel(true);
     }
 
-    public AsyncWraper setDoOnBackground(Callback onBackground) {
+    public AsyncWrapper setDoOnBackground(Callback onBackground) {
         this.onBackground = onBackground;
         return this;
     }
 
-    public AsyncWraper setDoOnAnswer(Callback onAnswer) {
+    public AsyncWrapper setDoOnAnswer(Callback onAnswer) {
         this.onAnswer = onAnswer;
         return this;
     }
 
-    public AsyncWraper setDoOnError(Callback onError) {
+    public AsyncWrapper setDoOnError(Callback onError) {
         this.onError = onError;
         return this;
     }
 
-    public AsyncWraper setDoOnCancel(Callback onCancel) {
+    public AsyncWrapper setDoOnCancel(Callback onCancel) {
         this.onCancel = onCancel;
         return this;
     }
