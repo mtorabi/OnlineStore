@@ -16,6 +16,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +34,13 @@ import com.razanpardazesh.onlinestore.Tools.FabWrapper;
 import com.razanpardazesh.onlinestore.Tools.FontApplier;
 import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
+import com.razanpardazesh.onlinestore.ViewAdapter.ProductImagesAdapter;
 import com.razanpardazesh.onlinestore.data.Product;
+import com.razanpardazesh.onlinestore.data.ProductImage;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
+import com.razanpardazesh.onlinestore.repo.BasketFakeRepo;
+import com.razanpardazesh.onlinestore.repo.BasketLocalRepo;
+import com.razanpardazesh.onlinestore.repo.IRepo.IBasketItems;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 import com.razanpardazesh.onlinestore.repo.ProductFakeRepo;
 import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
@@ -69,6 +76,10 @@ public class ProductActivity extends OnlineStoreActivity {
     private float mLeftDelta;
     private float mTopDelta;
 
+    IBasketItems basket;
+    private ProductImagesAdapter adapter;
+    private boolean mainImageChanged = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(0, 0);
@@ -80,12 +91,27 @@ public class ProductActivity extends OnlineStoreActivity {
         initToolbar();
         getProductData();
         initFloatingActionButton();
+        initBasket();
+    }
 
+    private void initBasket() {
+        if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
+            basket = new BasketFakeRepo();
+        else {
+            basket = new BasketLocalRepo();
+        }
     }
 
     private void initFloatingActionButton() {
-        FabWrapper fabWrapper = new FabWrapper(this,true);
-        fabWrapper.initFab(R.id.fab);
+        FabWrapper fabWrapper = new FabWrapper(this, true);
+        fabWrapper.initFab(R.id.fab, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (product != null) {
+                    basket.addProduct(getApplicationContext(),product);
+                }
+            }
+        });
     }
 
     @Override
@@ -99,7 +125,6 @@ public class ProductActivity extends OnlineStoreActivity {
         View content = findViewById(R.id.contentBox);
 
 
-
         if (colorDrawable == null) {
             colorDrawable = new ColorDrawable(Color.WHITE);
         }
@@ -107,8 +132,7 @@ public class ProductActivity extends OnlineStoreActivity {
         if (showContent) {
             colorDrawable.setAlpha(1);
             content.setAlpha(1);
-        }
-        else {
+        } else {
             colorDrawable.setAlpha(0);
             content.setAlpha(0);
         }
@@ -186,9 +210,7 @@ public class ProductActivity extends OnlineStoreActivity {
         if (savedInstanceState != null) {
             initLayouts(true);
             return;
-        }
-        else
-        {
+        } else {
             initLayouts(false);
         }
 
@@ -196,7 +218,6 @@ public class ProductActivity extends OnlineStoreActivity {
             imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
 
         }
-
 
 
         ViewTreeObserver observer = imgMainPic.getViewTreeObserver();
@@ -316,7 +337,7 @@ public class ProductActivity extends OnlineStoreActivity {
     }
 
     private Boolean handleBackPress() {
-        if (Build.VERSION.SDK_INT >= 16) {
+        if (Build.VERSION.SDK_INT >= 16 && !mainImageChanged) {
             exitAnimation(new Runnable() {
                 public void run() {
 
@@ -331,6 +352,8 @@ public class ProductActivity extends OnlineStoreActivity {
 
     private void initMainPic() {
 
+
+
         if (imgMainPic == null) {
             imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
         }
@@ -342,6 +365,9 @@ public class ProductActivity extends OnlineStoreActivity {
         final ViewGroup.LayoutParams params = imgMainPic.getLayoutParams();
         params.height = height;
         imgMainPic.setLayoutParams(params);
+
+        if (mainImageChanged)
+            return;
 
         if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
             imgMainPic.setImageResource(Integer.parseInt(thumb_Url));
@@ -397,5 +423,42 @@ public class ProductActivity extends OnlineStoreActivity {
         txtTitle.setText(product.getName());
         setTitle(product.getName());
         txtDescription.setText(product.getDescription() + "\n" + product.getDescription());
+
+        initProductImages();
     }
+
+    public void initProductImages()
+    {
+        if (product == null || product.getImages() == null)
+            return;
+
+        RecyclerView lst_product_images = (RecyclerView) findViewById(R.id.lst_product_images);
+        adapter = new ProductImagesAdapter(product.getImages(),getApplicationContext());
+        adapter.setProductImageAdapterInterface(new ProductImagesAdapter.ProductImageAdapterInterface() {
+            @Override
+            public void onClick(ImageView view, ProductImage image, int position) {
+                selectProductImage(image);
+            }
+        });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        lst_product_images.setLayoutManager(layoutManager);
+        lst_product_images.setAdapter(adapter);
+    }
+
+    public void selectProductImage(ProductImage selectedImage)
+    {
+        if (imgMainPic == null) {
+            imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
+        }
+
+        if(SessionManagement.getInstance(getApplicationContext()).getFakeBind())
+            imgMainPic.setImageResource(Integer.parseInt(selectedImage.getThumb(getApplicationContext())));
+        else
+        {
+            //TODO MTG
+        }
+        
+        mainImageChanged = true;
+    }
+
 }

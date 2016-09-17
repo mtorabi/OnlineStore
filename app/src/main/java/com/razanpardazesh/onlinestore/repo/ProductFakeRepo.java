@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.razanpardazesh.onlinestore.R;
 import com.razanpardazesh.onlinestore.data.Product;
+import com.razanpardazesh.onlinestore.data.ProductImage;
 import com.razanpardazesh.onlinestore.data.ProductSummary;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
@@ -18,9 +19,25 @@ import java.util.ArrayList;
 public class ProductFakeRepo implements IProducts {
 
     private ArrayList<Product> products;
-
+    private ArrayList<ProductImage> images;
 
     public ArrayList<Product> getProducts() {
+
+        if (images == null || images.size()== 0)
+        {
+            images = new ArrayList<>();
+
+            images.add(new ProductImage(R.drawable.c_chai_limo));
+            images.add(new ProductImage(R.drawable.c_cooki_1));
+            images.add(new ProductImage(R.drawable.c_chai_zaferani));
+            images.add(new ProductImage(R.drawable.c_cooki_2));
+            images.add(new ProductImage(R.drawable.c_chai_sonati));
+            images.add(new ProductImage(R.drawable.c_cooki_3));
+            images.add(new ProductImage(R.drawable.c_cooki_4));
+            images.add(new ProductImage(R.drawable.c_chai_vije));
+            images.add(new ProductImage(R.drawable.c_chaie_babone));
+        }
+
         if (products == null || products.size() == 0) {
             products = new ArrayList<>();
 
@@ -95,6 +112,7 @@ public class ProductFakeRepo implements IProducts {
                 product.setName(title);
                 product.setId(imageRes);
                 product.setPrice(price);
+                product.setImages(images);
                 product.setDescription(desccription + " " + desccription + " " + desccription);
 
                 products.add(product);

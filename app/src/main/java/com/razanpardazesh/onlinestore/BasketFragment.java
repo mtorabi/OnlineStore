@@ -18,18 +18,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.plus.PlusOneButton;
 import com.razanpardazesh.onlinestore.Tools.FontApplier;
 import com.razanpardazesh.onlinestore.ViewAdapter.BasketItemAdapter;
 import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
 import com.razanpardazesh.onlinestore.ViewAdapter.decorations.DividerDecoration;
+import com.razanpardazesh.onlinestore.data.BasketStatistics;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+import static com.razanpardazesh.onlinestore.R.id.btnRegisterBasket;
+import static com.razanpardazesh.onlinestore.R.id.lst_basketItem;
 
 public class BasketFragment extends DialogFragment {
 
 
     private ViewGroup rootView;
     private BasketItemAdapter adapter;
+    private Button btnRegisterBasket;
+    private RecyclerView lstItems;
+    private TextView txtEmptyBasketHint;
+    private TextView txtBasketTitle;
+    private TextView txtTotalPrice;
+    private TextView txtTotalCount;
 
     public BasketFragment() {
     }
@@ -67,12 +82,15 @@ public class BasketFragment extends DialogFragment {
         FontApplier.applyMainFont(rootView);
         initBasketItem();
         initDissmissAria();
+        initBasketStatistics();
+        initRegisterBasketButton();
         return rootView;
     }
 
     private void initBasketItem() {
 
-        RecyclerView lstItems = (RecyclerView) rootView.findViewById(R.id.lst_most_sold);
+        if (lstItems == null)
+            lstItems = (RecyclerView) rootView.findViewById(R.id.lst_basketItem);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -81,20 +99,81 @@ public class BasketFragment extends DialogFragment {
         DividerDecoration dividerDecoration =
                 new DividerDecoration(ContextCompat.getDrawable(getActivity(), R.drawable.divider_basket_item));
 
-        adapter = new BasketItemAdapter();
+        adapter = new BasketItemAdapter(getActivity());
         lstItems.setAdapter(adapter);
         lstItems.addItemDecoration(dividerDecoration);
+
+        adapter.setBasketItemAdapterInterface(new BasketItemAdapter.BasketItemAdapterInterface() {
+            @Override
+            public void onSomthingChanged() {
+                initBasketStatistics();
+                initRegisterBasketButton();
+            }
+        });
     }
 
-    private void initDissmissAria()
-    {
+    private void initBasketStatistics() {
+        BasketStatistics statistics = new BasketStatistics();
+
+        if (adapter != null)
+            statistics = adapter.getStatistics();
+
+        if (txtTotalPrice == null) {
+            txtTotalPrice = (TextView) rootView.findViewById(R.id.txtTotalPrice);
+        }
+        if (txtTotalCount == null) {
+            txtTotalCount = (TextView) rootView.findViewById(R.id.txtTotalCount);
+        }
+
+        NumberFormat format = new DecimalFormat("###,###,###,###");
+
+        txtTotalPrice.setText(format.format(statistics.getTotalPrices()) + " " + getString(R.string.toman));
+        txtTotalCount.setText(format.format(statistics.getTotalCounts()) + " " + getString(R.string.product));
+
+        if (lstItems == null)
+            lstItems = (RecyclerView) rootView.findViewById(R.id.lst_basketItem);
+
+        if (txtEmptyBasketHint == null)
+            txtEmptyBasketHint = (TextView) rootView.findViewById(R.id.txtEmptyBasketHint);
+
+        if (txtBasketTitle == null)
+            txtBasketTitle = (TextView) rootView.findViewById(R.id.txtBasketTitle);
+
+        ViewGroup root = (ViewGroup) lstItems.getParent();
+
+        Boolean emptyList = statistics.getTotalCounts() == 0;
+
+        for (int i = 0; i < root.getChildCount(); i++) {
+            View child = root.getChildAt(i);
+            switch (child.getId())
+            {
+                case R.id.btnRegisterBasket:
+                    break;
+                case R.id.txtEmptyBasketHint:
+                    if (emptyList)
+                        child.setVisibility(View.VISIBLE);
+                    else
+                        child.setVisibility(View.GONE);
+                    break;
+                default:
+                    if (emptyList)
+                        child.setVisibility(View.GONE);
+                    else
+                        child.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+
+    }
+
+    private void initDissmissAria() {
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-
+        
         rootView.getChildAt(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,5 +198,26 @@ public class BasketFragment extends DialogFragment {
         FragmentActivity act = getActivity();
         dismiss();
         showBasket(act);
+    }
+
+    public void initRegisterBasketButton() {
+        if (btnRegisterBasket == null)
+            btnRegisterBasket = (Button) rootView.findViewById(R.id.btnRegisterBasket);
+
+        if (adapter == null || adapter.getItemCount() == 0) {
+            btnRegisterBasket.setAlpha(0.5f);
+            btnRegisterBasket.setEnabled(false);
+
+        } else {
+            btnRegisterBasket.setAlpha(1);
+            btnRegisterBasket.setEnabled(true);
+        }
+
+        btnRegisterBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

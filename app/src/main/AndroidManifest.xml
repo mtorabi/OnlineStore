@@ -19,8 +19,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProductActivity"
-            android:label="@string/title_activity_product"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_product"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Transparent">
             <meta-data
@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProductsGroupActivity" />
+        <activity android:name=".GetAddressActivity"></activity>
     </application>
 
 </manifest>

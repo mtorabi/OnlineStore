@@ -24,7 +24,7 @@ public class FabWrapper {
         this.isAddToBasket = isAddToBasketFab;
     }
 
-    public void initFab(int resID) {
+    public void initFab(int resID, final View.OnClickListener onClickListener) {
         FloatingActionButton fab = (FloatingActionButton) act.findViewById(resID);
 
         if (isAddToBasket)
@@ -35,7 +35,11 @@ public class FabWrapper {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (onClickListener != null)
+                    onClickListener.onClick(view);
+
                 BasketFragment.showBasket(act);
+
             }
         });
     }

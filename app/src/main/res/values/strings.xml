@@ -14,7 +14,16 @@
     <string name="title_activity_vitrin">فروشگاه</string>
     <string name="products_category">دسته بندی محصولات</string>
     <string name="your_basket">سبد خرید شما</string>
+    <string name="empty_basket_hint">سبد خرید شما خالی است.</string>
     <string name="total">مجموع</string>
     <string name="product">کالا</string>
+    <string name="toman">تومان</string>
+    <string name="yes">بلی</string>
+    <string name="no">نه</string>
+    <string name="attention">توجه</string>
     <string name="register_basket">ثبت نهایی سبد خرید</string>
+
+
+    <string name="remove_last_product_question">آیا مایل به حذف این کالا از سبد خرید خود هستید؟</string>
+
 </resources>

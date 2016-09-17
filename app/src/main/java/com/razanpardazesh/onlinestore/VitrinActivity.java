@@ -62,8 +62,8 @@ public class VitrinActivity extends AppCompatActivity {
     }
 
     private void initFloatingActionButton() {
-        FabWrapper fabWrapper = new FabWrapper(this,false);
-        fabWrapper.initFab(R.id.fab);
+        FabWrapper fabWrapper = new FabWrapper(this, false);
+        fabWrapper.initFab(R.id.fab, null);
     }
 
     private void initDrawer_Toolbar() {
@@ -261,7 +261,7 @@ public class VitrinActivity extends AppCompatActivity {
         getMostVisited.setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
-                return productsRepo.getMostVistedProducts(getApplicationContext(),"",0,10);
+                return productsRepo.getMostVistedProducts(getApplicationContext(), "", 0, 10);
             }
         }).setDoOnAnswer(new AsyncWrapper.Callback() {
             @Override
