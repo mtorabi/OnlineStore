@@ -1,6 +1,5 @@
 package com.razanpardazesh.onlinestore;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
@@ -12,9 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,12 +24,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.razanpardazesh.onlinestore.CustomView.Indicator;
-import com.razanpardazesh.onlinestore.CustomView.OnlineStoreActivity;
-import com.razanpardazesh.onlinestore.Tools.AsyncWrapper;
+import com.razanpardazesh.mtglibrary.tools.AsyncWrapper;
+import com.razanpardazesh.mtglibrary.tools.FontApplier;
+import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.FabWrapper;
-import com.razanpardazesh.onlinestore.Tools.FontApplier;
-import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.ViewAdapter.ProductImagesAdapter;
 import com.razanpardazesh.onlinestore.data.Product;
@@ -48,7 +43,7 @@ import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class ProductActivity extends OnlineStoreActivity {
+public class ProductActivity extends AppCompatActivity {
 
     private static final String EXTRA_KEY_PRODUCT_ID = "productId";
     private static final String EXTRA_KEY_PRODUCT_IMAGE = "productImage";

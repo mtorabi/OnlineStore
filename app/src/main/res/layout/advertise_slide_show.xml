@@ -16,7 +16,7 @@
 
     </android.support.v4.view.ViewPager>
 
-    <com.razanpardazesh.onlinestore.CustomView.Indicator
+    <com.razanpardazesh.mtglibrary.CustomView.Indicator
         android:id="@+id/indexBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

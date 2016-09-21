@@ -1,20 +1,17 @@
 package com.razanpardazesh.onlinestore.ViewAdapter;
 
-import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.onlinestore.ProductActivity;
 import com.razanpardazesh.onlinestore.R;
-import com.razanpardazesh.onlinestore.Tools.FontApplier;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
-import com.razanpardazesh.onlinestore.data.Product;
 import com.razanpardazesh.onlinestore.data.ProductSummary;
 
 import java.text.DecimalFormat;

@@ -1,15 +1,12 @@
 package com.razanpardazesh.onlinestore;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -21,18 +18,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.plus.PlusOneButton;
-import com.razanpardazesh.onlinestore.Tools.FontApplier;
+import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.onlinestore.ViewAdapter.BasketItemAdapter;
-import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
 import com.razanpardazesh.onlinestore.ViewAdapter.decorations.DividerDecoration;
 import com.razanpardazesh.onlinestore.data.BasketStatistics;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import static com.razanpardazesh.onlinestore.R.id.btnRegisterBasket;
-import static com.razanpardazesh.onlinestore.R.id.lst_basketItem;
 
 public class BasketFragment extends DialogFragment {
 

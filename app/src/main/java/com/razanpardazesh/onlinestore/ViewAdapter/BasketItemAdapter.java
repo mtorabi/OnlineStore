@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.razanpardazesh.onlinestore.CustomView.DialogBuilder;
+import com.razanpardazesh.mtglibrary.CustomView.DialogBuilder;
 import com.razanpardazesh.onlinestore.R;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.BasketItem;

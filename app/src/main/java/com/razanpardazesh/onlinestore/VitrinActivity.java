@@ -2,8 +2,6 @@ package com.razanpardazesh.onlinestore;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,23 +18,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.razanpardazesh.onlinestore.CustomView.Indicator;
-import com.razanpardazesh.onlinestore.Tools.AsyncWrapper;
+import com.razanpardazesh.mtglibrary.CustomView.Indicator;
+import com.razanpardazesh.mtglibrary.tools.AsyncWrapper;
+import com.razanpardazesh.mtglibrary.tools.FontApplier;
+import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.FabWrapper;
-import com.razanpardazesh.onlinestore.Tools.FontApplier;
-import com.razanpardazesh.onlinestore.Tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
-import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 import com.razanpardazesh.onlinestore.repo.ProductFakeRepo;
 import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class VitrinActivity extends AppCompatActivity {
