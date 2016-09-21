@@ -3,8 +3,8 @@
     package="com.razanpardazesh.onlinestore">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -26,7 +26,7 @@
             android:theme="@style/Transparent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.razanpardazesh.onlinestore.MainActivity" />
+                android:value="com.razanpardazesh.onlinestore.VitrinActivity" />
         </activity>
         <activity
             android:name=".VitrinActivity"
@@ -40,7 +40,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProductsGroupActivity" />
-        <activity android:name=".GetAddressActivity"></activity>
+        <activity
+            android:name=".SelectShipmentType"
+            android:label="@string/title_activity_select_shipment_type"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.razanpardazesh.onlinestore.VitrinActivity" />
+        </activity>
     </application>
 
 </manifest>

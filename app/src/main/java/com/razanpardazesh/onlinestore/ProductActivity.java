@@ -74,6 +74,7 @@ public class ProductActivity extends AppCompatActivity {
     IBasketItems basket;
     private ProductImagesAdapter adapter;
     private boolean mainImageChanged = false;
+    private boolean exitAnimationIsRuuning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -291,6 +292,11 @@ public class ProductActivity extends AppCompatActivity {
             return;
         }
 
+        if (exitAnimationIsRuuning == true)
+            return;
+
+        exitAnimationIsRuuning = true;
+        
         if (imgMainPic == null) {
             imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
         }
@@ -335,7 +341,7 @@ public class ProductActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 16 && !mainImageChanged) {
             exitAnimation(new Runnable() {
                 public void run() {
-
+                    exitAnimationIsRuuning = false;
                     finish();
                     overridePendingTransition(0, 0);
                 }

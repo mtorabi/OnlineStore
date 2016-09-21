@@ -208,7 +208,8 @@ public class BasketFragment extends DialogFragment {
         btnRegisterBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SelectShipmentType.openActivity(getActivity());
+                dismiss();
             }
         });
     }

@@ -48,7 +48,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/colorPrimaryPrice"
-                android:textSize="18sp" />
+                android:textSize="@dimen/title_font_size" />
 
             <TextView
                 android:id="@+id/txtTitle"
@@ -59,7 +59,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/colorPrimaryTitle"
-                android:textSize="18sp" />
+                android:textSize="@dimen/title_font_size" />
 
             <TextView
                 android:id="@+id/txtDescription"
@@ -71,7 +71,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="14sp" />
+                android:textSize="@dimen/normal_font_size" />
 
             <View
                 android:id="@+id/line"

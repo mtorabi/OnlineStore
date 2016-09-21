@@ -18,6 +18,11 @@ import com.google.android.gms.location.LocationServices;
 import com.razanpardazesh.mtglibrary.services.location.data.LocationType;
 import com.razanpardazesh.mtglibrary.services.location.data.Point;
 
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.RealmResults;
+
 public class TrackingLocationServices extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private Location mLastLocation;
@@ -104,6 +109,7 @@ public class TrackingLocationServices extends Service implements GoogleApiClient
         mLastPoint.setLatitude(mLastLocation.getLatitude());
         mLastPoint.setSent(false);
         mLastPoint.setType(LocationType.TRACKING);
+
     }
 
     /**

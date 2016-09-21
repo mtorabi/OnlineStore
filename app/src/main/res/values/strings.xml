@@ -12,6 +12,7 @@
     <string name="moset_visited">جدیدترین کالاها</string>
     <string name="view_all">لیست کامل</string>
     <string name="title_activity_vitrin">فروشگاه</string>
+    <string name="title_activity_select_shipment_type">ارسال سفارش</string>
     <string name="products_category">دسته بندی محصولات</string>
     <string name="your_basket">سبد خرید شما</string>
     <string name="empty_basket_hint">سبد خرید شما خالی است.</string>
@@ -22,6 +23,19 @@
     <string name="no">نه</string>
     <string name="attention">توجه</string>
     <string name="register_basket">ثبت نهایی سبد خرید</string>
+    <string name="lbl_order_destination_address">آدرس تحویل سفارش:</string>
+    <string name="lbl_order_shipment_type">شیوه ارسال سفارش:</string>
+    <string name="do_you_want_factor">آیا مایل به دریافت فاکتور هستید؟</string>
+    <string name="lbl_province">استان:</string>
+    <string name="province">استان</string>
+    <string name="lbl_city">شهر:</string>
+    <string name="city">شهر</string>
+    <string name="lbl_postal_code">کدپستی:</string>
+    <string name="postal_code">کدپستی</string>
+    <string name="lbl_emergency_tel">شماره تماس اضطراری:</string>
+    <string name="emergency_tel">شماره تماس اضطراری</string>
+    <string name="lbl_home_tel">شماره تماس ثابت:</string>
+    <string name="home_tel">شماره تماس ثابت</string>
 
 
     <string name="remove_last_product_question">آیا مایل به حذف این کالا از سبد خرید خود هستید؟</string>
