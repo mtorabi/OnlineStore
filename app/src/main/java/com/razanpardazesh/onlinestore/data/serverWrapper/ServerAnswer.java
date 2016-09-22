@@ -25,4 +25,38 @@ public abstract class ServerAnswer {
     public void setHasMore(int hasMore) {
         this.hasMore = hasMore;
     }
+
+    public static Boolean isSuccess(Object answer)
+    {
+        if (answer == null)
+            return false;
+
+        if (!(answer instanceof ServerAnswer))
+            return false;
+
+        ServerAnswer obj = (ServerAnswer) answer;
+
+        if (obj.getIsSuccess()!= 1)
+            return false;
+
+        return true;
+
+    }
+
+    public static Boolean hasMore(Object answer)
+    {
+        if (answer == null)
+            return false;
+
+        if (!(answer instanceof ServerAnswer))
+            return false;
+
+        ServerAnswer obj = (ServerAnswer) answer;
+
+        if (obj.getHasMore()!= 1)
+            return false;
+
+        return true;
+
+    }
 }

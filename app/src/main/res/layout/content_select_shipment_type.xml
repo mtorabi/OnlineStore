@@ -170,7 +170,7 @@
                     android:layout_below="@id/lblHomeTel"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="30dp"
-                    android:text="@string/home_tel"
+                    android:text="@string/change_address"
                     android:textColor="@color/colorSecondaryTitle"
                     android:textSize="@dimen/normal_font_size" />
             </RelativeLayout>
