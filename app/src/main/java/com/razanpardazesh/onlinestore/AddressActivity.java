@@ -27,13 +27,16 @@ public class AddressActivity extends AppCompatActivity {
         initToolbar();
 
         if (selectedAddress != null)
-            Toast.makeText(this, selectedAddress.getTel(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, selectedAddress.getProvince().getName(), Toast.LENGTH_SHORT).show();
     }
 
     public void initToolbar() {
         setContentView(R.layout.activity_address);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
     }
 
     public static void openActivity(FragmentActivity act, UserAddress address) {

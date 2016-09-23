@@ -86,6 +86,8 @@ public class UserAddress implements Parcelable {
         dest.writeString(tel);
         dest.writeString(emergencyTel);
         dest.writeString(postalCode);
+        dest.writeParcelable(province,flags);
+        dest.writeParcelable(city,flags);
     }
 
     public UserAddress(Parcel source) {
@@ -94,6 +96,8 @@ public class UserAddress implements Parcelable {
         this.tel = source.readString();
         this.emergencyTel = source.readString();
         this.postalCode = source.readString();
+        this.province = source.readParcelable(Province.class.getClassLoader());
+        this.city = source.readParcelable(City.class.getClassLoader());
     }
 
     public UserAddress() {
