@@ -5,6 +5,7 @@
     android:id="@+id/content_address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,4 +14,121 @@
     tools:context="com.razanpardazesh.onlinestore.AddressActivity"
     tools:showIn="@layout/activity_address">
 
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtTransfereeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/transferee_name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/colorSecondaryTitle"
+                    android:textSize="@dimen/normal_font_size"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtTransfereeEmergencyTel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/transferee_EmergencyTel"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/colorSecondaryTitle"
+                    android:textSize="@dimen/normal_font_size"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtTransfereeTel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/transferee_tel_with_code"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/colorSecondaryTitle"
+                    android:textSize="@dimen/normal_font_size"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtPostalCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/postal_code"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/colorSecondaryTitle"
+                    android:textSize="@dimen/normal_font_size"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/colorSecondaryTitle"
+                    android:textSize="@dimen/normal_font_size"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:id="@+id/btnSelectLocation"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/select_location"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

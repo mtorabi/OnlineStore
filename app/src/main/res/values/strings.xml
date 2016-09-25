@@ -39,5 +39,26 @@
     <string name="change_address">تغییر آدرس</string>
     <string name="remove_last_product_question">آیا مایل به حذف این کالا از سبد خرید خود هستید؟</string>
     <string name="title_activity_address">آدرس شما</string>
+    <string name="title_activity_login">ورود</string>
+    <string name="transferee_name">نام تحویل گیرنده</string>
+    <string name="transferee_EmergencyTel">شماره تماس همراه</string>
+    <string name="transferee_tel_with_code">شماره تماس ثابت به همراه کد شهرستان</string>
+    <string name="address">ادرس</string>
+    <string name="select_location">انتخاب موقعیت مکانی</string>
+    <string name="ok">تایید</string>
+    <string name="google_play_service_alert">در حال حاضر امکان استفاده از سرویس موقعیت یاب گوگل میسر نیست. لطفا نسبت به نصب و به روز بودن گوگل پلی سرویس خود اطمینان یابید</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 </resources>

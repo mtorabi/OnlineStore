@@ -24,4 +24,12 @@ public class DialogBuilder {
                 .setNegativeButton(context.getString(R.string.no), noAction)
                 .show();
     }
+
+    public AlertDialog showAlert(Context context,String message)
+    {
+        return new AlertDialog.Builder(context)
+                .setMessage(message)
+                .setNeutralButton(context.getString(R.string.ok),null)
+                .show();
+    }
 }
