@@ -9,7 +9,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -27,6 +31,17 @@ public class AddressActivity extends AppCompatActivity {
 
     private UserAddress selectedAddress;
 
+    ProgressBar vProgress;
+    AutoCompleteTextView txtTransfereeName;
+    AutoCompleteTextView txtTransfereeEmergencyTel;
+    AutoCompleteTextView txtTransfereeTel;
+    AutoCompleteTextView txtPostalCode;
+    AutoCompleteTextView txtAddress;
+    TextView txtAction;
+    Spinner sProvince;
+    Spinner sCity;
+    Button btnSelectLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +49,48 @@ public class AddressActivity extends AppCompatActivity {
 
         parseIntent();
         initToolbar();
+        initView();
         applyFont();
         initSelectLocationBuuton();
 
-        if (selectedAddress != null)
-            Toast.makeText(this, selectedAddress.getTel(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void initView()
+    {
+        vProgress = (ProgressBar) findViewById(R.id.vProgress);
+        txtTransfereeName = (AutoCompleteTextView) findViewById(R.id.txtTransfereeName);
+        txtTransfereeEmergencyTel = (AutoCompleteTextView) findViewById(R.id.txtTransfereeEmergencyTel);
+        txtTransfereeTel = (AutoCompleteTextView) findViewById(R.id.txtTransfereeTel);
+        txtPostalCode = (AutoCompleteTextView) findViewById(R.id.txtPostalCode);
+        txtAddress = (AutoCompleteTextView) findViewById(R.id.txtAddress);
+        sProvince = (Spinner) findViewById(R.id.sProvince);
+        sCity = (Spinner) findViewById(R.id.sCity);
+        btnSelectLocation = (Button) findViewById(R.id.btnSelectLocation);
+        txtAction = (TextView) findViewById(R.id.txtAction);
+
+        txtAction.setText("ثبت آدرس");
+
+
+    }
+
+
+    public void initActionButton()
+    {
+        if (txtAction == null)
+            txtAction = (TextView) findViewById(R.id.txtAction);
+
+        txtAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+
+    public void bindInputAddress()
+    {
+
     }
 
     public void applyFont() {
@@ -79,8 +131,7 @@ public class AddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Boolean answer = false;
-                    LocationHelper.showLocationPicker(AddressActivity.this);
+                    Boolean answer =  LocationHelper.showLocationPicker(AddressActivity.this);
 
                     if (answer == false) {
                         new DialogBuilder().showAlert(AddressActivity.this, getString(R.string.google_play_service_alert));

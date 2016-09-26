@@ -6,10 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.razanpardazesh.onlinestore.AddressActivity"
     tools:showIn="@layout/activity_address">
@@ -17,7 +14,7 @@
 
     <!-- Login progress -->
     <ProgressBar
-        android:id="@+id/login_progress"
+        android:id="@+id/vProgress"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,15 +23,17 @@
         android:visibility="gone" />
 
     <ScrollView
-        android:id="@+id/login_form"
+        android:id="@+id/address_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
+            android:id="@+id/user_address_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -47,9 +46,9 @@
                     android:hint="@string/transferee_name"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/colorSecondaryTitle"
-                    android:textSize="@dimen/normal_font_size"
-                    android:singleLine="true" />
+                    android:textSize="@dimen/normal_font_size" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -64,9 +63,9 @@
                     android:hint="@string/transferee_EmergencyTel"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/colorSecondaryTitle"
-                    android:textSize="@dimen/normal_font_size"
-                    android:singleLine="true" />
+                    android:textSize="@dimen/normal_font_size" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -81,11 +80,33 @@
                     android:hint="@string/transferee_tel_with_code"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/colorSecondaryTitle"
-                    android:textSize="@dimen/normal_font_size"
-                    android:singleLine="true" />
+                    android:textSize="@dimen/normal_font_size" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/sProvince"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:layout_marginTop="16dp"
+                android:singleLine="true"
+                android:textColor="@color/colorSecondaryTitle"
+                android:textSize="@dimen/normal_font_size" />
+
+            <Spinner
+                android:id="@+id/sCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:layout_marginTop="16dp"
+                android:singleLine="true"
+                android:textColor="@color/colorSecondaryTitle"
+                android:textSize="@dimen/normal_font_size" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -98,9 +119,9 @@
                     android:hint="@string/postal_code"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/colorSecondaryTitle"
-                    android:textSize="@dimen/normal_font_size"
-                    android:singleLine="true" />
+                    android:textSize="@dimen/normal_font_size" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -115,11 +136,13 @@
                     android:hint="@string/address"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/colorSecondaryTitle"
-                    android:textSize="@dimen/normal_font_size"
-                    android:singleLine="true" />
+                    android:textSize="@dimen/normal_font_size" />
 
             </android.support.design.widget.TextInputLayout>
+
+
             <Button
                 android:id="@+id/btnSelectLocation"
                 style="?android:textAppearanceSmall"
@@ -131,4 +154,6 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <include layout="@layout/layout_main_action" />
 </RelativeLayout>

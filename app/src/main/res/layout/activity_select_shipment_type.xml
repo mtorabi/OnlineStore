@@ -5,7 +5,6 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000"
     android:fitsSystemWindows="true"
     android:layoutDirection="rtl"
     tools:context="com.razanpardazesh.onlinestore.SelectShipmentType">
@@ -37,11 +36,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/appBar" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorAccentBack"></FrameLayout>
+        <include layout="@layout/layout_main_action"/>
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

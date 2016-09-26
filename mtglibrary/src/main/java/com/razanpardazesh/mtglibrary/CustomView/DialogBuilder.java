@@ -32,4 +32,11 @@ public class DialogBuilder {
                 .setNeutralButton(context.getString(R.string.ok),null)
                 .show();
     }
+    public AlertDialog showAlert(Context context,String message, DialogInterface.OnClickListener okAction)
+    {
+        return new AlertDialog.Builder(context)
+                .setMessage(message)
+                .setNeutralButton(context.getString(R.string.ok),okAction)
+                .show();
+    }
 }

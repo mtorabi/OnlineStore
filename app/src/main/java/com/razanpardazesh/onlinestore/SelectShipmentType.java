@@ -1,5 +1,6 @@
 package com.razanpardazesh.onlinestore;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.razanpardazesh.mtglibrary.CustomView.DialogBuilder;
 import com.razanpardazesh.mtglibrary.tools.AsyncWrapper;
 import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.UserAddress;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ServerAnswer;
 import com.razanpardazesh.onlinestore.data.serverWrapper.UserAddressAnswer;
+import com.razanpardazesh.onlinestore.repo.BasketFakeRepo;
+import com.razanpardazesh.onlinestore.repo.BasketLocalRepo;
+import com.razanpardazesh.onlinestore.repo.IRepo.IBasketItems;
 import com.razanpardazesh.onlinestore.repo.IRepo.IUserAddresses;
 import com.razanpardazesh.onlinestore.repo.UserAddressFakeRepo;
 import com.razanpardazesh.onlinestore.repo.UserAddressesLocalRepo;
@@ -21,6 +26,8 @@ import com.razanpardazesh.onlinestore.repo.UserAddressesLocalRepo;
 public class SelectShipmentType extends AppCompatActivity {
 
     IUserAddresses userAdresses;
+
+    IBasketItems basketRepo;
 
     AsyncWrapper getAdressAysnc;
 
@@ -36,11 +43,34 @@ public class SelectShipmentType extends AppCompatActivity {
         initRepos();
         getAddressess();
         initChangeAddress();
+        initActionButton();
     }
+
+
 
     public void initFonts() {
         View root = findViewById(R.id.root);
         FontApplier.applyMainFont(root);
+    }
+
+    public void initActionButton()
+    {
+        TextView txtAction = (TextView) findViewById(R.id.txtAction);
+        txtAction.setText("ارسال سفارش");
+        View parent = (View) txtAction.getParent();
+        parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                basketRepo.clearBasket(getApplicationContext());
+                DialogBuilder builder = new DialogBuilder();
+                builder.showAlert(SelectShipmentType.this, "سفارش شما با موفقیت به سرور ارسال شد. شما می توانید وضعیت سفارش خود را در بخش سفارشات من پیگیری نمایید", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+            }
+        });
     }
 
     private void initToolbar() {
@@ -59,9 +89,12 @@ public class SelectShipmentType extends AppCompatActivity {
     public void initRepos() {
         if (SessionManagement.getInstance(getApplicationContext()).getFakeBind()) {
             userAdresses = new UserAddressFakeRepo();
+            basketRepo = new BasketFakeRepo();
         } else {
             userAdresses = new UserAddressesLocalRepo();
+            basketRepo = new BasketLocalRepo();
         }
+
     }
 
     public void initChangeAddress() {
