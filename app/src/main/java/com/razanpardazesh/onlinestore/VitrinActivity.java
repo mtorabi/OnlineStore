@@ -26,6 +26,7 @@ import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.FabWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
+import com.razanpardazesh.onlinestore.data.ProductsGroup;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 import com.razanpardazesh.onlinestore.repo.ProductFakeRepo;
@@ -48,6 +49,7 @@ public class VitrinActivity extends AppCompatActivity {
 
         initDrawer_Toolbar();
         initFloatingActionButton();
+        initViews();
         initAdvertiseBox();
         initFonts();
         initRepos();
@@ -57,6 +59,18 @@ public class VitrinActivity extends AppCompatActivity {
     private void initFloatingActionButton() {
         FabWrapper fabWrapper = new FabWrapper(this, false);
         fabWrapper.initFab(R.id.fab, null);
+    }
+
+    private void initViews() {
+
+        View category_box = findViewById(R.id.category_box);
+        category_box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ProductsGroupsActivity.openActivity(VitrinActivity.this, -1L);
+            }
+        });
     }
 
     private void initDrawer_Toolbar() {
