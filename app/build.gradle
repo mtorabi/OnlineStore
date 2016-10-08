@@ -20,6 +20,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        RazanBuild {
+            applicationId "com.razanpardazesh.onlinestore_Razan"
+            versionName "1.0-fake"
+            minSdkVersion 15
+            targetSdkVersion 23
+            versionCode 2000
+            buildConfigField("String", "HOST", '"http://91.98.61.157:199/"')
+        }
+        mainBuild {
+            applicationId "com.razanpardazesh.onlinestore"
+            versionName "1.0"
+            minSdkVersion 15
+            targetSdkVersion 23
+            versionCode 3000
+            buildConfigField("String", "HOST", '"dddddd"')
+
+        }
+
+    }
 }
 
 dependencies {

@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public class ProductGroupAnswer extends ServerAnswer {
 
-    private ArrayList<ProductsGroup> groups;
+    private ProductsGroup group;
 
-    public ArrayList<ProductsGroup> getGroups() {
-        return groups;
+    public ProductsGroup getGroup() {
+        return group;
     }
 
-    public void setGroups(ArrayList<ProductsGroup> groups) {
-        this.groups = groups;
+    public void setGroup(ProductsGroup group) {
+        this.group = group;
     }
 }

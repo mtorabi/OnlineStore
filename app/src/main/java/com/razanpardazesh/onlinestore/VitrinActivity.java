@@ -68,7 +68,7 @@ public class VitrinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ProductsGroupsActivity.openActivity(VitrinActivity.this, -1L);
+                ProductsGroupsActivity.openActivity(VitrinActivity.this, 0l,getString(R.string.title_activity_products_groups));
             }
         });
     }

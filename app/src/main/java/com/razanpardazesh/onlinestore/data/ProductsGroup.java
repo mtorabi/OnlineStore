@@ -5,6 +5,7 @@ import android.content.Context;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.Interfaces.IImage;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -15,6 +16,9 @@ public class ProductsGroup implements IImage {
     private Long id;
     private String name;
     private Date createDate;
+    private ArrayList<ProductsGroup> subGroups;
+    private ArrayList<ProductSummary> subProducts;
+
 
     public Long getId() {
         return id;
@@ -38,6 +42,22 @@ public class ProductsGroup implements IImage {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public ArrayList<ProductsGroup> getSubGroups() {
+        return subGroups;
+    }
+
+    public void setSubGroups(ArrayList<ProductsGroup> subGroups) {
+        this.subGroups = subGroups;
+    }
+
+    public ArrayList<ProductSummary> getSubProducts() {
+        return subProducts;
+    }
+
+    public void setSubProducts(ArrayList<ProductSummary> subProducts) {
+        this.subProducts = subProducts;
     }
 
     @Override

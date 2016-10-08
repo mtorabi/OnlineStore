@@ -29,6 +29,7 @@ import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.FabWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
+import com.razanpardazesh.onlinestore.Tools.ToolbarWrapper;
 import com.razanpardazesh.onlinestore.ViewAdapter.ProductImagesAdapter;
 import com.razanpardazesh.onlinestore.data.Product;
 import com.razanpardazesh.onlinestore.data.ProductImage;
@@ -143,21 +144,14 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        ToolbarWrapper toolbarWrapper = new ToolbarWrapper(this);
+        toolbarWrapper.initToolbarWithBack(R.id.toolbar,"",new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!handleBackPress())
                     finish();
             }
         });
-
-        setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
     }
 
     private void parseExtra(Intent data) {

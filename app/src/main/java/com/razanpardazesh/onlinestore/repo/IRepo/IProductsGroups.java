@@ -13,6 +13,6 @@ import java.util.ArrayList;
 
 public interface IProductsGroups {
 
-    public ProductGroupAnswer getGroups(Context context, String key, long startIndex, int count);
+    public ProductGroupAnswer getGroups(Context context,long groupId, String key, long startIndex, int count);
 
 }

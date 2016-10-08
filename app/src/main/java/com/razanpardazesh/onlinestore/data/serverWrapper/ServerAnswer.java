@@ -8,7 +8,8 @@ public abstract class ServerAnswer {
 
     private int isSuccess = 0;
     private int hasMore = 0;
-
+    private long lastIndex =0;
+    private String message = null;
 
     public int getIsSuccess() {
         return isSuccess;
@@ -24,6 +25,22 @@ public abstract class ServerAnswer {
 
     public void setHasMore(int hasMore) {
         this.hasMore = hasMore;
+    }
+
+    public long getLastIndex() {
+        return lastIndex;
+    }
+
+    public void setLastIndex(long lastIndex) {
+        this.lastIndex = lastIndex;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public static Boolean isSuccess(Object answer)

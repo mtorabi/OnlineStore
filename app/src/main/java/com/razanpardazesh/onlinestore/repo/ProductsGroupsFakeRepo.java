@@ -95,19 +95,24 @@ public class ProductsGroupsFakeRepo implements IProductsGroups {
     }
 
     @Override
-    public ProductGroupAnswer getGroups(Context context, String key, long startIndex,
+    public ProductGroupAnswer getGroups(Context context,long groupId, String key, long startIndex,
                                         int count) {
 
         ProductGroupAnswer answer = new ProductGroupAnswer();
         answer.setIsSuccess(1);
         answer.setHasMore(0);
         ArrayList<ProductsGroup> productsGroups = new ArrayList<>();
-        answer.setGroups(productsGroups);
+        ProductsGroup group = new ProductsGroup();
+        group.setId(groupId);
 
         for (int i = 0; i < getGroups().size(); i++) {
-            answer.getGroups().add(getGroups().get(i));
-           
+            productsGroups.add(getGroups().get(i));
+
         }
+
+        group.setSubGroups(productsGroups);
+
+        answer.setGroup(group);
 
         answer.setIsSuccess(1);
 

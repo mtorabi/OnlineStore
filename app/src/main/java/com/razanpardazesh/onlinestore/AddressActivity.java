@@ -23,6 +23,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.razanpardazesh.mtglibrary.CustomView.DialogBuilder;
 import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.mtglibrary.tools.LocationHelper;
+import com.razanpardazesh.onlinestore.Tools.ToolbarWrapper;
 import com.razanpardazesh.onlinestore.data.UserAddress;
 
 public class AddressActivity extends AppCompatActivity {
@@ -55,8 +56,7 @@ public class AddressActivity extends AppCompatActivity {
 
     }
 
-    public void initView()
-    {
+    public void initView() {
         vProgress = (ProgressBar) findViewById(R.id.vProgress);
         txtTransfereeName = (AutoCompleteTextView) findViewById(R.id.txtTransfereeName);
         txtTransfereeEmergencyTel = (AutoCompleteTextView) findViewById(R.id.txtTransfereeEmergencyTel);
@@ -74,8 +74,7 @@ public class AddressActivity extends AppCompatActivity {
     }
 
 
-    public void initActionButton()
-    {
+    public void initActionButton() {
         if (txtAction == null)
             txtAction = (TextView) findViewById(R.id.txtAction);
 
@@ -88,8 +87,7 @@ public class AddressActivity extends AppCompatActivity {
     }
 
 
-    public void bindInputAddress()
-    {
+    public void bindInputAddress() {
 
     }
 
@@ -99,12 +97,8 @@ public class AddressActivity extends AppCompatActivity {
     }
 
     public void initToolbar() {
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
+        ToolbarWrapper toolbarWrapper = new ToolbarWrapper(this);
+        toolbarWrapper.initToolbarWithBack(R.id.toolbar, getTitle().toString(), null);
     }
 
     public static void openActivity(FragmentActivity act, UserAddress address) {
@@ -131,7 +125,7 @@ public class AddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Boolean answer =  LocationHelper.showLocationPicker(AddressActivity.this);
+                    Boolean answer = LocationHelper.showLocationPicker(AddressActivity.this);
 
                     if (answer == false) {
                         new DialogBuilder().showAlert(AddressActivity.this, getString(R.string.google_play_service_alert));
@@ -160,7 +154,7 @@ public class AddressActivity extends AppCompatActivity {
         if (place == null)
             return;
 
-        Toast.makeText(this,String.valueOf(place.getLatLng().latitude), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(place.getLatLng().latitude), Toast.LENGTH_SHORT).show();
 
     }
 }
