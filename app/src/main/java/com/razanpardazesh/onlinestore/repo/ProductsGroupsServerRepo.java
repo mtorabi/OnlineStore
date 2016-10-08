@@ -9,6 +9,8 @@ import com.razanpardazesh.onlinestore.data.serverWrapper.ProductGroupAnswer;
 import com.razanpardazesh.onlinestore.network.UrlBuilder;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProductsGroups;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class ProductsGroupsServerRepo implements IProductsGroups {
     @Override
     public ProductGroupAnswer getGroups(Context context, long groupId, String key, long lastIndex, int count) {
 
+        ProductGroupAnswer answer = new ProductGroupAnswer();
         String serverAddress = UrlBuilder.builder(context).getSubGroupsUrl(groupId, lastIndex, count, key);
         Request request = new Request.Builder()
                 .url(serverAddress)
@@ -32,14 +35,14 @@ public class ProductsGroupsServerRepo implements IProductsGroups {
         Response response = null;
         try {
             response = OkHttpInstance.getInstance().newCall(request).execute();
-            String jsonStr ;
-            if (response != null)
+            String jsonStr;
+            if (response != null) {
                 jsonStr = response.body().string();
-
+                answer.fillByJson(new JSONObject(jsonStr));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
         return null;
