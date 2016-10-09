@@ -1,12 +1,15 @@
 package com.razanpardazesh.onlinestore.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.razanpardazesh.mtglibrary.tools.Convertor;
+import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.Interfaces.IImage;
 import com.razanpardazesh.onlinestore.data.Interfaces.IJson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -98,23 +101,70 @@ public class ProductsGroup implements IImage, IJson {
             try {
                 setId(jsonObject.getLong(KEY_ID));
             } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setId: ", e);
             }
         }
         if (jsonObject.has(KEY_NAME)) {
             try {
                 setName(jsonObject.getString(KEY_NAME));
             } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setName: ", e);
             }
-        }if (jsonObject.has(KEY_CREATE_DATE)) {
+        }
+        if (jsonObject.has(KEY_CREATE_DATE)) {
             try {
                 setCreateDate(Convertor.toDate(jsonObject.getString(KEY_CREATE_DATE)));
             } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setCreateDate: ", e);
             }
         }
+
+        if (jsonObject.has(KEY_SUB_GROUPS)) {
+            try {
+                JSONArray a =  jsonObject.getJSONArray(KEY_SUB_GROUPS);
+                if (a != null)
+                 setSubGroups(getProductsGroups(a));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setCreateDate: ", e);
+            }
+        }
+
+        if (jsonObject.has(KEY_SUB_PRODUCTS)) {
+            try {
+                JSONArray a =  jsonObject.getJSONArray(KEY_SUB_PRODUCTS);
+                if (a != null)
+                    setSubProducts(ProductSummary.getProductsSummeries(a));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setCreateDate: ", e);
+            }
+        }
+
     }
 
     @Override
     public JSONObject writeJson(Context context) {
         return null;
+    }
+
+
+    public static ArrayList<ProductsGroup> getProductsGroups(JSONArray jsonArray) {
+        if (jsonArray == null)
+            return null;
+
+        ArrayList<ProductsGroup> output = new ArrayList<>();
+
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                ProductsGroup group = new ProductsGroup();
+                group.fillByJson(jsonObject);
+                output.add(group);
+            }
+        } catch (JSONException e) {
+            LogWrapper.loge("getProductsGroups: ", e);
+        }
+
+        return output;
     }
 }

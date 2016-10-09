@@ -11,6 +11,7 @@ public class SessionManagement {
     private Boolean isFakeBind = true;
     private final int listCount = 20;
 
+
     private static SessionManagement instance = null;
 
     public static SessionManagement getInstance(Context context)

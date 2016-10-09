@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.razanpardazesh.mtglibrary.network.OkHttpInstance;
 import com.razanpardazesh.onlinestore.BuildConfig;
+import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.data.ProductsGroup;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductGroupAnswer;
 import com.razanpardazesh.onlinestore.network.UrlBuilder;
@@ -41,10 +42,10 @@ public class ProductsGroupsServerRepo implements IProductsGroups {
                 answer.fillByJson(new JSONObject(jsonStr));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogWrapper.loge("ProductsGroupsServerRepo.getGroups: ",e);
         }
 
 
-        return null;
+        return answer;
     }
 }

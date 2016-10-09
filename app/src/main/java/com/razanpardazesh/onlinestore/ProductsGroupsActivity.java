@@ -83,7 +83,7 @@ public class ProductsGroupsActivity extends AppCompatActivity {
         if (productsGroupAnswer == null || productsGroupAnswer.getGroup() == null || productsGroupAnswer.getGroup().getId() < 0)
             return false;
 
-        if (!SessionManagement.getInstance(getApplicationContext()).getFakeBind()) {
+        if (SessionManagement.getInstance(getApplicationContext()).getFakeBind()) {
             productsGroupsRepo = new ProductsGroupsFakeRepo();
         } else {
             productsGroupsRepo = new ProductsGroupsServerRepo();

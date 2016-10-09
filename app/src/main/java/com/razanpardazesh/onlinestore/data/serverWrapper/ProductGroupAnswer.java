@@ -1,5 +1,6 @@
 package com.razanpardazesh.onlinestore.data.serverWrapper;
 
+import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.data.ProductsGroup;
 
 import org.json.JSONException;
@@ -35,9 +36,15 @@ public class ProductGroupAnswer extends ServerAnswer {
         }
 
         if (jsonObject.has(KEY_GROUP)) {
-            ProductsGroup group = new ProductsGroup();
-            group.fillByJson(jsonObject);
-            setGroup(group);
+            try {
+                ProductsGroup group = new ProductsGroup();
+                group.fillByJson(jsonObject.getJSONObject(KEY_GROUP));
+                LogWrapper.loge("fillByJson: setGroup: ",new Exception("hi"));
+                setGroup(group);
+            } catch (Exception e) {
+                LogWrapper.loge("fillByJson: setGroup: ",e);
+            }
+
         }
 
     }

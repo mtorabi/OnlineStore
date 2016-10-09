@@ -3,6 +3,7 @@ package com.razanpardazesh.onlinestore.data.serverWrapper;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.data.Interfaces.IJson;
 
 import org.json.JSONException;
@@ -99,24 +100,28 @@ public abstract class ServerAnswer implements IJson {
             try {
                 setIsSuccess(jsonObject.getInt(KEY_IS_SUCCESS));
             } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setIsSuccess",e);
             }
         }
         if (jsonObject.has(KEY_HAS_MORE)) {
             try {
                 setHasMore(jsonObject.getInt(KEY_HAS_MORE));
             } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setHasMore",e);
             }
         }
         if (jsonObject.has(KEY_MESSAGE)) {
             try {
                 setMessage(jsonObject.getString(KEY_MESSAGE));
             } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setMessage",e);
             }
         }
         if (jsonObject.has(KEY_LAST_INDEX)) {
             try {
-                setMessage(jsonObject.getString(KEY_LAST_INDEX));
+                setLastIndex(jsonObject.getLong(KEY_LAST_INDEX));
             } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setLastIndex",e);
             }
         }
 
