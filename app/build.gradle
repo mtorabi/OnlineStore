@@ -20,13 +20,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        fakeBuild { res.srcDirs = ['src/fakeBuild/res'] }
+    }
+
     productFlavors {
         RazanBuild {
             applicationId "com.razanpardazesh.onlinestore_Razan"
-            versionName "1.0-fake"
+            versionName "1.0-razan"
             minSdkVersion 15
             targetSdkVersion 23
-            versionCode 2000
+            versionCode 1000
             buildConfigField("String", "HOST", '"http://91.98.61.157:199/"')
         }
         mainBuild {
@@ -34,17 +39,22 @@ android {
             versionName "1.0"
             minSdkVersion 15
             targetSdkVersion 23
-            versionCode 3000
+            versionCode 1000
             buildConfigField("String", "HOST", '"dddddd"')
-
         }
-
+        fakeBuild {
+            applicationId "com.razanpardazesh.onlinestore_Fake"
+            versionName "1.0-fake"
+            minSdkVersion 15
+            targetSdkVersion 23
+            versionCode 1000
+            buildConfigField("String", "HOST", '"fake"')
+        }
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:cardview-v7:24.1.1'
@@ -52,10 +62,6 @@ dependencies {
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.google.android.gms:play-services:9.2.1'
     compile 'com.android.support:multidex:1.0.0'
-
-
-    compile project(":mtglibrary")
-
-
+    compile project(':mtglibrary')
 }
 apply plugin: 'realm-android'
