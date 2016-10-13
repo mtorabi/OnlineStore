@@ -44,7 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProductsGroupActivity" />
         <activity
             android:name=".SelectShipmentType"
             android:label="@string/title_activity_select_shipment_type"
@@ -60,6 +59,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"></activity>
+
+        <activity
+            android:name=".ProductsGroupsActivity"
+            android:label="@string/title_activity_products_groups"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

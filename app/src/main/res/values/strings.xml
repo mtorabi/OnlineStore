@@ -40,10 +40,13 @@
     <string name="remove_last_product_question">آیا مایل به حذف این کالا از سبد خرید خود هستید؟</string>
     <string name="title_activity_address">آدرس شما</string>
     <string name="title_activity_login">ورود</string>
-    <string name="transfereeName">نام و نام خانوادگی تحویل گیرنده</string>
-    <string name="transfereeTel_withCode">شماره تلفن ثابت تحویل گیرنده (به همراه کد شهرستان)</string>
-    <string name="transfereeEmergencyTel">شماره تلفن همراه تحویل گیرنده</string>
-    <string name="postalAddress">نشانی پستی</string>
+    <string name="transferee_name">نام تحویل گیرنده</string>
+    <string name="transferee_EmergencyTel">شماره تماس همراه</string>
+    <string name="transferee_tel_with_code">شماره تماس ثابت به همراه کد شهرستان</string>
+    <string name="address">ادرس</string>
+    <string name="select_location">انتخاب موقعیت مکانی</string>
+    <string name="ok">تایید</string>
+    <string name="google_play_service_alert">در حال حاضر امکان استفاده از سرویس موقعیت یاب گوگل میسر نیست. لطفا نسبت به نصب و به روز بودن گوگل پلی سرویس خود اطمینان یابید</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -57,5 +60,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-
+    <string name="title_activity_products_groups">گروه کالاها</string>
 </resources>

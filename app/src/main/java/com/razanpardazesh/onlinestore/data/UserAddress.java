@@ -18,6 +18,18 @@ public class UserAddress implements Parcelable {
     private String postalCode;
 
 
+    public static final Creator<UserAddress> CREATOR = new Creator<UserAddress>() {
+        @Override
+        public UserAddress createFromParcel(Parcel in) {
+            return new UserAddress(in);
+        }
+
+        @Override
+        public UserAddress[] newArray(int size) {
+            return new UserAddress[size];
+        }
+    };
+
     public long getId() {
         return id;
     }
@@ -88,6 +100,7 @@ public class UserAddress implements Parcelable {
         dest.writeString(postalCode);
         dest.writeParcelable(province,flags);
         dest.writeParcelable(city,flags);
+
     }
 
     public UserAddress(Parcel source) {
@@ -103,15 +116,5 @@ public class UserAddress implements Parcelable {
     public UserAddress() {
     }
 
-    public static Creator<UserAddress> CREATOR = new Creator<UserAddress>() {
-        @Override
-        public UserAddress createFromParcel(Parcel source) {
-            return new UserAddress(source);
-        }
 
-        @Override
-        public UserAddress[] newArray(int size) {
-            return new UserAddress[size];
-        }
-    };
 }

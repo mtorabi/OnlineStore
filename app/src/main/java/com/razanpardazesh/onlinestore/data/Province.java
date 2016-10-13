@@ -12,6 +12,11 @@ public class Province implements Parcelable {
     private long id;
     private String name;
 
+    protected Province(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+    }
+
     public long getId() {
         return id;
     }
@@ -28,36 +33,30 @@ public class Province implements Parcelable {
         this.name = name;
     }
 
-    public Province() {
-    }
-
-    public Province(Parcel in) {
-        id = in.readLong();
-        name = in.readString();
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
-        parcel.writeString(name);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
     }
 
-
-
-    public static Creator<Province> CREATOR = new Creator<Province>() {
+    public static final Creator<Province> CREATOR = new Creator<Province>() {
         @Override
-        public Province createFromParcel(Parcel parcel) {
-            return new Province(parcel);
+        public Province createFromParcel(Parcel in) {
+            return new Province(in);
         }
 
         @Override
-        public Province[] newArray(int i) {
-            return new Province[i];
+        public Province[] newArray(int size) {
+            return new Province[size];
         }
     };
+
+    public Province() {
+
+    }
 }

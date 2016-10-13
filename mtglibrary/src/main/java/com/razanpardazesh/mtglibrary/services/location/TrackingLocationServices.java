@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.razanpardazesh.mtglibrary.services.location.data.LocationType;
 import com.razanpardazesh.mtglibrary.services.location.data.Point;
+import com.razanpardazesh.mtglibrary.tools.LocationHelper;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -63,14 +64,15 @@ public class TrackingLocationServices extends Service implements GoogleApiClient
     }
 
     public Boolean checkGooglePlayServices() {
+        int temp = LocationHelper.checkGooglePlayServices(getApplicationContext());
         String message = "";
-        switch (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext())) {
-            case ConnectionResult.SUCCESS:
+        switch (temp) {
+            case LocationHelper.PLAY_SERVICE_IS_READY:
                 return true;
-            case ConnectionResult.SERVICE_MISSING:
+            case LocationHelper.PLAY_SERVICE_IS_MISSING:
                 message = "لطفا گوگل پلی سرویس را نصب نمایید";
                 break;
-            case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
+            case LocationHelper.PLAY_SERVICE_NEED_UPDATE:
                 message = "لطفا گوگل پلی سرویس خود را به روز نمایید";
                 break;
             default:

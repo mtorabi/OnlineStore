@@ -1,6 +1,10 @@
 package com.razanpardazesh.onlinestore.data.serverWrapper;
 
+import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.data.ProductsGroup;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -10,13 +14,38 @@ import java.util.ArrayList;
 
 public class ProductGroupAnswer extends ServerAnswer {
 
-    private ArrayList<ProductsGroup> groups;
+    private final String KEY_GROUP = "g";
 
-    public ArrayList<ProductsGroup> getGroups() {
-        return groups;
+    private ProductsGroup group;
+
+    public ProductsGroup getGroup() {
+        return group;
     }
 
-    public void setGroups(ArrayList<ProductsGroup> groups) {
-        this.groups = groups;
+    public void setGroup(ProductsGroup group) {
+        this.group = group;
+    }
+
+
+    @Override
+    public void fillByJson(JSONObject jsonObject) {
+        super.fillByJson(jsonObject);
+
+        if (jsonObject == null) {
+            return;
+        }
+
+        if (jsonObject.has(KEY_GROUP)) {
+            try {
+                ProductsGroup group = new ProductsGroup();
+                group.fillByJson(jsonObject.getJSONObject(KEY_GROUP));
+                LogWrapper.loge("fillByJson: setGroup: ",new Exception("hi"));
+                setGroup(group);
+            } catch (Exception e) {
+                LogWrapper.loge("fillByJson: setGroup: ",e);
+            }
+
+        }
+
     }
 }

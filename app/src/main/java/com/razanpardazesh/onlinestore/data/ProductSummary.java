@@ -5,14 +5,19 @@ import android.content.Context;
 import com.razanpardazesh.onlinestore.R;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.Interfaces.IImage;
+import com.razanpardazesh.onlinestore.data.Interfaces.IJson;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Torabi on 9/11/2016.
  */
 
-public class ProductSummary implements IImage {
+public class ProductSummary implements IImage,IJson {
 
     private long id = -1;
     private String name = null;
@@ -66,6 +71,21 @@ public class ProductSummary implements IImage {
         if (SessionManagement.getInstance(context).getFakeBind())
             return String.valueOf(id);
 
+        return null;
+    }
+
+    @Override
+    public void fillByJson(JSONObject jsonObject) {
+
+    }
+
+    @Override
+    public JSONObject writeJson(Context context) {
+        return null;
+    }
+
+    public static ArrayList<ProductSummary> getProductsSummeries(JSONArray jsonArray)
+    {
         return null;
     }
 }
