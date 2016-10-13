@@ -3,7 +3,7 @@ package com.razanpardazesh.mtglibrary.tools;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.razanpardazesh.mtglibrary.CustomView.ProgressDialogBuilder;
+import com.razanpardazesh.mtglibrary.CustomView.ProgressDialog;
 
 /**
  * Created by Torabi on 9/13/2016.
@@ -13,7 +13,7 @@ public class AsyncWrapper {
 
     private Object answer;
 
-    private ProgressDialogBuilder progressDialog;
+    private ProgressDialog progressDialog;
 
     private Callback onBackground = null;
     private Callback onAnswer = null;
@@ -43,6 +43,10 @@ public class AsyncWrapper {
 
             super.onPostExecute(throwable);
             innerAsyncTask = null;
+
+            if (progressDialog != null)
+                progressDialog.dismiss();
+
 
             if (isCanceled || isCancelled())
                 return;
@@ -88,18 +92,17 @@ public class AsyncWrapper {
         return;
     }
 
-    public AsyncWrapper initDefaultProgressDialog(String title,Boolean isCancelable)
+    public AsyncWrapper initDefaultProgressDialog(Context context, String title,Boolean isCancelable)
     {
-        //TODO MTG
-        progressDialog = new ProgressDialogBuilder();
+        progressDialog = new ProgressDialog(context);
         return this;
     }
 
-    public void setProgressDialog(ProgressDialogBuilder progressDialog) {
+    public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
     }
 
-    public ProgressDialogBuilder getProgressDialog() {
+    public ProgressDialog getProgressDialog() {
         return progressDialog;
     }
 

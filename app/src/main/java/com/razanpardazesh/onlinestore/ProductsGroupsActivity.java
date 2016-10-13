@@ -1,21 +1,14 @@
 package com.razanpardazesh.onlinestore;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.support.annotation.BoolRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 import com.razanpardazesh.mtglibrary.tools.AsyncWrapper;
 import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
@@ -29,8 +22,6 @@ import com.razanpardazesh.onlinestore.data.serverWrapper.ProductGroupAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProductsGroups;
 import com.razanpardazesh.onlinestore.repo.ProductsGroupsFakeRepo;
 import com.razanpardazesh.onlinestore.repo.ProductsGroupsServerRepo;
-
-import java.util.ArrayList;
 
 public class ProductsGroupsActivity extends AppCompatActivity {
 
@@ -89,7 +80,7 @@ public class ProductsGroupsActivity extends AppCompatActivity {
             productsGroupsRepo = new ProductsGroupsServerRepo();
         }
 
-        getProducsGroupsAsync = new NetworkAsyncWrapper().initDefaultProgressDialog("", true).setDoOnBackground(new AsyncWrapper.Callback() {
+        getProducsGroupsAsync = new NetworkAsyncWrapper().initDefaultProgressDialog(this,"", true).setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 return productsGroupsRepo.getGroups(getApplicationContext(), productsGroupAnswer.getGroup().getId(), "", productsGroupAnswer.getLastIndex(), KEY_LIST_COUNT);

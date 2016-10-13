@@ -4,4 +4,6 @@
     <string name="yes">بلی</string>
     <string name="no">نه</string>
     <string name="ok">تایید</string>
+    <string name="wait">صبر کنید</string>
+    <string name="connecting_to_server">در حال اتصال به سرور</string>
 </resources>
