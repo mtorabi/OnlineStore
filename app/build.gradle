@@ -23,6 +23,8 @@ android {
 
     sourceSets {
         fakeBuild { res.srcDirs = ['src/fakeBuild/res'] }
+        mainBuild { res.srcDirs = ['src/nonefakeBuild/res'] }
+        RazanBuild { res.srcDirs = ['src/nonefakeBuild/res'] }
     }
 
     productFlavors {
