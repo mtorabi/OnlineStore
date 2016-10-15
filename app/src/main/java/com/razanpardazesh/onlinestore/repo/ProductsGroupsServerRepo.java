@@ -42,7 +42,7 @@ public class ProductsGroupsServerRepo implements IProductsGroups {
                 answer.fillByJson(new JSONObject(jsonStr));
             }
         } catch (Exception e) {
-            LogWrapper.loge("ProductsGroupsServerRepo.getGroups: ",e);
+            LogWrapper.loge("ProductsGroupsServerRepo.getGroups: ", e);
         }
 
 

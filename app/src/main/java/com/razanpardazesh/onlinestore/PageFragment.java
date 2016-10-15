@@ -43,13 +43,13 @@ public class PageFragment extends Fragment {
         switch (page)
         {
             case 1:
-                imgAdv.setImageResource(R.drawable.c_refah);
+                imgAdv.setImageResource(R.drawable.c_banner);
                 break;
             case 2:
-                imgAdv.setImageResource(R.drawable.c_refah_2);
+                imgAdv.setImageResource(R.drawable.c_banner_2);
                 break;
             case 3:
-                imgAdv.setImageResource(R.drawable.c_refah_3);
+                imgAdv.setImageResource(R.drawable.c_banner_3);
                 break;
         }
 

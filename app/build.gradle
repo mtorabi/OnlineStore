@@ -22,7 +22,9 @@ android {
     }
 
     sourceSets {
-        fakeBuild { res.srcDirs = ['src/fakeBuild/res'] }
+        fakeBuild { res.srcDirs = ['src/fake/res'] }
+        mainBuild { res.srcDirs = ['src/razan/res'] }
+        RazanBuild { res.srcDirs = ['src/razan/res'] }
     }
 
     productFlavors {
@@ -55,12 +57,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support:cardview-v7:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
-    compile 'com.android.support:support-v4:24.1.1'
-    compile 'com.google.android.gms:play-services:9.2.1'
+
     compile 'com.android.support:multidex:1.0.0'
     compile project(':mtglibrary')
 }

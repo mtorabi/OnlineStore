@@ -382,7 +382,7 @@ public class ProductActivity extends AppCompatActivity {
             productsRepo = new ProductServerRepo();
 
         //TODO
-        getProductsAsync = new NetworkAsyncWrapper().initDefaultProgressDialog("", true).setDoOnBackground(new AsyncWrapper.Callback() {
+        getProductsAsync = new NetworkAsyncWrapper().initDefaultProgressDialog(getApplicationContext(),"", true).setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 return productsRepo.getProduct(getApplicationContext(), product.getId());

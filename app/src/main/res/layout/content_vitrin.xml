@@ -86,7 +86,7 @@
             android:layout_below="@id/most_sold"
             android:layout_marginTop="20dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/c_tea_bag" />
+            android:src="@drawable/c_banner_5" />
 
         <RelativeLayout
             android:id="@+id/most_visited"
@@ -131,7 +131,7 @@
             android:layout_below="@id/most_visited"
             android:layout_marginTop="20dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/c_refah_4" />
+            android:src="@drawable/c_banner_4" />
 
 
     </RelativeLayout>

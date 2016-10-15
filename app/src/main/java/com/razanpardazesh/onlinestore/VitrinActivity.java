@@ -24,6 +24,7 @@ import com.razanpardazesh.mtglibrary.tools.AsyncWrapper;
 import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.FabWrapper;
+import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.ViewAdapter.HorizontalSmallProductsAdaper;
 import com.razanpardazesh.onlinestore.data.ProductsGroup;
@@ -77,7 +78,7 @@ public class VitrinActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toolbar.setLogo(R.drawable.teemanshop_logo);
+        toolbar.setLogo(R.drawable.toolbar_logo);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -180,7 +181,6 @@ public class VitrinActivity extends AppCompatActivity {
         pager.setAdapter(adapter);
         final Indicator indexBox = (Indicator) findViewById(R.id.indexBox);
         indexBox.setViewPager(pager);
-
     }
 
 
