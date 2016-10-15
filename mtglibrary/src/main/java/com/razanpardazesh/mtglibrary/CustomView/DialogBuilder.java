@@ -3,6 +3,7 @@ package com.razanpardazesh.mtglibrary.CustomView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.razanpardazesh.mtglibrary.R;
@@ -13,7 +14,7 @@ import com.razanpardazesh.mtglibrary.R;
 
 public class DialogBuilder {
 
-    public AlertDialog showYesNOAlert(Context context, String title, String question, DialogInterface.OnClickListener yesAction, DialogInterface.OnClickListener noAction) {
+    public AlertDialog showYesNOAlert(AppCompatActivity context, String title, String question, DialogInterface.OnClickListener yesAction, DialogInterface.OnClickListener noAction) {
         if (TextUtils.isEmpty(title))
             title = context.getString(R.string.attention);
 
@@ -25,18 +26,33 @@ public class DialogBuilder {
                 .show();
     }
 
-    public AlertDialog showAlert(Context context,String message)
-    {
+    public AlertDialog showAlert(AppCompatActivity context, String message) {
         return new AlertDialog.Builder(context)
                 .setMessage(message)
-                .setNeutralButton(context.getString(R.string.ok),null)
+                .setNeutralButton(context.getString(R.string.ok), null)
                 .show();
     }
-    public AlertDialog showAlert(Context context,String message, DialogInterface.OnClickListener okAction)
-    {
+
+    public AlertDialog showAlert(AppCompatActivity context, Throwable error) {
+        if (error == null)
+            return null;
+
+        if (TextUtils.isEmpty(error.getMessage()))
+            return new AlertDialog.Builder(context)
+                    .setMessage(error.toString())
+                    .setNeutralButton(context.getString(R.string.ok), null)
+                    .show();
+
+        return new AlertDialog.Builder(context)
+                .setMessage(error.getMessage())
+                .setNeutralButton(context.getString(R.string.ok), null)
+                .show();
+    }
+
+    public AlertDialog showAlert(AppCompatActivity context, String message, DialogInterface.OnClickListener okAction) {
         return new AlertDialog.Builder(context)
                 .setMessage(message)
-                .setNeutralButton(context.getString(R.string.ok),okAction)
+                .setNeutralButton(context.getString(R.string.ok), okAction)
                 .show();
     }
 }

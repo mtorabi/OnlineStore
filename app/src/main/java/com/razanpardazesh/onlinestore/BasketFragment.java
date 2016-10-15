@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -91,7 +92,7 @@ public class BasketFragment extends DialogFragment {
         DividerDecoration dividerDecoration =
                 new DividerDecoration(ContextCompat.getDrawable(getActivity(), R.drawable.divider_basket_item));
 
-        adapter = new BasketItemAdapter(getActivity());
+        adapter = new BasketItemAdapter((AppCompatActivity) getActivity());
         lstItems.setAdapter(adapter);
         lstItems.addItemDecoration(dividerDecoration);
 
@@ -105,10 +106,13 @@ public class BasketFragment extends DialogFragment {
     }
 
     private void initBasketStatistics() {
-        BasketStatistics statistics = new BasketStatistics();
+        BasketStatistics statistics = null;
 
         if (adapter != null)
             statistics = adapter.getStatistics();
+
+        if (statistics == null)
+            statistics = new BasketStatistics();
 
         if (txtTotalPrice == null) {
             txtTotalPrice = (TextView) rootView.findViewById(R.id.txtTotalPrice);

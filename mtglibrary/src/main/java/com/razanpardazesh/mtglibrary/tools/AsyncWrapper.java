@@ -114,23 +114,48 @@ public class AsyncWrapper {
     }
 
     public AsyncWrapper setDoOnBackground(Callback onBackground) {
+        if (innerAsyncTask != null)
+            return this;
+
         this.onBackground = onBackground;
         return this;
     }
 
     public AsyncWrapper setDoOnAnswer(Callback onAnswer) {
+
+        if (innerAsyncTask != null)
+            return this;
+
         this.onAnswer = onAnswer;
         return this;
     }
 
     public AsyncWrapper setDoOnError(Callback onError) {
+
+        if (innerAsyncTask != null)
+            return this;
+
         this.onError = onError;
         return this;
     }
 
     public AsyncWrapper setDoOnCancel(Callback onCancel) {
+
+        if (innerAsyncTask != null)
+            return this;
+
         this.onCancel = onCancel;
         return this;
+    }
+
+    protected void riseError(Throwable throwable)
+    {
+        cancel();
+
+        if (onError == null)
+            return;
+
+        onError.call(throwable);
     }
 
 }

@@ -17,8 +17,8 @@ public abstract class ServerAnswer implements IJson {
 
     private final String KEY_IS_SUCCESS="issu";
     private final String KEY_HAS_MORE="hasm";
-    private final String KEY_LAST_INDEX="msg";
-    private final String KEY_MESSAGE="lsti";
+    private final String KEY_LAST_INDEX="lsti";
+    private final String KEY_MESSAGE="msg";
 
     private int isSuccess = 0;
     private int hasMore = 0;

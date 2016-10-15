@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.razanpardazesh.mtglibrary.tools.Convertor;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
-import com.razanpardazesh.onlinestore.data.ProductImage;
+import com.razanpardazesh.onlinestore.data.ContentImage;
 
 import java.util.ArrayList;
 
@@ -20,14 +20,14 @@ import java.util.ArrayList;
 public class ProductImagesAdapter extends RecyclerView.Adapter<ProductImagesAdapter.ViewHolder> {
 
     public interface ProductImageAdapterInterface {
-        public void onClick(ImageView view, ProductImage image, int position);
+        public void onClick(ImageView view, ContentImage image, int position);
     }
 
     ProductImageAdapterInterface productImageAdapterInterface;
-    ArrayList<ProductImage> images = new ArrayList<>();
+    ArrayList<ContentImage> images = new ArrayList<>();
     Context context;
 
-    public ProductImagesAdapter(ArrayList<ProductImage> images, Context context) {
+    public ProductImagesAdapter(ArrayList<ContentImage> images, Context context) {
         this.images = images;
         this.context = context;
     }

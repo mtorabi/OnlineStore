@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.razanpardazesh.mtglibrary.CustomView.DialogBuilder;
 import com.razanpardazesh.mtglibrary.CustomView.recycler.IRecyclerRow;
 import com.razanpardazesh.mtglibrary.CustomView.recycler.MTGRecyclerView;
 import com.razanpardazesh.mtglibrary.CustomView.recycler.MTGViewHolder;
@@ -26,6 +27,7 @@ import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.Tools.ToolbarWrapper;
 import com.razanpardazesh.onlinestore.ViewAdapter.ProductsGroupsAdapter;
 import com.razanpardazesh.onlinestore.ViewAdapter.decorations.DividerDecoration;
+import com.razanpardazesh.onlinestore.data.ProductSummary;
 import com.razanpardazesh.onlinestore.data.ProductsGroup;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductGroupAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProductsGroups;
@@ -44,8 +46,8 @@ public class ProductsGroupsActivity extends AppCompatActivity {
 
     private ProductGroupAnswer productsGroupAnswer;
     private IProductsGroups productsGroupsRepo;
-    private AsyncWrapper getProducsGroupsAsync;
-    //private ProductsGroupsAdapter groupsAdapter;
+    private NetworkAsyncWrapper getProducsGroupsAsync;
+    private MTGRecyclerView row_groups = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class ProductsGroupsActivity extends AppCompatActivity {
         initToolbar();
         initFloatActionButton();
         getProductsGroupsData();
+        initRecycleView();
 
     }
 
@@ -92,7 +95,10 @@ public class ProductsGroupsActivity extends AppCompatActivity {
             productsGroupsRepo = new ProductsGroupsServerRepo();
         }
 
-        getProducsGroupsAsync = new NetworkAsyncWrapper().setDoOnBackground(new AsyncWrapper.Callback() {
+        if (getProducsGroupsAsync == null)
+            getProducsGroupsAsync = new NetworkAsyncWrapper();
+
+        getProducsGroupsAsync.setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 return productsGroupsRepo.getGroups(getApplicationContext(), productsGroupAnswer.getGroup().getId(), "", productsGroupAnswer.getLastIndex(), KEY_LIST_COUNT);
@@ -113,8 +119,10 @@ public class ProductsGroupsActivity extends AppCompatActivity {
         }).setDoOnError(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
-                if (object instanceof Throwable)
-                    Log.e("Razan", "call: ", (Throwable) object);
+                if (object instanceof Throwable) {
+                    DialogBuilder dialog = new DialogBuilder();
+                    dialog.showAlert(ProductsGroupsActivity.this, (Throwable) object);
+                }
                 return null;
             }
         });
@@ -124,7 +132,7 @@ public class ProductsGroupsActivity extends AppCompatActivity {
 
     private void setProductsGroupData(ProductGroupAnswer group) {
         this.productsGroupAnswer = group;
-        initRecycleView();
+        addRow(group);
     }
 
     private void initRecycleView() {
@@ -133,7 +141,10 @@ public class ProductsGroupsActivity extends AppCompatActivity {
             return;
         }
 
-        MTGRecyclerView row_groups = (MTGRecyclerView) findViewById(R.id.row_groups);
+        if (row_groups == null) {
+            row_groups = (MTGRecyclerView) findViewById(R.id.row_groups);
+        }
+
 
         row_groups.setDefaultDivider().setDefaultAdapter(new OnRecycleViewListener() {
             @Override
@@ -141,57 +152,81 @@ public class ProductsGroupsActivity extends AppCompatActivity {
                 if (parent == null || parent.getContext() == null)
                     return null;
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.products_group_item, parent, false);
-                MTGViewHolder holder = new MTGViewHolder(view) ;
+                MTGViewHolder holder = new MTGViewHolder(view);
                 holder.defineChild(R.id.imgGroup);
                 holder.defineChild(R.id.txtGroupName);
                 return holder;
             }
 
             @Override
-            public void onBindViewHolder(MTGViewHolder holder, int position,IRecyclerRow row) {
-                if (!(row instanceof ProductsGroup))
-                    return;
-                ProductsGroup group = (ProductsGroup) row;
+            public void onBindViewHolder(MTGViewHolder holder, int position, IRecyclerRow row) {
+                if (row instanceof ProductsGroup) {
+                    ProductsGroup group = (ProductsGroup) row;
 
-                holder.getTextView(R.id.txtGroupName).setText(group.getName());
-                if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
-                    holder.getImageView(R.id.imgGroup).setImageResource(Integer.parseInt(group.getImage(getApplicationContext())));
-                else {
-                    //TODO MTG
+                    holder.getTextView(R.id.txtGroupName).setText(group.getName());
+                    if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
+                        holder.getImageView(R.id.imgGroup).setImageResource(Integer.parseInt(group.getImage(getApplicationContext())));
+                    else {
+                        //TODO MTG
+                    }
+                    return;
+                }
+
+                if (row instanceof ProductSummary)
+                {
+                    ProductSummary product = (ProductSummary) row;
+
+                    holder.getTextView(R.id.txtGroupName).setText(product.getName());
+                    if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
+                        holder.getImageView(R.id.imgGroup).setImageResource(Integer.parseInt(product.getImage(getApplicationContext())));
+                    else {
+                        //TODO MTG
+                    }
+                    return;
                 }
             }
 
             @Override
             public void onLoadMore() {
-
+                if (productsGroupAnswer == null || productsGroupAnswer.getGroup() == null || productsGroupAnswer.getGroup().getId() < 0 || productsGroupAnswer.getHasMore() != 1) {
+                    return;
+                }
+                getProductsGroupsData();
             }
 
             @Override
             public void onRowClick(IRecyclerRow row, int pos, View v) {
-                if (!(row instanceof ProductsGroup))
-                    return;
-                ProductsGroup group = (ProductsGroup) row;
+                if (row instanceof ProductsGroup) {
+                    ProductsGroup group = (ProductsGroup) row;
 
-                ProductsGroupsActivity.openActivity(ProductsGroupsActivity.this, group.getId(), group.getName());
+                    ProductsGroupsActivity.openActivity(ProductsGroupsActivity.this, group.getId(), group.getName());
+                    return;
+                }
+
+                if (row instanceof ProductSummary) {
+                    ProductSummary product = (ProductSummary) row;
+
+                    ProductActivity.openActivity(ProductsGroupsActivity.this, product.getId());
+                    return;
+                }
             }
 
             @Override
             public Boolean onRowLongClick(IRecyclerRow row, int pos, View v) {
                 return null;
             }
-        }).addRows(productsGroupAnswer.getGroup().getSubGroups(),false);
+        });
 
-//        RecyclerView.LayoutManager rowManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-//        row_groups.setLayoutManager(rowManager);
-//
-//        DividerDecoration decoration = new DividerDecoration(ContextCompat.getDrawable(getApplicationContext(), R.drawable.divider_basket_item));
-//        row_groups.addItemDecoration(decoration);
-//
-//        groupsAdapter = new ProductsGroupsAdapter(this);
-//
-//        groupsAdapter.addItem(productsGroupAnswer.getGroup().getSubGroups());
-//
-//        row_groups.setAdapter(groupsAdapter);
+    }
+
+    private void addRow(ProductGroupAnswer productsGroupAnswer) {
+        if (row_groups == null) {
+            initRecycleView();
+        }
+        if (productsGroupAnswer.getGroup().getSubGroups() != null && productsGroupAnswer.getGroup().getSubGroups().size() != 0)
+            row_groups.addRows(productsGroupAnswer.getGroup().getSubGroups(), productsGroupAnswer.getHasMore() != 1);
+        else if(productsGroupAnswer.getGroup().getSubProducts() != null && productsGroupAnswer.getGroup().getSubProducts().size() != 0)
+            row_groups.addRows(productsGroupAnswer.getGroup().getSubProducts(), productsGroupAnswer.getHasMore() != 1);
 
     }
 

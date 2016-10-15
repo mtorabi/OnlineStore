@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -31,8 +30,8 @@ import com.razanpardazesh.onlinestore.Tools.FabWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.Tools.ToolbarWrapper;
 import com.razanpardazesh.onlinestore.ViewAdapter.ProductImagesAdapter;
-import com.razanpardazesh.onlinestore.data.Product;
-import com.razanpardazesh.onlinestore.data.ProductImage;
+import com.razanpardazesh.onlinestore.data.ContentImage;
+import com.razanpardazesh.onlinestore.data.ProductSummary;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
 import com.razanpardazesh.onlinestore.repo.BasketFakeRepo;
 import com.razanpardazesh.onlinestore.repo.BasketLocalRepo;
@@ -53,7 +52,7 @@ public class ProductActivity extends AppCompatActivity {
     private static final String EXTRA_KEY_IMAGE_WIDTH = "imageWidth";
     private static final String EXTRA_KEY_IMAGE_HEIGHT = "imageHeight";
 
-    private Product product = null;
+    private ProductSummary product = null;
 
     private IProducts productsRepo;
 
@@ -105,7 +104,7 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (product != null) {
-                    basket.addProduct(getApplicationContext(),product);
+                    basket.addProduct(getApplicationContext(), product);
                 }
             }
         });
@@ -145,7 +144,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private void initToolbar() {
         ToolbarWrapper toolbarWrapper = new ToolbarWrapper(this);
-        toolbarWrapper.initToolbarWithBack(R.id.toolbar,"",new View.OnClickListener() {
+        toolbarWrapper.initToolbarWithBack(R.id.toolbar, "", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!handleBackPress())
@@ -159,7 +158,7 @@ public class ProductActivity extends AppCompatActivity {
             return;
         }
 
-        product = new Product();
+        product = new ProductSummary();
         product.setId(data.getLongExtra(EXTRA_KEY_PRODUCT_ID, -1));
 
         if (!data.hasExtra(EXTRA_KEY_IMAGE_LEFT)) {
@@ -290,7 +289,7 @@ public class ProductActivity extends AppCompatActivity {
             return;
 
         exitAnimationIsRuuning = true;
-        
+
         if (imgMainPic == null) {
             imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
         }
@@ -348,7 +347,6 @@ public class ProductActivity extends AppCompatActivity {
     private void initMainPic() {
 
 
-
         if (imgMainPic == null) {
             imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
         }
@@ -382,7 +380,7 @@ public class ProductActivity extends AppCompatActivity {
             productsRepo = new ProductServerRepo();
 
         //TODO
-        getProductsAsync = new NetworkAsyncWrapper().initDefaultProgressDialog(getApplicationContext(),"", true).setDoOnBackground(new AsyncWrapper.Callback() {
+        getProductsAsync = new NetworkAsyncWrapper().initDefaultProgressDialog(ProductActivity.this, "", true).setDoOnBackground(new AsyncWrapper.Callback() {
             @Override
             public Object call(Object object) {
                 return productsRepo.getProduct(getApplicationContext(), product.getId());
@@ -405,7 +403,7 @@ public class ProductActivity extends AppCompatActivity {
         return true;
     }
 
-    private void setProductData(Product product) {
+    private void setProductData(ProductSummary product) {
         this.product = product;
 
         TextView txtPrice = (TextView) findViewById(R.id.txtPrice);
@@ -422,37 +420,34 @@ public class ProductActivity extends AppCompatActivity {
         initProductImages();
     }
 
-    public void initProductImages()
-    {
-        if (product == null || product.getImages() == null)
+    public void initProductImages() {
+        if (product == null || product.getContent() == null || product.getContent().getImages() == null)
             return;
 
         RecyclerView lst_product_images = (RecyclerView) findViewById(R.id.lst_product_images);
-        adapter = new ProductImagesAdapter(product.getImages(),getApplicationContext());
+        adapter = new ProductImagesAdapter(product.getContent().getImages(), getApplicationContext());
         adapter.setProductImageAdapterInterface(new ProductImagesAdapter.ProductImageAdapterInterface() {
             @Override
-            public void onClick(ImageView view, ProductImage image, int position) {
+            public void onClick(ImageView view, ContentImage image, int position) {
                 selectProductImage(image);
             }
         });
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         lst_product_images.setLayoutManager(layoutManager);
         lst_product_images.setAdapter(adapter);
     }
 
-    public void selectProductImage(ProductImage selectedImage)
-    {
+    public void selectProductImage(ContentImage selectedImage) {
         if (imgMainPic == null) {
             imgMainPic = (ImageView) findViewById(R.id.imgMainPic);
         }
 
-        if(SessionManagement.getInstance(getApplicationContext()).getFakeBind())
+        if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
             imgMainPic.setImageResource(Integer.parseInt(selectedImage.getThumb(getApplicationContext())));
-        else
-        {
+        else {
             //TODO MTG
         }
-        
+
         mainImageChanged = true;
     }
 

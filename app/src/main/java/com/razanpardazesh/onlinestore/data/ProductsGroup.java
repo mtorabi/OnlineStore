@@ -29,18 +29,18 @@ public class ProductsGroup implements IImage, IJson,IRecyclerRow {
     private final String KEY_SUB_GROUPS = "sg";
     private final String KEY_SUB_PRODUCTS = "sp";
 
-    private Long id;
-    private String name;
-    private Date createDate;
-    private ArrayList<ProductsGroup> subGroups;
-    private ArrayList<ProductSummary> subProducts;
+    private long id = 0;
+    private String name = null;
+    private Date createDate = null;
+    private ArrayList<ProductsGroup> subGroups = null;
+    private ArrayList<ProductSummary> subProducts = null;
 
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

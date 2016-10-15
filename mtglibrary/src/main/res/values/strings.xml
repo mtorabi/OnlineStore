@@ -6,4 +6,5 @@
     <string name="ok">تایید</string>
     <string name="wait">صبر کنید</string>
     <string name="connecting_to_server">در حال اتصال به سرور</string>
+    <string name="connecting_to_server_error">امکان برقراری ارتباط با سرور نیست</string>
 </resources>

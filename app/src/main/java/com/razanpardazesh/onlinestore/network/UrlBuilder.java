@@ -19,8 +19,19 @@ public class UrlBuilder {
         return BuildConfig.HOST + "ProductsGroups/subgroups?groupId=" + groupId + "&lastIndex=" + lastIndex + "&count=" + count;
     }
 
-    public static UrlBuilder builder(Context context)
-    {
+    public String getProductUrl(long productId) {
+        return BuildConfig.HOST + "Products/Details?Id=" + productId;
+    }
+
+    public String getMostSoldsPoductsUrl(int count) {
+        return BuildConfig.HOST + "Products/MostSolds?count=" + count;
+    }
+
+    public String getMostVisitedsPoductsUrl(int count) {
+        return BuildConfig.HOST + "Products/MostVisiteds?count=" + count;
+    }
+
+    public static UrlBuilder builder(Context context) {
         UrlBuilder intance = new UrlBuilder(context);
         return intance;
     }

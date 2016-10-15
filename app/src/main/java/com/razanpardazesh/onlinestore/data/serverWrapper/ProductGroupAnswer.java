@@ -39,7 +39,6 @@ public class ProductGroupAnswer extends ServerAnswer {
             try {
                 ProductsGroup group = new ProductsGroup();
                 group.fillByJson(jsonObject.getJSONObject(KEY_GROUP));
-                LogWrapper.loge("fillByJson: setGroup: ",new Exception("hi"));
                 setGroup(group);
             } catch (Exception e) {
                 LogWrapper.loge("fillByJson: setGroup: ",e);

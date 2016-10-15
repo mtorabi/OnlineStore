@@ -3,8 +3,8 @@ package com.razanpardazesh.onlinestore.repo;
 import android.content.Context;
 
 import com.razanpardazesh.onlinestore.R;
-import com.razanpardazesh.onlinestore.data.Product;
-import com.razanpardazesh.onlinestore.data.ProductImage;
+import com.razanpardazesh.onlinestore.data.Content;
+import com.razanpardazesh.onlinestore.data.ContentImage;
 import com.razanpardazesh.onlinestore.data.ProductSummary;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductAnswer;
 import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
@@ -18,24 +18,24 @@ import java.util.ArrayList;
 
 public class ProductFakeRepo implements IProducts {
 
-    private ArrayList<Product> products;
-    private ArrayList<ProductImage> images;
+    private ArrayList<ProductSummary> products;
+    private ArrayList<ContentImage> images;
 
-    public ArrayList<Product> getProducts() {
+    public ArrayList<ProductSummary> getProducts() {
 
         if (images == null || images.size()== 0)
         {
             images = new ArrayList<>();
 
-            images.add(new ProductImage(R.drawable.c_chai_limo));
-            images.add(new ProductImage(R.drawable.c_cooki_1));
-            images.add(new ProductImage(R.drawable.c_chai_zaferani));
-            images.add(new ProductImage(R.drawable.c_cooki_2));
-            images.add(new ProductImage(R.drawable.c_chai_sonati));
-            images.add(new ProductImage(R.drawable.c_cooki_3));
-            images.add(new ProductImage(R.drawable.c_cooki_4));
-            images.add(new ProductImage(R.drawable.c_chai_vije));
-            images.add(new ProductImage(R.drawable.c_chaie_babone));
+            images.add(new ContentImage(R.drawable.c_chai_limo));
+            images.add(new ContentImage(R.drawable.c_cooki_1));
+            images.add(new ContentImage(R.drawable.c_chai_zaferani));
+            images.add(new ContentImage(R.drawable.c_cooki_2));
+            images.add(new ContentImage(R.drawable.c_chai_sonati));
+            images.add(new ContentImage(R.drawable.c_cooki_3));
+            images.add(new ContentImage(R.drawable.c_cooki_4));
+            images.add(new ContentImage(R.drawable.c_chai_vije));
+            images.add(new ContentImage(R.drawable.c_chaie_babone));
         }
 
         if (products == null || products.size() == 0) {
@@ -107,12 +107,14 @@ public class ProductFakeRepo implements IProducts {
                         break;
                 }
 
-                Product product = new Product();
+                ProductSummary product = new ProductSummary();
 
                 product.setName(title);
                 product.setId(imageRes);
                 product.setPrice(price);
-                product.setImages(images);
+                Content content = new Content();
+                content.setImages(images);
+                product.setContent(content);
                 product.setDescription(desccription + " " + desccription + " " + desccription);
 
                 products.add(product);

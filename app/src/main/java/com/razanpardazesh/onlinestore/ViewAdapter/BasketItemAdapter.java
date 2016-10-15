@@ -3,6 +3,7 @@ package com.razanpardazesh.onlinestore.ViewAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +39,9 @@ public class BasketItemAdapter extends RecyclerView.Adapter<BasketItemAdapter.Vi
     BasketItemAdapterInterface basketItemAdapterInterface;
 
     IBasketItems basketRepo;
-    FragmentActivity context;
+    AppCompatActivity context;
 
-    public BasketItemAdapter(FragmentActivity context) {
+    public BasketItemAdapter(AppCompatActivity context) {
 
         if (SessionManagement.getInstance(context).getFakeBind())
             basketRepo = new BasketFakeRepo();

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.razanpardazesh.onlinestore.data.BasketItem;
 import com.razanpardazesh.onlinestore.data.BasketStatistics;
-import com.razanpardazesh.onlinestore.data.Product;
 import com.razanpardazesh.onlinestore.data.ProductSummary;
 
 import java.util.ArrayList;

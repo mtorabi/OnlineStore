@@ -27,14 +27,17 @@ public class MTGRecyclerView  extends RecyclerView {
 
     public MTGRecyclerView(Context context) {
         super(context);
+        init();
     }
 
     public MTGRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public MTGRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init();
     }
 
     private void init()
@@ -51,7 +54,7 @@ public class MTGRecyclerView  extends RecyclerView {
                 if (!(getLayoutManager() instanceof LinearLayoutManager))
                     return;
 
-                if (!hideProgress || mAdapter == null || mAdapter.getRecycleViewListener() == null)
+                if (hideProgress || mAdapter == null || mAdapter.getRecycleViewListener() == null)
                     return;
 
                 LinearLayoutManager mLayoutManager = (LinearLayoutManager) getLayoutManager();

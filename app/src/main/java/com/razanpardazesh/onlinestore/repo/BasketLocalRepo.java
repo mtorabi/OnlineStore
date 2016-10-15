@@ -16,27 +16,27 @@ import java.util.ArrayList;
 public class BasketLocalRepo implements IBasketItems {
     @Override
     public ArrayList<BasketItem> getBasketItems(Context context) {
-        return null;
+        return new ArrayList<BasketItem>();
     }
 
     @Override
     public Boolean addProduct(Context context, ProductSummary item) {
-        return null;
+        return false;
     }
 
     @Override
     public Boolean removeProduct(Context context, ProductSummary item) {
-        return null;
+        return false;
     }
 
     @Override
     public Boolean clearBasket(Context context) {
-        return null;
+        return false;
     }
 
     @Override
     public BasketStatistics getStatistics(Context context) {
-        return null;
+        return new BasketStatistics();
     }
 
 
