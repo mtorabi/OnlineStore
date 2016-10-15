@@ -25,6 +25,7 @@ android {
         fakeBuild { res.srcDirs = ['src/fake/res'] }
         mainBuild { res.srcDirs = ['src/razan/res'] }
         RazanBuild { res.srcDirs = ['src/razan/res'] }
+        homeBuild { res.srcDirs = ['src/home/res'] }
     }
 
     productFlavors {
@@ -51,6 +52,14 @@ android {
             targetSdkVersion 23
             versionCode 1000
             buildConfigField("String", "HOST", '"fake"')
+        }
+        homeBuild {
+            applicationId "com.razanpardazesh.onlinestore_Home"
+            versionName "1.0-home"
+            minSdkVersion 15
+            targetSdkVersion 23
+            versionCode 1000
+            buildConfigField("String", "HOST", '"http://91.98.61.157:199/"')
         }
     }
 }

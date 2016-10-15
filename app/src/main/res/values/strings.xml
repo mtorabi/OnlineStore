@@ -44,6 +44,8 @@
     <string name="address">ادرس</string>
     <string name="select_location">انتخاب موقعیت مکانی</string>
     <string name="ok">تایید</string>
+    <string name="user">کاربر</string>
+    <string name="userTel">شماره تماس کاربر</string>
     <string name="google_play_service_alert">در حال حاضر امکان استفاده از سرویس موقعیت یاب گوگل میسر نیست. لطفا نسبت به نصب و به روز بودن گوگل پلی سرویس خود اطمینان یابید</string>
 
     <!-- Strings related to login -->
