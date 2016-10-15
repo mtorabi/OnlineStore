@@ -1,7 +1,10 @@
 package com.razanpardazesh.onlinestore;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -32,6 +35,7 @@ import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 import com.razanpardazesh.onlinestore.repo.ProductFakeRepo;
 import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
+import com.stephentuso.welcome.WelcomeScreenHelper;
 
 
 public class VitrinActivity extends AppCompatActivity {
@@ -42,6 +46,8 @@ public class VitrinActivity extends AppCompatActivity {
 
     NetworkAsyncWrapper getMostSold = new NetworkAsyncWrapper();
     NetworkAsyncWrapper getMostVisited = new NetworkAsyncWrapper();
+
+    WelcomeScreenHelper welcomeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +61,21 @@ public class VitrinActivity extends AppCompatActivity {
         initFonts();
         initRepos();
         runGetProducts();
+
+        welcomeScreen = new WelcomeScreenHelper(this, OnlineStoreWelcomeActivity.class);
+        welcomeScreen.show(savedInstanceState);
+        welcomeScreen.forceShow();
     }
 
     private void initFloatingActionButton() {
         FabWrapper fabWrapper = new FabWrapper(this, false);
         fabWrapper.initFab(R.id.fab, null);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        welcomeScreen.onSaveInstanceState(outState);
     }
 
     private void initViews() {
@@ -69,7 +85,7 @@ public class VitrinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ProductsGroupsActivity.openActivity(VitrinActivity.this, 0l,getString(R.string.title_activity_products_groups));
+                ProductsGroupsActivity.openActivity(VitrinActivity.this, 0l, getString(R.string.title_activity_products_groups));
             }
         });
     }
@@ -286,4 +302,8 @@ public class VitrinActivity extends AppCompatActivity {
         }).run(getApplicationContext());
     }
 
+    public static void start(Context context) {
+        Intent starter = new Intent(context, VitrinActivity.class);
+        context.startActivity(starter);
+    }
 }
