@@ -25,7 +25,7 @@ android {
         fakeBuild { res.srcDirs = ['src/fake/res'] }
         mainBuild { res.srcDirs = ['src/razan/res'] }
         RazanBuild { res.srcDirs = ['src/razan/res'] }
-        homeBuild { res.srcDirs = ['src/home/res'] }
+        refahBuild { res.srcDirs = ['src/refah/res'] }
     }
 
     productFlavors {
@@ -53,9 +53,9 @@ android {
             versionCode 1000
             buildConfigField("String", "HOST", '"fake"')
         }
-        homeBuild {
-            applicationId "com.razanpardazesh.onlinestore_Home"
-            versionName "1.0-home"
+        refahBuild {
+            applicationId "com.razanpardazesh.teamanshop"
+            versionName "1.0"
             minSdkVersion 15
             targetSdkVersion 23
             versionCode 1000

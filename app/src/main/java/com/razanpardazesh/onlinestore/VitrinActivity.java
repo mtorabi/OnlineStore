@@ -63,7 +63,7 @@ public class VitrinActivity extends AppCompatActivity {
         runGetProducts();
 
         welcomeScreen = new WelcomeScreenHelper(this, OnlineStoreWelcomeActivity.class);
-        welcomeScreen.show(savedInstanceState);
+        //welcomeScreen.show(savedInstanceState);
         welcomeScreen.forceShow();
     }
 

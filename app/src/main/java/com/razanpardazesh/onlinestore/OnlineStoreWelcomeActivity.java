@@ -17,10 +17,10 @@ public class OnlineStoreWelcomeActivity extends WelcomeActivity {
         return new WelcomeScreenBuilder(this)
                 .theme(R.style.WelcomeScreenTheme_Light)
                 .defaultBackgroundColor(R.color.colorAccentBack)
-                .titlePage(R.drawable.toolbar_logo, "فروشگاه تیمن شاپ" ,R.color.colorAccent)
-                .basicPage(R.drawable.c_banner, "به فروشگاه تیمن خوش آمدید", "رفاه لاهیجان تقدیم می کند", R.color.colorSecondaryTitle)
-                .basicPage(R.drawable.c_banner_2, "بهترین با کیفیت ترین محصولات را می توانید از این فروشگاه تهیه نمایید", "در سریعترین زمان ممکن",R.color.colorPrimaryBack)
-                .swipeToDismiss(true)
+                .titlePage(R.drawable.c_welcome_1, getString(R.string.welcome_page1_title) ,R.color.welcome_color_1)
+                .basicPage(R.drawable.c_welcome_2, getString(R.string.welcome_page2_title), getString(R.string.welcome_page2_description), R.color.welcome_color_2)
+                .basicPage(R.drawable.c_welcome_3, getString(R.string.welcome_page3_title), getString(R.string.welcome_page3_description),R.color.welcome_color_3)
+                .swipeToDismiss(true).theme(R.style.OnlineStoreWelcomeScreenTheme)
                 .build();
     }
 

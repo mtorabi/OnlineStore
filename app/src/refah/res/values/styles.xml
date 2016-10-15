@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="OnlineStoreWelcomeScreenTheme" parent="MTGWelcomeScreenTheme">
+
+        <!-- Done/skip button text -->
+        <item name="welcomeButtonSkipText">بیخیال</item>
+        <item name="welcomeButtonDoneText">تمام</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
