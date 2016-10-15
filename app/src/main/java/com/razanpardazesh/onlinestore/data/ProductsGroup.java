@@ -3,6 +3,7 @@ package com.razanpardazesh.onlinestore.data;
 import android.content.Context;
 import android.util.Log;
 
+import com.razanpardazesh.mtglibrary.CustomView.recycler.IRecyclerRow;
 import com.razanpardazesh.mtglibrary.tools.Convertor;
 import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
@@ -20,7 +21,7 @@ import java.util.Date;
  * Created by Torabi on 9/11/2016.
  */
 
-public class ProductsGroup implements IImage, IJson {
+public class ProductsGroup implements IImage, IJson,IRecyclerRow {
 
     private final String KEY_ID = "i";
     private final String KEY_NAME = "t";
@@ -166,5 +167,10 @@ public class ProductsGroup implements IImage, IJson {
         }
 
         return output;
+    }
+
+    @Override
+    public Object getRowId() {
+        return getId();
     }
 }

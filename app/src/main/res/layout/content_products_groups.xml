@@ -11,13 +11,13 @@
     tools:showIn="@layout/activity_products_groups">
 
 
-    <android.support.v7.widget.RecyclerView
+    <com.razanpardazesh.mtglibrary.CustomView.recycler.MTGRecyclerView
         android:layoutDirection="ltr"
 
         android:id="@+id/row_groups"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.razanpardazesh.mtglibrary.CustomView.recycler.MTGRecyclerView>
 
 </RelativeLayout>
