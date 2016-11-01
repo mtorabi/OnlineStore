@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f4373e</color>
+    <color name="colorPrimaryDark">#FD5C60</color>
+    <color name="colorAccent">#f4373e</color>
+    <color name="colorAccentPress">#AA0307</color>
+    <color name="colorAccentBack">#66bb6a</color>
+    <color name="colorPrimaryBack">#FE8689</color>
+    <color name="colorPrimaryText">#454545</color>
+    <color name="colorPrimaryPrice">#83b085</color>
+    <color name="colorPrimaryTitle">#5d747c</color>
+    <color name="colorSecondaryTitle">#3f99d8</color>
+    <color name="Wheat" >#eee</color>
+    <color name="welcome_color_1" >#f5e5bc</color>
+    <color name="welcome_color_2" >#cbb7c3</color>
+    <color name="welcome_color_3" >#ceb4a1</color>
+
+</resources>

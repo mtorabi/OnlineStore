@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">OnlineStore</string>
-    <string name="app_address">www.razanpardazesh.com</string>
+
+    <string name="app_name">تیمن شاپ</string>
+    <string name="splash_text">رفاه لاهیجان</string>
+    <string name="welcome_page1_title">به تیمن شاپ خوش آمدید</string>
+    <string name="welcome_page2_title">تیمن شاپ فروشگاهی آنلاین</string>
+    <string name="welcome_page2_description">به راحتی مایحتاج خود را از میان محصولات پرکیفیت ما انتخاب کنید</string>
+    <string name="welcome_page3_title">تجریه خریدی آسان</string>
+    <string name="welcome_page3_description">و با چند کلید آنها را در درب منزل تحویل بگیرید</string>
 </resources>
