@@ -26,7 +26,7 @@ public class UserAddressFakeRepo implements IUserAddresses {
     private static void initFakeAddress()
     {
         address = new UserAddress();
-        address.setAddress("گیلان، رشت، خیابان قلی پور، ساختمان دی، ط 4");
+        address.setAddressStr("گیلان، رشت، خیابان قلی پور، ساختمان دی، ط 4");
 
         Province gilan = new Province();
         gilan.setId(13);
