@@ -1,5 +1,6 @@
 package com.razanpardazesh.onlinestore.data;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,7 +9,6 @@ import com.razanpardazesh.onlinestore.data.realmObject.Address;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
-import io.realm.internal.Context;
 
 /**
  * Created by Torabi on 9/22/2016.

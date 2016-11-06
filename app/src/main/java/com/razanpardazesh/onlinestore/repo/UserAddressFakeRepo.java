@@ -76,7 +76,7 @@ public class UserAddressFakeRepo implements IUserAddresses {
     }
 
     @Override
-    public UserAddressAnswer updateUserAddress(Context context,final UserAddress updatedAddress) {
+    public UserAddressAnswer updateUserAddress(Context context,UserAddress updatedAddress) {
         UserAddressAnswer answer = new UserAddressAnswer();
         answer.setIsSuccess(1);
         answer.setHasMore(0);

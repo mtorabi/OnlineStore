@@ -33,6 +33,7 @@ public class AsyncWrapper {
                 answer = onBackground.call(params);
 
             } catch (Throwable e) {
+                e.printStackTrace();
                 return e;
             }
             return null;

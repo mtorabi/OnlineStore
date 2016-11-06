@@ -61,4 +61,6 @@
         completions."
     </string>
     <string name="title_activity_products_groups">گروه کالاها</string>
+    <string name="is_not_valid_value">مقدار %1$s صحیح نیست</string>
+    <string name="please_enter_variable">لطفا %1$s وارد نمایید</string>
 </resources>

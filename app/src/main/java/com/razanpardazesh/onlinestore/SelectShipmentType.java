@@ -151,7 +151,7 @@ public class SelectShipmentType extends AppCompatActivity {
 
         txtProvince.setText(address.getProvince().getName());
         txtCity.setText(address.getCity().getName());
-        txtAddress.setText(address.getAddress());
+        txtAddress.setText(address.getAddressStr());
         txtPostalCode.setText(address.getPostalCode());
         txtEmergencyTel.setText(address.getEmergencyTel());
         txtHomeTel.setText(address.getTel());
