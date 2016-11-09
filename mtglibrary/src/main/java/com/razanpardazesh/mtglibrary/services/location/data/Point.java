@@ -2,13 +2,13 @@ package com.razanpardazesh.mtglibrary.services.location.data;
 
 import java.util.Date;
 
-import io.realm.RealmObject;
+
 
 /**
  * Created by Home on 9/21/2016.
  */
 
-public class Point extends RealmObject{
+public class Point{
 
     private long id;
     private double latitude;

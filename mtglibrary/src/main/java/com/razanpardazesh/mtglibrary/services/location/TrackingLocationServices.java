@@ -19,10 +19,7 @@ import com.razanpardazesh.mtglibrary.services.location.data.LocationType;
 import com.razanpardazesh.mtglibrary.services.location.data.Point;
 import com.razanpardazesh.mtglibrary.tools.LocationHelper;
 
-import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.RealmResults;
+
 
 public class TrackingLocationServices extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 

@@ -26,13 +26,19 @@ public class LogWrapper {
         Log.e(DEBUG_TAG, call, e);
     }
 
+    public static void logd(String call, String msg) {
+        if (!isDebugable)
+            return;
+        Log.e(DEBUG_TAG, call + ":_________________:" + msg);
+    }
+
     public static void showValidateError(View view, String fieldName, Boolean isEmpty) {
         if (view == null) {
             return;
         }
 
-        String msgFormat = isEmpty ? view.getResources().getString(R.string.please_enter_variable):view.getResources().getString(R.string.is_not_valid_value);
-        showError(view,String.format(msgFormat,fieldName));
+        String msgFormat = isEmpty ? view.getResources().getString(R.string.please_enter_variable) : view.getResources().getString(R.string.is_not_valid_value);
+        showError(view, String.format(msgFormat, fieldName));
     }
 
     public static void showError(View view, String Message) {
@@ -41,29 +47,27 @@ public class LogWrapper {
             return;
         }
 
-        if (view instanceof TextInputLayout)
-        {
+        if (view instanceof TextInputLayout) {
             TextInputLayout textInputLayout = (TextInputLayout) view;
             textInputLayout.setEnabled(true);
             textInputLayout.setError(Message);
             return;
         }
 
-        if (view instanceof TextView)
-        {
+        if (view instanceof TextView) {
             TextView textInputLayout = (TextView) view;
             textInputLayout.setError(Message);
             return;
         }
 
-        if (view.getContext() instanceof  AppCompatActivity) {
+        if (view.getContext() instanceof AppCompatActivity) {
             new DialogBuilder().showAlert((AppCompatActivity) view.getContext(), Message);
             return;
         }
 
         new AlertDialog.Builder(view.getContext()).setMessage(Message).show();
 
-        return ;
+        return;
     }
 
 }

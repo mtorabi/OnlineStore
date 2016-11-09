@@ -63,4 +63,12 @@
     <string name="title_activity_products_groups">گروه کالاها</string>
     <string name="is_not_valid_value">مقدار %1$s صحیح نیست</string>
     <string name="please_enter_variable">لطفا %1$s وارد نمایید</string>
+
+    <string name="title_activity_welcome">خوش آمدید</string>
+    <string name="ignore">بیخیال</string>
+    <string name="next">بعدی</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

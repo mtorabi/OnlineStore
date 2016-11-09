@@ -35,7 +35,6 @@ import com.razanpardazesh.onlinestore.data.serverWrapper.ProductListAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IProducts;
 import com.razanpardazesh.onlinestore.repo.ProductFakeRepo;
 import com.razanpardazesh.onlinestore.repo.ProductServerRepo;
-import com.stephentuso.welcome.WelcomeScreenHelper;
 
 
 public class VitrinActivity extends AppCompatActivity {
@@ -47,7 +46,7 @@ public class VitrinActivity extends AppCompatActivity {
     NetworkAsyncWrapper getMostSold = new NetworkAsyncWrapper();
     NetworkAsyncWrapper getMostVisited = new NetworkAsyncWrapper();
 
-    WelcomeScreenHelper welcomeScreen;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +60,8 @@ public class VitrinActivity extends AppCompatActivity {
         initFonts();
         initRepos();
         runGetProducts();
+        WelcomeActivity.start(this);
 
-        welcomeScreen = new WelcomeScreenHelper(this, OnlineStoreWelcomeActivity.class);
-        //welcomeScreen.show(savedInstanceState);
-        welcomeScreen.forceShow();
     }
 
     private void initFloatingActionButton() {
@@ -75,7 +72,6 @@ public class VitrinActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        welcomeScreen.onSaveInstanceState(outState);
     }
 
     private void initViews() {

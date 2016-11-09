@@ -10,6 +10,16 @@
     <color name="colorPrimaryPrice">#83b085</color>
     <color name="colorPrimaryTitle">#5d747c</color>
     <color name="colorSecondaryTitle">#3f99d8</color>
-    <color name="Wheat" >#eee</color>
+    <color name="Wheat">#eee</color>
+
+
+
+    <color name="colorWelcome1_main">#ed1b30</color>
+    <color name="colorWelcome2_main">#018b58</color>
+    <color name="colorWelcome3_main">#3977b2</color>
+
+
+
+    <color name="black_overlay">#66000000</color>
 
 </resources>

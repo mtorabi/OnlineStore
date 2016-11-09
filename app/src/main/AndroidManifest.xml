@@ -17,6 +17,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:hardwareAccelerated="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -37,9 +38,7 @@
             android:name=".VitrinActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_vitrin"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".SelectShipmentType"
             android:label="@string/title_activity_select_shipment_type"
@@ -54,12 +53,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
-
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".ProductsGroupsActivity"
             android:label="@string/title_activity_products_groups"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
@@ -70,8 +68,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OnlineStoreWelcomeActivity"
-            android:theme="@style/WelcomeScreenTheme"/>
+        <activity
+            android:name=".WelcomeActivity"
+            android:hardwareAccelerated="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/AppTheme.NoActionBar.Fullscreen"></activity>
     </application>
 
 </manifest>
