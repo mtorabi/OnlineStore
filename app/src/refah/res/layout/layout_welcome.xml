@@ -33,37 +33,6 @@
     </android.support.v4.view.ViewPager>
 
     <FrameLayout
-        android:id="@+id/middleBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
-        <View
-            android:id="@+id/imgLogo1"
-            android:layout_width="126dp"
-            android:layout_height="93dp"
-            android:background="@drawable/welcome_1_logo"
-            android:scaleX="1"
-            android:scaleY="1" />
-
-        <View
-            android:id="@+id/imgLogo2"
-            android:layout_width="126dp"
-            android:layout_height="93dp"
-            android:background="@drawable/welcome_2_logo"
-            android:scaleX="0"
-            android:scaleY="0" />
-
-        <View
-            android:id="@+id/imgLogo3"
-            android:layout_width="126dp"
-            android:layout_height="93dp"
-            android:background="@drawable/welcome_3_logo"
-            android:scaleX="0"
-            android:scaleY="0" />
-    </FrameLayout>
-
-    <FrameLayout
         android:id="@+id/headerBox"
         android:layout_width="282dp"
         android:layout_height="wrap_content"
@@ -113,7 +82,9 @@
 
     </FrameLayout>
 
+
     <RelativeLayout
+        android:id="@+id/footerBox"
         android:layout_width="281dp"
         android:layout_height="109dp"
         android:layout_alignParentBottom="true"
@@ -172,15 +143,17 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             android:paddingBottom="5dp">
+
             <View
                 android:layout_width="12dp"
                 android:layout_height="12dp"
-                android:background="@drawable/ic_telegram"/>
+                android:background="@drawable/ic_telegram" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
                 android:layout_marginLeft="5dp"
+                android:drawablePadding="5dp"
                 android:text="@string/welcome_footer_telegram"
                 android:textColor="#fff"
                 android:textSize="11dp" />
@@ -189,15 +162,17 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_instagram"/>
+                android:background="@drawable/ic_instagram" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
                 android:layout_marginLeft="5dp"
+                android:drawablePadding="5dp"
                 android:text="@string/welcome_footer_instagram"
                 android:textColor="#fff"
                 android:textSize="11dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -207,5 +182,90 @@
                 android:textSize="11dp" />
         </LinearLayout>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/middleBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/footerBox"
+        android:layout_below="@id/headerBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/imgLogo1"
+                android:layout_width="126dp"
+                android:layout_height="93dp"
+                android:background="@drawable/welcome_1_logo"
+                android:scaleX="1"
+                android:scaleY="1" />
+
+            <View
+                android:id="@+id/imgLogo2"
+                android:layout_width="126dp"
+                android:layout_height="93dp"
+                android:background="@drawable/welcome_2_logo"
+                android:scaleX="0"
+                android:scaleY="0" />
+
+            <View
+                android:id="@+id/imgLogo3"
+                android:layout_width="126dp"
+                android:layout_height="93dp"
+                android:background="@drawable/welcome_3_logo"
+                android:scaleX="0"
+                android:scaleY="0" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtWelcome3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:alpha="0"
+                android:layout_gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:textColor="#fff"
+                android:background="@color/colorWelcome3_main"
+                android:text="@string/start"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/txtWelcome2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:alpha="0"
+                android:textColor="@color/colorWelcome2_main"
+                android:text="@string/welcome_title_2"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/txtWelcome1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:alpha="1"
+                android:textColor="@color/colorWelcome1_main"
+                android:text="@string/welcome_title_1"
+                android:textSize="20dp" />
+        </FrameLayout>
+
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -4,14 +4,35 @@
     android:layout_height="match_parent"
     tools:context="com.razanpardazesh.onlinestore.WelcomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_marginTop="190dp"
-        android:id="@+id/txtWelcome"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:textSize="20dp"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:gravity="center"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/txtWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/start"
+            android:visibility="gone"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorWelcome3_main"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="5dp"
+            android:text="@string/start"
+            android:textColor="@color/Wheat"
+            android:textSize="25dp"
+            android:visibility="gone" />
+    </LinearLayout>
 </FrameLayout>

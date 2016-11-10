@@ -60,7 +60,9 @@ public class VitrinActivity extends AppCompatActivity {
         initFonts();
         initRepos();
         runGetProducts();
-        WelcomeActivity.start(this);
+
+        //if (!SessionManagement.getInstance(this).getWelcomeShowed())
+            WelcomeActivity.start(this);
 
     }
 

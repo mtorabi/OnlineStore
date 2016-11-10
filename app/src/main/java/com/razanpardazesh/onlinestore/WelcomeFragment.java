@@ -15,6 +15,8 @@ import com.razanpardazesh.mtglibrary.tools.FontApplier;
 public class WelcomeFragment extends Fragment {
     private static final String ARG_PAGE_ID = "pageId";
 
+
+    private WelcomeFragmentListener welcomeFragmentListener;
     private int pageId = 0;
     private ViewGroup rootView = null;
     public WelcomeFragment() {
@@ -49,22 +51,42 @@ public class WelcomeFragment extends Fragment {
 
     private void initViews() {
         TextView txtWelcome = (TextView) rootView.findViewById(R.id.txtWelcome);
+        TextView btnStart = (TextView) rootView.findViewById(R.id.btnStart);
         switch (pageId)
         {
             case 0:
                 txtWelcome.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWelcome1_main));
                 txtWelcome.setText("فروشگاه آنلاین مواد غذایی");
+                btnStart.setVisibility(View.GONE);
                 break;
             case 1:
                 txtWelcome.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWelcome2_main));
                 txtWelcome.setText("فروشگاهی در دستان شما");
+                btnStart.setVisibility(View.GONE);
                 break;
             case 2:
                 txtWelcome.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWelcome3_main));
                 txtWelcome.setText("با تنوعی بی نظیر از محصولات متنوع و قیمت های باور نکردنی");
+                btnStart.setVisibility(View.GONE);
+                btnStart.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorWelcome3_main));
                 break;
         }
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (welcomeFragmentListener != null)
+                    welcomeFragmentListener.onStartClick();
+            }
+        });
     }
 
+    public interface WelcomeFragmentListener
+    {
+        public void onStartClick();
+    }
 
+    public void setWelcomeFragmentListener(WelcomeFragmentListener welcomeFragmentListener) {
+        this.welcomeFragmentListener = welcomeFragmentListener;
+    }
 }
