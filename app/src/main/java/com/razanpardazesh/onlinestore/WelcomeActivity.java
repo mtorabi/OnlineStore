@@ -1,5 +1,8 @@
 package com.razanpardazesh.onlinestore;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +18,9 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.razanpardazesh.mtglibrary.tools.Convertor;
@@ -54,17 +60,59 @@ public class WelcomeActivity extends AppCompatActivity {
     TextView txtWelcome2;
     TextView txtWelcome3;
 
+    View rightArrow2;
+    View rightArrow1;
+    View leftArrow2;
+    View leftArrow3;
+
+    View root;
+
+    int pagerSize = 4;
+
+    private Handler animateArrowHandler;
+    Runnable animateHelpTask = new Runnable() {
+        @Override
+        public void run() {
+            helpAnimateForArrow();
+        }
+    };
+
+    private boolean animateHelpArrow = true;
+
     private final float default_bg_alpha = 0.4f;
 
     ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
+        public int hashCode() {
+            return super.hashCode();
+        }
+
+        @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            if (animateHelpArrow && positionOffset == 1)
+                animateHelpArrow = false;
+
+            if (position >= pagerSize - 2) {
+                if (root == null)
+                    root = findViewById(R.id.root);
+
+                root.setAlpha(1-positionOffset);
+
+                if (positionOffset > 0.3) {
+                    finish();
+                    overridePendingTransition(0, android.R.anim.fade_out);
+                }
+                return;
+            }
             animateLogos(position, positionOffset);
             animateHeaderPic(position, positionOffset);
             animateHeader(position, positionOffset);
             animateFooter(position, positionOffset);
             animateBG(position, positionOffset);
             animateText(position, positionOffset);
+            animateArrows(position, positionOffset);
+
+
         }
 
         @Override
@@ -77,6 +125,61 @@ public class WelcomeActivity extends AppCompatActivity {
 
         }
     };
+
+    private void animateArrows(int position, float positionOffset) {
+        if (leftArrow2 == null) {
+            leftArrow2 = findViewById(R.id.leftArrow2);
+        }
+        if (leftArrow3 == null) {
+            leftArrow3 = findViewById(R.id.leftArrow3);
+        }
+        if (rightArrow2 == null) {
+            rightArrow2 = findViewById(R.id.rightArrow2);
+        }
+        if (rightArrow1 == null) {
+            rightArrow1 = findViewById(R.id.rightArrow1);
+        }
+
+
+        switch (position) {
+            case 0:
+                if (positionOffset == 0) {
+                    leftArrow2.setAlpha(0);
+                    leftArrow3.setAlpha(0);
+                    rightArrow2.setAlpha(0);
+                    rightArrow1.setAlpha(1);
+                    return;
+                }
+                rightArrow1.setAlpha(1 - positionOffset);
+                rightArrow2.setAlpha(positionOffset);
+                leftArrow3.setAlpha(0);
+                leftArrow2.setAlpha(positionOffset);
+                return;
+            case 1:
+                if (positionOffset == 0) {
+                    leftArrow2.setAlpha(1);
+                    leftArrow3.setAlpha(0);
+                    rightArrow2.setAlpha(1);
+                    rightArrow1.setAlpha(0);
+                    return;
+                }
+                rightArrow1.setAlpha(0);
+                rightArrow2.setAlpha(1 - positionOffset);
+                leftArrow3.setAlpha(positionOffset);
+                leftArrow2.setAlpha(1 - positionOffset);
+            case 2:
+                if (positionOffset == 0) {
+                    leftArrow2.setAlpha(0);
+                    leftArrow3.setAlpha(1);
+                    rightArrow2.setAlpha(0);
+                    rightArrow1.setAlpha(0);
+                    return;
+                }
+
+                return;
+        }
+
+    }
 
     private void animateHeaderPic(int position, float positionOffset) {
         if (imgHeaderPic1 == null)
@@ -476,6 +579,101 @@ public class WelcomeActivity extends AppCompatActivity {
             });
         }
 
+
+        animateArrowHandler = new Handler();
+        animateArrowHandler.postDelayed(animateHelpTask, 500);
+        helpAnimateForArrow();
+    }
+
+    private void helpAnimateForArrow() {
+        if (rightArrow1 == null) {
+            rightArrow1 = findViewById(R.id.rightArrow1);
+
+            AnimatorSet setGrow = new AnimatorSet();
+            Animator animatorGrowX = ObjectAnimator.ofFloat(rightArrow1, "scaleX", 1f, 1.5f);
+            animatorGrowX.setDuration(200);
+            animatorGrowX.setInterpolator(new AccelerateInterpolator());
+
+            Animator animatorGrowY = ObjectAnimator.ofFloat(rightArrow1, "scaleY", 1f, 1.5f);
+            animatorGrowY.setDuration(200);
+            animatorGrowY.setInterpolator(new AccelerateInterpolator());
+
+            setGrow.playTogether(animatorGrowX, animatorGrowY);
+
+            AnimatorSet setShirink = new AnimatorSet();
+            Animator animatorShirinkX = ObjectAnimator.ofFloat(rightArrow1, "scaleX", 1.5f, 1f);
+            animatorShirinkX.setDuration(200);
+            animatorShirinkX.setInterpolator(new DecelerateInterpolator());
+
+            Animator animatorShirinkY = ObjectAnimator.ofFloat(rightArrow1, "scaleY", 1.5f, 1f);
+            animatorShirinkY.setDuration(200);
+            animatorShirinkY.setInterpolator(new DecelerateInterpolator());
+
+            setShirink.playTogether(animatorShirinkX, animatorShirinkY);
+
+            //rotate1
+            AnimatorSet setRotate = new AnimatorSet();
+            Animator animatorRotate1 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
+            animatorRotate1.setDuration(50);
+            animatorRotate1.setInterpolator(new AccelerateInterpolator());
+
+            Animator animatorRotate2 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
+            animatorRotate2.setDuration(50);
+            animatorRotate2.setInterpolator(new DecelerateInterpolator());
+
+            setRotate.playSequentially(animatorRotate1, animatorRotate2);
+
+            //rotate2
+            AnimatorSet setRotate2 = new AnimatorSet();
+            Animator animatorRotate3 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
+            animatorRotate3.setDuration(50);
+            animatorRotate3.setInterpolator(new AccelerateInterpolator());
+
+            Animator animatorRotate4 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
+            animatorRotate4.setDuration(50);
+            animatorRotate4.setInterpolator(new DecelerateInterpolator());
+
+            setRotate2.playSequentially(animatorRotate3, animatorRotate4);
+
+            //rotate3
+            AnimatorSet setRotate3 = new AnimatorSet();
+            Animator animatorRotate5 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
+            animatorRotate5.setDuration(50);
+            animatorRotate5.setInterpolator(new AccelerateInterpolator());
+
+            Animator animatorRotate6 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
+            animatorRotate6.setDuration(50);
+            animatorRotate2.setInterpolator(new DecelerateInterpolator());
+
+            setRotate3.playSequentially(animatorRotate3, animatorRotate4);
+
+            //rotate4
+            AnimatorSet setRotate4 = new AnimatorSet();
+            Animator animatorRotate7 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
+            animatorRotate7.setDuration(50);
+            animatorRotate7.setInterpolator(new AccelerateInterpolator());
+
+            Animator animatorRotate8 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
+            animatorRotate8.setDuration(50);
+            animatorRotate8.setInterpolator(new DecelerateInterpolator());
+
+            setRotate4.playSequentially(animatorRotate3, animatorRotate4);
+
+            AnimatorSet setScales = new AnimatorSet();
+            setScales.playSequentially(setGrow, setShirink);
+
+            AnimatorSet setRotations = new AnimatorSet();
+            setRotations.playSequentially(setRotate, setRotate2, setRotate3, setRotate4);
+
+            AnimatorSet setGlobal = new AnimatorSet();
+            setGlobal.playTogether(setScales, setRotations);
+            setGlobal.start();
+
+            if (animateHelpArrow) {
+                if (animateArrowHandler != null)
+                    animateArrowHandler.postDelayed(animateHelpTask, 500);
+            }
+        }
     }
 
     private void initPager() {
@@ -511,7 +709,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return pagerSize;
         }
     }
 
