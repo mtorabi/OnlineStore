@@ -6,14 +6,17 @@ import android.text.TextUtils;
 import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.data.Interfaces.IJson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Torabi on 9/13/2016.
  */
 
-public abstract class ServerAnswer implements IJson {
+public abstract class ServerAnswer implements IJson<ServerAnswer> {
 
     private final String KEY_IS_SUCCESS="issu";
     private final String KEY_HAS_MORE="hasm";
@@ -141,5 +144,15 @@ public abstract class ServerAnswer implements IJson {
         }
 
         return jsonObject;
+    }
+
+    @Override
+    public ArrayList<ServerAnswer> parseList(JSONArray jsonArray) {
+        return null;
+    }
+
+    @Override
+    public JSONArray serializeList(Context context, ArrayList<ServerAnswer> lstInput) {
+        return null;
     }
 }

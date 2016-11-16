@@ -91,7 +91,7 @@ public class SelectShipmentType extends AppCompatActivity {
             userAdresses = new UserAddressFakeRepo();
             basketRepo = new BasketFakeRepo();
         } else {
-            userAdresses = new UserAddressesLocalRepo();
+            userAdresses = new UserAddressesLocalRepo(getApplicationContext());
             basketRepo = new BasketLocalRepo();
         }
 

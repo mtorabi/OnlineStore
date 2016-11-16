@@ -1,20 +1,21 @@
 package com.razanpardazesh.onlinestore.repo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.razanpardazesh.onlinestore.AddressActivity;
+import com.razanpardazesh.onlinestore.BuildConfig;
 import com.razanpardazesh.onlinestore.Tools.LogWrapper;
 import com.razanpardazesh.onlinestore.data.UserAddress;
-import com.razanpardazesh.onlinestore.data.realmObject.Address;
 import com.razanpardazesh.onlinestore.data.serverWrapper.UserAddressAnswer;
 import com.razanpardazesh.onlinestore.data.serverWrapper.UserAddressesAnswer;
 import com.razanpardazesh.onlinestore.repo.IRepo.IUserAddresses;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmResults;
-import io.realm.Sort;
 
 /**
  * Created by Torabi on 9/22/2016.
@@ -22,144 +23,110 @@ import io.realm.Sort;
 
 public class UserAddressesLocalRepo implements IUserAddresses {
 
+    private final String KEY_PREFERENES_NAME = "OnlineStore_Address";
+    private static final String KEY_USER_ADDRESS = "USER_ADDRESS";
+
+    private SharedPreferences pref;
+
+    private void initPreferences(Context context) {
+        this.pref = context.getSharedPreferences(KEY_PREFERENES_NAME + BuildConfig.FLAVOR, Context.MODE_PRIVATE);
+    }
+
+    public UserAddressesLocalRepo(Context context) {
+        initPreferences(context);
+    }
 
     @Override
     public UserAddressesAnswer getUserAddress(Context context) {
+        if (this.pref == null)
+            initPreferences(context);
 
-        Realm realm = null;
-        UserAddressesAnswer answer = new UserAddressesAnswer();
-
-        try  {
-            realm = Realm.getDefaultInstance();
-            RealmResults<Address> result = realm.where(Address.class).findAll();
-
-            RealmList<Address> list = new RealmList<>();
-            list.addAll(result);
-
-            ArrayList<UserAddress> userAddress = new ArrayList<>();
-
-            for (Address address:
-                    list) {
-                UserAddress addr = new UserAddress();
-                addr.fillByRealm(address);
-                userAddress.add(addr);
-            }
-            answer.setAddresses(userAddress);
-            answer.setIsSuccess(1);
-
-        }
-        catch(Exception ex)
-        {
-            LogWrapper.loge("UserAddressesLocalRepo_getUserAddress_Exception: ",ex);
-            answer.setIsSuccess(0);
-            answer.setMessage(ex.toString());
-        }
-        finally {
-            if (realm != null && !realm.isClosed())
-                realm.close();
+        UserAddressesAnswer addressesAnswer = new UserAddressesAnswer();
+        try {
+            String temp = this.pref.getString(KEY_USER_ADDRESS, null);
+            ArrayList<UserAddress> addresses = new ArrayList<>();
+            JSONArray obj = new JSONArray(temp);
+            addresses = new UserAddress().parseList(obj);
+            addressesAnswer.setAddresses(addresses);
+            addressesAnswer.setIsSuccess(1);
+        } catch (Exception ex) {
+            LogWrapper.loge("UserAddressesLocalRepo_getUserAddress_Exception: ", ex);
+            addressesAnswer.setIsSuccess(0);
+            addressesAnswer.setMessage(ex.toString());
         }
 
-        return answer;
+
+        return addressesAnswer;
     }
 
     @Override
     public UserAddressAnswer addNewUserAddress(Context context, UserAddress newAddress) {
-       return updateUserAddress(context,newAddress);
+        return updateUserAddress(context, newAddress);
     }
 
     @Override
     public UserAddressAnswer deleteUserAddress(Context context, UserAddress address) {
-        Realm realm = null;
+        if (this.pref == null)
+            initPreferences(context);
         UserAddressAnswer answer = new UserAddressAnswer();
-        try  {
-            realm = Realm.getDefaultInstance();
-            realm.beginTransaction();
-            boolean temp=  address.deleteFromRealm(context,realm);
-            realm.commitTransaction();
-            if (temp)
-                answer.setIsSuccess(1);
-            else
-                answer.setIsSuccess(0);
-            return answer;
-        }
-        catch(Exception ex)
-        {
-            if (realm != null && realm.isInTransaction())
-                realm.cancelTransaction();
-            LogWrapper.loge("UserAddressesLocalRepo_deleteUserAddress_Exception:", ex);
-            answer.setIsSuccess(0);
+        Boolean isSucc = false;
+        try {
+            isSucc = this.pref.edit().clear().commit();
+        } catch (Exception ex) {
+            LogWrapper.loge("UserAddressesLocalRepo_deleteUserAddress_Exception: ", ex);
             answer.setMessage(ex.toString());
         }
-        finally {
-            if (realm != null && !realm.isClosed())
-                realm.close();
-        }
+
+
+        answer.setIsSuccess(isSucc ? 1 : 0);
+        answer.setUserAddress(address);
 
         return answer;
     }
 
     @Override
-    public UserAddressAnswer updateUserAddress( Context context, UserAddress address) {
-        Realm realm = null;
+    public UserAddressAnswer updateUserAddress(Context context, UserAddress address) {
+        if (this.pref == null)
+            initPreferences(context);
+
         UserAddressAnswer answer = new UserAddressAnswer();
-        try  {
-            realm = Realm.getDefaultInstance();
-            realm.beginTransaction();
-            Address adr = address.saveInRealm(context,realm);
+        answer.setUserAddress(address);
 
-            realm.commitTransaction();
+        ArrayList<UserAddress> arr = new ArrayList<>();
+        arr.add(address);
 
-            if (adr != null)
-                answer.setIsSuccess(1);
+        Boolean isSucc = false;
+
+        try {
+            JSONArray jsonArray = new UserAddress().serializeList(context, arr);
+            if (jsonArray != null)
+                isSucc = this.pref.edit().putString(KEY_USER_ADDRESS, jsonArray.toString()).commit();
             else
-                answer.setIsSuccess(0);
-
-            return answer;
-        }
-        catch(Exception ex)
-        {
-            if (realm != null && realm.isInTransaction())
-                realm.cancelTransaction();
-            LogWrapper.loge("UserAddressesLocalRepo_updateUserAddress_Exception: ",ex);
-            answer.setIsSuccess(0);
+                answer.setMessage("UserAddressesLocalRepo_updateUserAddress_Exception: cant serialize List");
+        } catch (Exception ex) {
+            LogWrapper.loge("UserAddressesLocalRepo_updateUserAddress_Exception: ", ex);
             answer.setMessage(ex.toString());
         }
-        finally {
-            if (realm != null && !realm.isClosed())
-                realm.close();
-        }
+
+        answer.setIsSuccess(isSucc ? 1 : 0);
 
         return answer;
     }
 
     @Override
     public UserAddressAnswer getLastUserAddress(Context context) {
-        Realm realm = null;
         UserAddressAnswer answer = new UserAddressAnswer();
-        try  {
-            realm = Realm.getDefaultInstance();
-            Address address =realm.where(Address.class).equalTo("id", realm.where(Address.class).max("id").longValue()).findFirst();
 
+        UserAddressesAnswer lstAnswer = getUserAddress(context);
 
-            UserAddress userAddress = new UserAddress();
-
-            userAddress.fillByRealm(address);
-            answer.setUserAddress(userAddress);
-            answer.setIsSuccess(1);
-
-
-        }
-        catch(Exception ex)
+        if (lstAnswer == null || lstAnswer.getAddresses() == null || lstAnswer.getAddresses().size() == 0)
         {
-            LogWrapper.loge("UserAddressesLocalRepo_getLastUserAddress: ",ex);
-            answer.setIsSuccess(0);
-            answer.setMessage(ex.toString());
-        }
-        finally {
-            if (realm != null && !realm.isClosed())
-                realm.close();
+            answer.setIsSuccess(1);
+            return answer;
         }
 
+        answer.setUserAddress(lstAnswer.getAddresses().get(0));
+        answer.setIsSuccess(1);
         return answer;
     }
 }

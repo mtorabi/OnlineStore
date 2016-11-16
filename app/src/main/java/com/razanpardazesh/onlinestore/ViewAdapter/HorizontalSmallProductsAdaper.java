@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.onlinestore.ProductActivity;
 import com.razanpardazesh.onlinestore.R;
+import com.razanpardazesh.onlinestore.Tools.ImageviewWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.ProductSummary;
 
@@ -59,12 +61,12 @@ public class HorizontalSmallProductsAdaper extends RecyclerView.Adapter<Horizont
         final ProductSummary summary = productSummaries.get(position);
         int imageRes = (int) summary.getId();
         final String imageUrl = (SessionManagement.getInstance(getContext()).getFakeBind()) ?
-                String.valueOf(imageRes) : "";
+                String.valueOf(imageRes) : summary.getImage(context);
 
         if (SessionManagement.getInstance(getContext()).getFakeBind()) {
             holder.imgImage.setImageResource(imageRes);
         } else {
-            //TODO
+            new ImageviewWrapper(context).FromUrl(imageUrl).into(holder.imgImage).load();
         }
 
         holder.txtTitle.setText(summary.getName());

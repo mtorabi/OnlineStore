@@ -19,7 +19,7 @@ import java.util.Date;
  * Created by Home on 10/15/2016.
  */
 
-public class ContentImage implements IJson , IImage {
+public class ContentImage implements IJson<ContentImage> , IImage {
 
     private final String KEY_ID = "i";
     private final String KEY_CONTENT_ID = "ci";
@@ -91,6 +91,16 @@ public class ContentImage implements IJson , IImage {
 
     @Override
     public JSONObject writeJson(Context context) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<ContentImage> parseList(JSONArray jsonArray) {
+        return null;
+    }
+
+    @Override
+    public JSONArray serializeList(Context context, ArrayList<ContentImage> lstInput) {
         return null;
     }
 

@@ -7,6 +7,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -69,14 +71,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     int pagerSize = 4;
 
-    private Handler animateArrowHandler;
-    Runnable animateHelpTask = new Runnable() {
-        @Override
-        public void run() {
-            helpAnimateForArrow();
-        }
-    };
-
     private boolean animateHelpArrow = true;
 
     private final float default_bg_alpha = 0.4f;
@@ -89,18 +83,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            if (animateHelpArrow && positionOffset == 1)
+            if (animateHelpArrow && position == 1)
                 animateHelpArrow = false;
 
             if (position >= pagerSize - 2) {
                 if (root == null)
                     root = findViewById(R.id.root);
 
-                root.setAlpha(1-positionOffset);
+                root.setAlpha(1 - positionOffset);
 
                 if (positionOffset > 0.3) {
-                    finish();
-                    overridePendingTransition(0, android.R.anim.fade_out);
+                    finishThisActivity();
+
                 }
                 return;
             }
@@ -579,102 +573,122 @@ public class WelcomeActivity extends AppCompatActivity {
             });
         }
 
-
-        animateArrowHandler = new Handler();
-        animateArrowHandler.postDelayed(animateHelpTask, 500);
-        helpAnimateForArrow();
-    }
-
-    private void helpAnimateForArrow() {
-        if (rightArrow1 == null) {
+        if (rightArrow1 == null)
             rightArrow1 = findViewById(R.id.rightArrow1);
-
-            AnimatorSet setGrow = new AnimatorSet();
-            Animator animatorGrowX = ObjectAnimator.ofFloat(rightArrow1, "scaleX", 1f, 1.5f);
-            animatorGrowX.setDuration(200);
-            animatorGrowX.setInterpolator(new AccelerateInterpolator());
-
-            Animator animatorGrowY = ObjectAnimator.ofFloat(rightArrow1, "scaleY", 1f, 1.5f);
-            animatorGrowY.setDuration(200);
-            animatorGrowY.setInterpolator(new AccelerateInterpolator());
-
-            setGrow.playTogether(animatorGrowX, animatorGrowY);
-
-            AnimatorSet setShirink = new AnimatorSet();
-            Animator animatorShirinkX = ObjectAnimator.ofFloat(rightArrow1, "scaleX", 1.5f, 1f);
-            animatorShirinkX.setDuration(200);
-            animatorShirinkX.setInterpolator(new DecelerateInterpolator());
-
-            Animator animatorShirinkY = ObjectAnimator.ofFloat(rightArrow1, "scaleY", 1.5f, 1f);
-            animatorShirinkY.setDuration(200);
-            animatorShirinkY.setInterpolator(new DecelerateInterpolator());
-
-            setShirink.playTogether(animatorShirinkX, animatorShirinkY);
-
-            //rotate1
-            AnimatorSet setRotate = new AnimatorSet();
-            Animator animatorRotate1 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
-            animatorRotate1.setDuration(50);
-            animatorRotate1.setInterpolator(new AccelerateInterpolator());
-
-            Animator animatorRotate2 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
-            animatorRotate2.setDuration(50);
-            animatorRotate2.setInterpolator(new DecelerateInterpolator());
-
-            setRotate.playSequentially(animatorRotate1, animatorRotate2);
-
-            //rotate2
-            AnimatorSet setRotate2 = new AnimatorSet();
-            Animator animatorRotate3 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
-            animatorRotate3.setDuration(50);
-            animatorRotate3.setInterpolator(new AccelerateInterpolator());
-
-            Animator animatorRotate4 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
-            animatorRotate4.setDuration(50);
-            animatorRotate4.setInterpolator(new DecelerateInterpolator());
-
-            setRotate2.playSequentially(animatorRotate3, animatorRotate4);
-
-            //rotate3
-            AnimatorSet setRotate3 = new AnimatorSet();
-            Animator animatorRotate5 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
-            animatorRotate5.setDuration(50);
-            animatorRotate5.setInterpolator(new AccelerateInterpolator());
-
-            Animator animatorRotate6 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
-            animatorRotate6.setDuration(50);
-            animatorRotate2.setInterpolator(new DecelerateInterpolator());
-
-            setRotate3.playSequentially(animatorRotate3, animatorRotate4);
-
-            //rotate4
-            AnimatorSet setRotate4 = new AnimatorSet();
-            Animator animatorRotate7 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 0f, 45f);
-            animatorRotate7.setDuration(50);
-            animatorRotate7.setInterpolator(new AccelerateInterpolator());
-
-            Animator animatorRotate8 = ObjectAnimator.ofFloat(rightArrow1, "rotation", 45f, 0f);
-            animatorRotate8.setDuration(50);
-            animatorRotate8.setInterpolator(new DecelerateInterpolator());
-
-            setRotate4.playSequentially(animatorRotate3, animatorRotate4);
-
-            AnimatorSet setScales = new AnimatorSet();
-            setScales.playSequentially(setGrow, setShirink);
-
-            AnimatorSet setRotations = new AnimatorSet();
-            setRotations.playSequentially(setRotate, setRotate2, setRotate3, setRotate4);
-
-            AnimatorSet setGlobal = new AnimatorSet();
-            setGlobal.playTogether(setScales, setRotations);
-            setGlobal.start();
-
-            if (animateHelpArrow) {
-                if (animateArrowHandler != null)
-                    animateArrowHandler.postDelayed(animateHelpTask, 500);
-            }
-        }
+        animateViewForHelp(rightArrow1);
     }
+
+    private void animateViewForHelp(View view) {
+        if (view == null)
+            return;
+
+        AnimatorSet setGrow = new AnimatorSet();
+        Animator animatorGrowX = ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.5f);
+        animatorGrowX.setDuration(200);
+        animatorGrowX.setInterpolator(new AccelerateInterpolator());
+
+        Animator animatorGrowY = ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.5f);
+        animatorGrowY.setDuration(200);
+        animatorGrowY.setInterpolator(new AccelerateInterpolator());
+
+        setGrow.playTogether(animatorGrowX, animatorGrowY);
+
+        AnimatorSet setShirink = new AnimatorSet();
+        Animator animatorShirinkX = ObjectAnimator.ofFloat(view, "scaleX", 1.5f, 1f);
+        animatorShirinkX.setDuration(200);
+        animatorShirinkX.setInterpolator(new DecelerateInterpolator());
+
+        Animator animatorShirinkY = ObjectAnimator.ofFloat(view, "scaleY", 1.5f, 1f);
+        animatorShirinkY.setDuration(200);
+        animatorShirinkY.setInterpolator(new DecelerateInterpolator());
+
+        setShirink.playTogether(animatorShirinkX, animatorShirinkY);
+
+        //rotate1
+        AnimatorSet setRotate = new AnimatorSet();
+        Animator animatorRotate1 = ObjectAnimator.ofFloat(view, "rotation", 0f, 45f);
+        animatorRotate1.setDuration(50);
+        animatorRotate1.setInterpolator(new AccelerateInterpolator());
+
+        Animator animatorRotate2 = ObjectAnimator.ofFloat(view, "rotation", 45f, 0f);
+        animatorRotate2.setDuration(50);
+        animatorRotate2.setInterpolator(new DecelerateInterpolator());
+
+        setRotate.playSequentially(animatorRotate1, animatorRotate2);
+
+        //rotate2
+        AnimatorSet setRotate2 = new AnimatorSet();
+        Animator animatorRotate3 = ObjectAnimator.ofFloat(view, "rotation", 0f, 45f);
+        animatorRotate3.setDuration(50);
+        animatorRotate3.setInterpolator(new AccelerateInterpolator());
+
+        Animator animatorRotate4 = ObjectAnimator.ofFloat(view, "rotation", 45f, 0f);
+        animatorRotate4.setDuration(50);
+        animatorRotate4.setInterpolator(new DecelerateInterpolator());
+
+        setRotate2.playSequentially(animatorRotate3, animatorRotate4);
+
+        //rotate3
+        AnimatorSet setRotate3 = new AnimatorSet();
+        Animator animatorRotate5 = ObjectAnimator.ofFloat(view, "rotation", 0f, 45f);
+        animatorRotate5.setDuration(50);
+        animatorRotate5.setInterpolator(new AccelerateInterpolator());
+
+        Animator animatorRotate6 = ObjectAnimator.ofFloat(view, "rotation", 45f, 0f);
+        animatorRotate6.setDuration(50);
+        animatorRotate2.setInterpolator(new DecelerateInterpolator());
+
+        setRotate3.playSequentially(animatorRotate3, animatorRotate4);
+
+        //rotate4
+        AnimatorSet setRotate4 = new AnimatorSet();
+        Animator animatorRotate7 = ObjectAnimator.ofFloat(view, "rotation", 0f, 45f);
+        animatorRotate7.setDuration(50);
+        animatorRotate7.setInterpolator(new AccelerateInterpolator());
+
+        Animator animatorRotate8 = ObjectAnimator.ofFloat(view, "rotation", 45f, 0f);
+        animatorRotate8.setDuration(50);
+        animatorRotate8.setInterpolator(new DecelerateInterpolator());
+
+        setRotate4.playSequentially(animatorRotate3, animatorRotate4);
+
+        AnimatorSet setScales = new AnimatorSet();
+        setScales.playSequentially(setGrow, setShirink);
+
+        AnimatorSet setRotations = new AnimatorSet();
+        setRotations.playSequentially(setRotate, setRotate2, setRotate3, setRotate4);
+
+        final AnimatorSet setGlobal = new AnimatorSet();
+        setGlobal.playTogether(setScales, setRotations);
+        setGlobal.setStartDelay(1000);
+        setGlobal.start();
+        setGlobal.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (animateHelpArrow) {
+                    setGlobal.setStartDelay(2000);
+                    setGlobal.start();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+    }
+
 
     private void initPager() {
         if (welcomePager == null)
@@ -711,16 +725,27 @@ public class WelcomeActivity extends AppCompatActivity {
         public int getCount() {
             return pagerSize;
         }
+
     }
 
     private void finishThisActivity() {
 
         SessionManagement.getInstance(getApplicationContext()).setWelcomeShowed(true);
+        overridePendingTransition(0, android.R.anim.fade_out);
         finish();
+
     }
 
     @Override
     public void onBackPressed() {
+        if (welcomePager != null) {
+            welcomePager.setCurrentItem(2, true);
+            animateHelpArrow = true;
 
+            if (txtWelcome3 == null)
+                txtWelcome3 = (TextView) findViewById(R.id.txtWelcome3);
+
+            animateViewForHelp(txtWelcome3);
+        }
     }
 }

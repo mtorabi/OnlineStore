@@ -101,7 +101,7 @@ public class AddressActivity extends AppCompatActivity {
         if (SessionManagement.getInstance(getApplicationContext()).getFakeBind()) {
             addressRepo = new UserAddressFakeRepo();
         } else {
-            addressRepo = new UserAddressesLocalRepo();
+            addressRepo = new UserAddressesLocalRepo(getApplicationContext());
         }
     }
 

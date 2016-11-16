@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by Home on 10/15/2016.
  */
 
-public class Content implements IJson {
+public class Content implements IJson<Content> {
 
     private final String KEY_ID = "i";
     private final String KEY_OBJECT_ID = "oi";
@@ -109,6 +109,16 @@ public class Content implements IJson {
 
     @Override
     public JSONObject writeJson(Context context) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Content> parseList(JSONArray jsonArray) {
+        return null;
+    }
+
+    @Override
+    public JSONArray serializeList(Context context, ArrayList<Content> lstInput) {
         return null;
     }
 }

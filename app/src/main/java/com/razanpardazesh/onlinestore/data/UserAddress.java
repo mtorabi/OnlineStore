@@ -3,18 +3,34 @@ package com.razanpardazesh.onlinestore.data;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
-import com.razanpardazesh.onlinestore.data.Interfaces.IRealm;
-import com.razanpardazesh.onlinestore.data.realmObject.Address;
+import com.razanpardazesh.onlinestore.Tools.LogWrapper;
+import com.razanpardazesh.onlinestore.data.Interfaces.IJson;
 
-import io.realm.Realm;
-import io.realm.RealmQuery;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by Torabi on 9/22/2016.
  */
 
-public class UserAddress implements Parcelable,IRealm<Address> {
+public class UserAddress implements Parcelable,IJson<UserAddress> {
+
+    private final String KEY_ID = "i";
+    private final String KEY_PROVINCE = "pr";
+    private final String KEY_CITY = "c";
+    private final String KEY_ADDRESS = "a";
+    private final String KEY_TEL = "t";
+    private final String KEY_EMERGENCY_TEL = "e";
+    private final String KEY_POSTAL_CODE = "po";
+    private final String KEY_TRANSFREE_NAME = "tn";
+    private final String KEY_LN = "ln";
+    private final String KEY_LT = "lt";
 
     private long id;
     private Province province;
@@ -158,84 +174,172 @@ public class UserAddress implements Parcelable,IRealm<Address> {
 
 
     @Override
-    public void fillByRealm(Address realmObject) {
-
-        if (realmObject == null)
+    public void fillByJson(JSONObject jsonObject) {
+        if (jsonObject == null) {
             return;
+        }
 
-        if (realmObject.isValid())
-            return;
+        if (jsonObject.has(KEY_ID)) {
+            try {
+                setId(jsonObject.getLong(KEY_ID));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setId: ", e);
+            }
+        }
 
-        this.transfereeName = realmObject.getTransfereeName();
-        this.addressStr = realmObject.getAddressStr();
+        if (jsonObject.has(KEY_ADDRESS)) {
+            try {
+                setAddressStr(jsonObject.getString(KEY_ADDRESS));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setAddressStr: ", e);
+            }
+        }
 
-        this.city = new City();
-        this.city.setId(realmObject.getCityId());
-        this.city.setName(realmObject.getCityName());
+        if (jsonObject.has(KEY_TEL)) {
+            try {
+                setTel(jsonObject.getString(KEY_TEL));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setTel: ", e);
+            }
+        }
 
-        this.province = new Province();
-        this.province.setId(realmObject.getProvinceId());
-        this.province.setName(realmObject.getProvinceName());
+        if (jsonObject.has(KEY_EMERGENCY_TEL)) {
+            try {
+                setEmergencyTel(jsonObject.getString(KEY_EMERGENCY_TEL));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setEmergencyTel: ", e);
+            }
+        }
 
-        this.emergencyTel = realmObject.getEmergencyTel();
-        this.ln = realmObject.getLn();
-        this.lt = realmObject.getLt();
+        if (jsonObject.has(KEY_POSTAL_CODE)) {
+            try {
+                setPostalCode(jsonObject.getString(KEY_POSTAL_CODE));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setPostalCode: ", e);
+            }
+        }
 
-        this.id = realmObject.getId();
-        this.postalCode = realmObject.getPostalCode();
-        this.tel = realmObject.getTel();
+        if (jsonObject.has(KEY_TRANSFREE_NAME)) {
+            try {
+                setTransfereeName(jsonObject.getString(KEY_TRANSFREE_NAME));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setTransfereeName: ", e);
+            }
+        }
+
+        if (jsonObject.has(KEY_LN)) {
+            try {
+                setLn(jsonObject.getDouble(KEY_LN));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setLn: ", e);
+            }
+        }
+
+        if (jsonObject.has(KEY_LT)) {
+            try {
+                setLt(jsonObject.getDouble(KEY_LT));
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setLt: ", e);
+            }
+        }
+
+        if (jsonObject.has(KEY_PROVINCE)) {
+            try {
+                JSONObject obj = jsonObject.getJSONObject(KEY_PROVINCE);
+                Province p = new Province();
+                p.fillByJson(obj);
+                setProvince(p);
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setProvince: ", e);
+            }
+        }
+
+        if (jsonObject.has(KEY_CITY)) {
+            try {
+                JSONObject obj = jsonObject.getJSONObject(KEY_CITY);
+                City c = new City();
+                c.fillByJson(obj);
+                setCity(c);
+            } catch (JSONException e) {
+                LogWrapper.loge("fillByJson: setCity: ", e);
+            }
+        }
     }
 
     @Override
-    public Address saveInRealm(Context ctx, Realm realm) {
+    public JSONObject writeJson(Context context) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            if (getCity() != null)
+                jsonObject.put(KEY_CITY,getCity().writeJson(context));
 
-        if (ctx == null || realm == null || realm.isClosed() ) {
-            return null;
+            if (getProvince() != null)
+                jsonObject.put(KEY_PROVINCE,getProvince().writeJson(context));
+
+            if (getId() != 0)
+                jsonObject.put(KEY_ID,getId());
+
+            if (!TextUtils.isEmpty(getAddressStr()))
+                jsonObject.put(KEY_ADDRESS,getAddressStr());
+
+            if (!TextUtils.isEmpty(getTel()))
+                jsonObject.put(KEY_TEL,getTel());
+
+            if (!TextUtils.isEmpty(getEmergencyTel()))
+                jsonObject.put(KEY_EMERGENCY_TEL,getEmergencyTel());
+
+            if (!TextUtils.isEmpty(getPostalCode()))
+                jsonObject.put(KEY_POSTAL_CODE,getPostalCode());
+
+            if (!TextUtils.isEmpty(getTransfereeName()))
+                jsonObject.put(KEY_TRANSFREE_NAME,getTransfereeName());
+
+            if (getLn() != 0)
+                jsonObject.put(KEY_LN,getLn());
+
+            if (getLt() != 0)
+                jsonObject.put(KEY_LT,getLt());
+
+        } catch (Exception ex) {
+            LogWrapper.loge("UserAddress_writeJson_Exception: ", ex);
         }
 
-        Address address = realm.where(Address.class).equalTo("id",this.id).findFirst();
-
-        if (address == null)
-        {
-            address = realm.createObject(Address.class);
-
-            long lastKey= realm.where(Address.class).max("id").longValue();
-            address.setId(lastKey+1);
-        }
-
-        address.setAddressStr(this.addressStr);
-        address.setTel(this.tel);
-        address.setEmergencyTel(this.emergencyTel);
-        address.setPostalCode(this.getPostalCode());
-        address.setTransfereeName(this.getTransfereeName());
-        address.setLn(this.ln);
-        address.setLt(this.lt);
-
-        if (this.city != null) {
-            address.setCityId(this.city.getId());
-            address.setCityName(this.city.getName());
-        }
-
-        if (this.province != null)
-        {
-            address.setProvinceId(this.province.getId());
-            address.setProvinceName(this.province.getName());
-        }
-        return address;
+        return jsonObject;
     }
 
     @Override
-    public Boolean deleteFromRealm(Context ctx, Realm realm) {
-        if (ctx == null || realm == null || realm.isClosed() ) {
-            return false;
+    public ArrayList<UserAddress> parseList(JSONArray jsonArray) {
+        ArrayList<UserAddress> output =  new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                UserAddress add = new UserAddress();
+                add.fillByJson(obj);
+                output.add(add);
+
+            }
+        } catch (Exception ex) {
+            LogWrapper.loge("UserAddress_parseList_Exception: ", ex);
         }
 
-        Address address = realm.where(Address.class).equalTo("id",this.id).findFirst();
-        if (address == null) {
-            return false;
-        }
-
-        address.deleteFromRealm();
-        return true;
+        return output;
     }
+
+    @Override
+    public JSONArray serializeList(Context context, ArrayList<UserAddress> lstInput) {
+
+        JSONArray output = new JSONArray();
+
+        if (lstInput == null || lstInput.size() ==0)
+            return output;
+
+
+        for (UserAddress address:
+        lstInput) {
+            output.put(address.writeJson(context));
+        }
+
+        return output;
+    }
+
 }

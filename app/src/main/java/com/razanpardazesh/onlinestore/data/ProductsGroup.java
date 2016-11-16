@@ -21,7 +21,7 @@ import java.util.Date;
  * Created by Torabi on 9/11/2016.
  */
 
-public class ProductsGroup implements IImage, IJson,IRecyclerRow {
+public class ProductsGroup implements IImage, IJson<ProductsGroup>,IRecyclerRow {
 
     private final String KEY_ID = "i";
     private final String KEY_NAME = "t";
@@ -144,6 +144,16 @@ public class ProductsGroup implements IImage, IJson,IRecyclerRow {
 
     @Override
     public JSONObject writeJson(Context context) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<ProductsGroup> parseList(JSONArray jsonArray) {
+        return null;
+    }
+
+    @Override
+    public JSONArray serializeList(Context context, ArrayList<ProductsGroup> lstInput) {
         return null;
     }
 
