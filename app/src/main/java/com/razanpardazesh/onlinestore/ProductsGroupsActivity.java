@@ -23,6 +23,7 @@ import com.razanpardazesh.mtglibrary.CustomView.recycler.OnRecycleViewListener;
 import com.razanpardazesh.mtglibrary.tools.AsyncWrapper;
 import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.FabWrapper;
+import com.razanpardazesh.onlinestore.Tools.ImageviewWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.Tools.ToolbarWrapper;
 import com.razanpardazesh.onlinestore.ViewAdapter.ProductsGroupsAdapter;
@@ -167,7 +168,7 @@ public class ProductsGroupsActivity extends AppCompatActivity {
                     if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
                         holder.getImageView(R.id.imgGroup).setImageResource(Integer.parseInt(group.getImage(getApplicationContext())));
                     else {
-                        //TODO MTG
+                        new ImageviewWrapper(getApplicationContext()).FromUrl(group.getImage(getApplicationContext())).into(holder.getImageView(R.id.imgGroup)).load();
                     }
                     return;
                 }
@@ -180,7 +181,7 @@ public class ProductsGroupsActivity extends AppCompatActivity {
                     if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
                         holder.getImageView(R.id.imgGroup).setImageResource(Integer.parseInt(product.getImage(getApplicationContext())));
                     else {
-                        //TODO MTG
+                        new ImageviewWrapper(getApplicationContext()).FromUrl(product.getImage(getApplicationContext())).into(holder.getImageView(R.id.imgGroup)).load();
                     }
                     return;
                 }

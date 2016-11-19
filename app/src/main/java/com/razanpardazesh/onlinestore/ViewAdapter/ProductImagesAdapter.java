@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.razanpardazesh.mtglibrary.tools.Convertor;
+import com.razanpardazesh.onlinestore.Tools.ImageviewWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.data.ContentImage;
 
@@ -51,7 +52,7 @@ public class ProductImagesAdapter extends RecyclerView.Adapter<ProductImagesAdap
         if (SessionManagement.getInstance(context).getFakeBind())
             holder.imageView.setImageResource(Integer.parseInt(images.get(position).getThumb(context)));
         else {
-            //TODO MTG
+            new ImageviewWrapper(context).FromUrl(images.get(position).getThumb(context)).into(holder.imageView).load();
         }
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {

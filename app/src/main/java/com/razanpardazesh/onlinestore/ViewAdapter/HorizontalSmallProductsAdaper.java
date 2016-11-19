@@ -61,7 +61,7 @@ public class HorizontalSmallProductsAdaper extends RecyclerView.Adapter<Horizont
         final ProductSummary summary = productSummaries.get(position);
         int imageRes = (int) summary.getId();
         final String imageUrl = (SessionManagement.getInstance(getContext()).getFakeBind()) ?
-                String.valueOf(imageRes) : summary.getImage(context);
+                String.valueOf(imageRes) : summary.getThumb(context);
 
         if (SessionManagement.getInstance(getContext()).getFakeBind()) {
             holder.imgImage.setImageResource(imageRes);

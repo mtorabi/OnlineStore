@@ -27,6 +27,7 @@ import com.razanpardazesh.mtglibrary.tools.AsyncWrapper;
 import com.razanpardazesh.mtglibrary.tools.FontApplier;
 import com.razanpardazesh.mtglibrary.tools.NetworkAsyncWrapper;
 import com.razanpardazesh.onlinestore.Tools.FabWrapper;
+import com.razanpardazesh.onlinestore.Tools.ImageviewWrapper;
 import com.razanpardazesh.onlinestore.Tools.SessionManagement;
 import com.razanpardazesh.onlinestore.Tools.ToolbarWrapper;
 import com.razanpardazesh.onlinestore.ViewAdapter.ProductImagesAdapter;
@@ -365,7 +366,7 @@ public class ProductActivity extends AppCompatActivity {
         if (SessionManagement.getInstance(getApplicationContext()).getFakeBind())
             imgMainPic.setImageResource(Integer.parseInt(thumb_Url));
         else {
-            //TODO mtg
+            new ImageviewWrapper(getApplicationContext()).FromUrl(thumb_Url).into(imgMainPic).load();
         }
 
     }
